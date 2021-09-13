@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="registrar-evento.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <title>App Registros</title>
+</head>
+
+<body>
+  <div class="app" id="app">
+    <div class="header">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a style="margin-left: 11vw;" class="navbar-brand" href="#">
+            <i class="bi bi-justify-left"></i>
+            Registrar Evento
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+    <form class="form" method="post">
+      <div class="mb-3">
+        <label class="form-label" for="nombreEvento">Nombre del evento</label>
+        <input class="form-control" type="text" name="nombreEvento" title="nombreEvento" placeholder="Nombre de evento">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="descripcionEvento"> Descripción del evento</label>
+        <input class="form-control" type="text" name="descripcionEvento" title="descripcionEvento"
+          placeholder="Descripción">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="locacion">Locación</label>
+        <input class="form-control" type="text" name="locacion" title="locacion" placeholder="Locacion">
+      </div>
+
+      <div class="mb-3 input-col">
+        <div style="width: 47%;">
+          <label class="form-label" for="cupoEvento">Cupo de personas por evento</label>
+          <input class="form-control" type="number" name="cupoEventos" title="cupoEventos" placeholder="Cupo por evento">
+        </div>
+      
+        <div style="width: 47%;">
+          <label class="form-label" for="cupoInvitado">Cupo de invitados por empleado</label>
+          <input class="form-control" type="number" name="cupoInvitados" title="cupoInvitado" placeholder="Cupo de invitados">
+        </div>
+      </div>
+
+      <div class="mb-3 input-col">
+        <div style="width: 47%;">
+          <label class="form-label" for="Empresa">Empresa</label>
+          <div class="container-btn">
+            <input v-model="empresa.nombreEmpresa" id="form-ctrl" class="form-control" type="text" name="empresa" title="empresa"
+              placeholder="Empresa">
+            <button v-on:click="agregarEmpresa" style="margin-top: 3.5px;" type="button" class="my-btn btn btn-success">
+              Agregar
+            </button>
+          </div>
+          <ol v-if="empresas.length > 0">
+            <li style="display: flex; position: relative; left: -3%;" v-for="(empresa) in empresas">
+              <i v-on:click="borrarEmpresa(empresa)" style="margin-right: 2%; cursor: pointer; color: red;"
+                class="bi bi-x-lg">
+              </i>
+              {{ empresa.nombreEmpresa }}
+            </li>
+          </ol>
+          <button type="button" style="position: relative; margin-left: auto; margin-right: 3%;"
+            class="btn btn-md btn-warning resize-del" v-on:click="borrarEmpresas">
+            Borrar
+          </button>
+        </div>
+      </div>
+      
+      <div class="mb-3 input-col">
+        <div style="width: 47%;">
+          <label class="form-label" for="Area">Área de trabajo</label>
+          <div class="container-btn">
+            <input v-model="areaTrabajo.nombreAreaT" id="form-ctrl" class="form-control" type="text" name="area" title="area" placeholder="Area">
+            <button v-on:click="agregarAreaTrabajo" style="margin-top: 3.5px;" type="button" class="my-btn btn btn-success">
+              Agregar
+            </button>
+          </div>
+          <ol v-if="areasTrabajo.length > 0">
+            <li style="display: flex; position: relative; left: -3%;" v-for="(areaTrabajo) in areasTrabajo">
+              <i v-on:click="borrarAreaTrabajo(areaTrabajo)" style="margin-right: 2%; cursor: pointer; color: red;"
+                class="bi bi-x-lg">
+              </i>
+              {{ areaTrabajo.nombreAreaT }}
+            </li>
+          </ol>
+          <button type="button" style="position: relative; margin-left: auto; margin-right: 3%;"
+            class="btn btn-md btn-warning resize-del" v-on:click="borrarAreasTrabajo">
+            Borrar
+          </button>
+        </div>
+      </div>
+
+      
+      <div style="margin-top: 3%;">
+        <div style="display: flex;" class="resize">
+          <h5>Subeventos</h5>
+          <div class="container-btn">
+            <button type="button"  style="margin-left: 10px !important; margin-bottom: 10px;" class="my-btn btn btn-md btn-success resize-add" data-bs-toggle="modal"
+              data-bs-target="#subeventoModal">
+              Agregar
+            </button>
+          </div>
+        </div>
+        <ol v-if="subeventos.length > 0">
+          <li style="display: flex; position: relative; left: -3%;" v-for="(subevento) in subeventos">
+            <i v-on:click="borrarSubevento(subevento)" style="margin-right: 2%; cursor: pointer; color: red;" class="bi bi-x-lg">
+            </i>
+            {{ subevento.nombreS }}
+            {{ subevento.descripcion }}
+            {{ subevento.apellidoM }}
+          </li>
+        </ol>
+      </div>
+
+      <div class="container-registro" style="display: flex;">
+        <div class="button-with-title">
+          <button type="submit" class="btn btn-primary mb-3">
+            Registrar Evento
+          </button>
+        </div>
+      </div>
+
+      <div class="modal" id="subeventoModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Agregar Subevento</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label class="form-label" for="nombreSubevento">Nombre del subevento</label>
+                  <input v-model="subevento.nombreS" class="form-control" type="text" name="nombreSub" title="nombreSub"
+                    placeholder="Nombre Subevento">
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="descripcionSubevento">Descripción del subevento</label>
+                  <input v-model="subevento.descripcionS" class="form-control" type="text" name="descripcionSub"
+                    title="descripcionSub" placeholder="Descripcioón Subevento">
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="locacionSubevento">Locación</label>
+                  <input v-model="subevento.locacionS" class="form-control" type="text" name="locacionSub"
+                    title="locacionSub" placeholder="Locación Subevento">
+                </div>
+                <div class="mb-3 input-col">
+                  <div style="width: 47%;">
+                    <label class="form-label" for="cupoEvento">Cupo de personas por evento</label>
+                    <input class="form-control" type="number" name="cupoEventos" title="cupoEventos" placeholder="">
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button> -->
+              <button v-on:click="agregarSubevento" type="button" class="btn btn-primary">Guardar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="footer">
+      <footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+          <span class="text-muted">Sofiringa Inc. 2021© - All Rights Reserved</span>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <script src="registrar-evento.js"></script>
+</body>
+
+</html>

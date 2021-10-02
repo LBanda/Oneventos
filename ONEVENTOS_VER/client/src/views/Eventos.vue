@@ -1,5 +1,4 @@
 <template>
-  <!-- <Registrar/> -->
   <Registrar />
 </template>
 

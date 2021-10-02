@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Hack from "../views/Hack.vue";
+import Inicio from "../views/Inicio.vue";
 import Eventos from "../views/Eventos.vue";
 
 Vue.use(VueRouter);
@@ -8,12 +8,12 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "Hack",
-    component: Hack
+    name: "Inicio",
+    component: Inicio
   },
   {
-    path: "/eventos/crear",
-    name: "CrearEvento",
+    path: "/eventos",
+    name: "Eventos",
     component: Eventos
   }
 ];

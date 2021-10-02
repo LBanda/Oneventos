@@ -113,12 +113,13 @@
               v-for="empresa in empresas"
               :key="empresa.nombreEmpresa"
             >
-              <i
+              <b-icon
+                class="del-icon"
+                icon="x-circle"
+                scale="1"
                 v-on:click="borrarEmpresa(empresa)"
-                style="margin-right: 2%; cursor: pointer; color: red"
-                class="bi bi-x-lg"
-              >
-              </i>
+                variant="danger"
+              />
               {{ empresa.nombreEmpresa }}
             </li>
           </ol>
@@ -161,12 +162,13 @@
               v-for="areaTrabajo in areasTrabajo"
               :key="areaTrabajo.nombreAreaT"
             >
-              <i
+              <b-icon
+                class="del-icon"
+                icon="x-circle"
+                scale="1"
                 v-on:click="borrarAreaTrabajo(areaTrabajo)"
-                style="margin-right: 2%; cursor: pointer; color: red"
-                class="bi bi-x-lg"
-              >
-              </i>
+                variant="danger"
+              />
               {{ areaTrabajo.nombreAreaT }}
             </li>
           </ol>
@@ -181,10 +183,14 @@
         </div>
       </div>
 
+
       <div style="margin-top: 3%">
         <div style="display: flex" class="resize">
           <h5>Subeventos</h5>
-          <div class="container-btn">
+          <div>
+            <b-button v-b-modal.modal-1>Agregar</b-button>
+          </div>
+          <!-- <div class="container-btn">
             <button
               type="button"
               style="margin-left: 10px !important; margin-bottom: 10px"
@@ -194,7 +200,7 @@
             >
               Agregar
             </button>
-          </div>
+          </div> -->
         </div>
         <ol v-if="subeventos.length">
           <li
@@ -202,12 +208,13 @@
             v-for="subevento in subeventos"
             :key="subevento.nombreS"
           >
-            <i
+            <b-icon
+              class="del-icon"
+              icon="x-circle"
+              scale="1"
               v-on:click="borrarSubevento(subevento)"
-              style="margin-right: 2%; cursor: pointer; color: red"
-              class="bi bi-x-lg"
-            >
-            </i>
+              variant="danger"
+            />
             {{ subevento.nombreS }}
             {{ subevento.descripcion }}
             {{ subevento.apellidoM }}
@@ -222,101 +229,112 @@
           </button>
         </div>
       </div>
-
-      <div class="modal" id="subeventoModal">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Agregar Subevento</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="mb-3">
-                  <label class="form-label" for="nombreSubevento"
-                    >Nombre del subevento</label
-                  >
-                  <input
-                    v-model="subevento.nombreS"
-                    class="form-control"
-                    type="text"
-                    name="nombreSub"
-                    title="nombreSub"
-                    placeholder="Nombre Subevento"
-                  />
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label" for="descripcionSubevento"
-                    >Descripción del subevento</label
-                  >
-                  <input
-                    v-model="subevento.descripcionS"
-                    class="form-control"
-                    type="text"
-                    name="descripcionSub"
-                    title="descripcionSub"
-                    placeholder="Descripcioón Subevento"
-                  />
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label" for="locacionSubevento"
-                    >Locación</label
-                  >
-                  <input
-                    v-model="subevento.locacionS"
-                    class="form-control"
-                    type="text"
-                    name="locacionSub"
-                    title="locacionSub"
-                    placeholder="Locación Subevento"
-                  />
-                </div>
-                <div class="mb-3 input-col">
-                  <div style="width: 47%">
-                    <label class="form-label" for="cupoEvento"
-                      >Cupo de personas por evento</label
-                    >
-                    <input
-                      class="form-control"
-                      type="number"
-                      name="cupoEventos"
-                      title="cupoEventos"
-                      placeholder=""
-                    />
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button> -->
-              <button
-                v-on:click="agregarSubevento"
-                type="button"
-                class="btn btn-primary"
-              >
-                Guardar
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </form>
-    <div class="footer">
-      <footer class="footer mt-auto py-3 bg-light">
-        <div class="container">
-          <span class="text-muted"
-            >Sofiringa Inc. 2021© - All Rights Reserved</span
-          >
-        </div>
-      </footer>
-    </div>
+      <!-- AQUI EMPIEZA EL MODAL -->
+      <div>
+        <b-modal id="modal-1" title="Subevento">
+          <div>
+            <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+              <!--  <b-form-group
+                id="input-group-1"
+                label="Nombre del subevento:"
+                label-for="input-1"
+                placeholder="Conferencia de @empresa"
+                v-model="subevento.nombreS"
+                required
+              >
+                <b-form-input
+                  id="input-1"
+                  v-model="form.email"
+                  type="Descripción del evento"
+                  placeholder="Conferencia de @empresa"
+                  required
+                ></b-form-input>
+              </b-form-group> -->
+
+              <b-form-group
+                id="input-group-1"
+                label="Nombre del subevento"
+                label-for="input-1"
+              >
+                <b-form-input
+                  id="input-1"
+                  v-model="subevento.nombreS"
+                  placeholder="Ceremonia de apertura"
+                  required
+                ></b-form-input>
+              </b-form-group>
+
+              <b-form-group
+                id="input-group-2"
+                label="Descripción del evento"
+                label-for="input-2"
+              >
+                <b-form-input
+                  id="input-2"
+                  v-model="subevento.descripcionS"
+                  placeholder="Conferencia"
+                  required
+                ></b-form-input>
+              </b-form-group>
+
+              <b-form-group
+                id="input-group-3"
+                label="Ubicación"
+                label-for="input-3"
+              >
+                <b-form-input
+                  id="input-3"
+                  v-model="subevento.ubicacionS"
+                  placeholder="Calle 22, Quéretaro, AV. Peñuelas"
+                  required
+                ></b-form-input>
+              </b-form-group>
+
+              <div>
+                <label for="demo-sb"></label>
+                <b-form-spinbutton
+                  id="demo-sb"
+                  v-model="value"
+                  min="1"
+                  max="10000"
+                ></b-form-spinbutton>
+              </div>
+
+              <!-- <b-form-group
+                id="input-group-3"
+                label="Food:"
+                label-for="input-3"
+              >
+                <b-form-select
+                  id="input-3"
+                  v-model="form.food"
+                  :options="foods"
+                  required
+                ></b-form-select>
+              </b-form-group>
+
+              <b-form-group id="input-group-4" v-slot="{ ariaDescribedby }">
+                <b-form-checkbox-group
+                  v-model="form.checked"
+                  id="checkboxes-4"
+                  :aria-describedby="ariaDescribedby"
+                >
+                  <b-form-checkbox value="me">Check me out</b-form-checkbox>
+                  <b-form-checkbox value="that">Check that out</b-form-checkbox>
+                </b-form-checkbox-group>
+              </b-form-group> -->
+
+              <b-button type="submit" variant="primary" v-on:click="agregarSubevento">Submit</b-button>
+              <b-button type="reset" variant="danger">Reset</b-button>
+            </b-form>
+            <!-- <b-card class="mt-3" header="Form Data Result">
+              <pre class="m-0">{{ subeventos }}</pre>
+            </b-card> -->
+          </div>
+        </b-modal>
+      </div>
+      <!-- AQUI TERMINA EL MODAL -->
   </div>
 </template>
 
@@ -325,6 +343,7 @@ export default {
   name: "Registrar",
   data() {
     return {
+      show: true,
       empresas: [
         { nombreEmpresa: "Microsoft" },
         { nombreEmpresa: "Google" },
@@ -351,33 +370,33 @@ export default {
         {
           nombreS: "Subevento 1",
           descripcionS: "Descripcion 1",
-          locacionS: "Locación 1",
+          ubicacionS: "Locación 1",
         },
         {
           nombreS: "Subevento 2",
           descripcionS: "Descripcion 2",
-          locacionS: "Locación 2",
+          ubicacionS: "Locación 2",
         },
         {
           nombreS: "Subevento 3",
           descripcionS: "Descripcion 3",
-          locacionS: "Locación 3",
+          ubicacionS: "Locación 3",
         },
         {
           nombreS: "Subevento 4",
           descripcionS: "Descripcion 4",
-          locacionS: "Locación 4",
+          ubicacionS: "Locación 4",
         },
         {
           nombreS: "Subevento 5",
           descripcionS: "Descripcion 5",
-          locacionS: "Locación 5",
+          ubicacionS: "Locación 5",
         },
       ],
       subevento: {
         nombreS: " ",
         descripcionS: " ",
-        locacionS: " ",
+        ubicacionS: " ",
       },
     };
   },
@@ -394,7 +413,7 @@ export default {
       this.subeventos.push({ ...this.subevento });
       this.subevento.nombreS = "";
       this.subevento.descripcionS = "";
-      this.subevento.locacionS = "";
+      this.subevento.ubicacionS = "";
     },
     borrarEmpresas() {
       this.empresas = [];
@@ -411,97 +430,118 @@ export default {
     borrarSubevento(subevento) {
       this.subeventos = this.subeventos.filter((i) => i !== subevento);
     },
+    onSubmit(event) {
+      event.preventDefault();
+      alert(JSON.stringify(this.subeventos));
+    },
+    onReset(event) {
+      event.preventDefault();
+      // Reset our form values
+      this.subeventos.nombreS = "";
+      this.subeventos.descripcionS = "";
+      this.subeventos.ubicacionS = "";
+      // Trick to reset/clear native browser form validation state
+      this.show = false;
+      this.$nextTick(() => {
+        this.show = true;
+      });
+    },
   },
 };
 </script>
 
 <style scoped>
+.del-icon {
+  margin-right: 2%;
+  cursor: pointer;
+}
+
 .container {
-    display: grid;
-    grid-template-areas: 
-        'header'
-        'form'
-        'footer';
-    grid-template-rows: 7vh auto 7vh;
+  display: grid;
+  grid-template-areas:
+    "header"
+    "form"
+    "footer";
+  grid-template-rows: 7vh auto 7vh;
 }
 
 .header {
-    grid-area: header;
+  grid-area: header;
 }
 
 .form {
-    grid-area: form;
-    justify-self: center;
+  grid-area: form;
+  justify-self: center;
 
-    width: 80vw;
-    min-height: 60vh;
-    padding: 4%;
+  width: 80vw;
+  min-height: 60vh;
+  padding: 4%;
 }
 
 #form-ctrl {
-    width: 40% !important;
-    margin: 3px;
+  width: 40% !important;
+  margin: 3px;
 }
 
 .container-btn {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .my-btn {
-    display: grid !important;
-    block-size: 45px !important;
+  display: grid !important;
+  block-size: 45px !important;
 }
 
 .input-col {
-    display: flex;
-    justify-content: space-between;
-    position: relative;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
 }
 
 .footer {
-    grid-area: footer;
+  grid-area: footer;
 }
 
 ol {
-    list-style: circle;
+  list-style: circle;
 }
 
 .button-with-title {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .container-registro {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
 
 @media only screen and (max-width: 540px) {
-    .resize {
-        display: grid !important;
-        grid-template-areas:
-            'titulo' 'titulo'
-            'borrar' 'agregar';
-        grid-gap: 5%;
-        padding-bottom: 10%;
-        position: relative;
-    }
+  .resize {
+    display: grid !important;
+    grid-template-areas:
+      "titulo" "titulo"
+      "borrar" "agregar";
+    grid-gap: 5%;
+    padding-bottom: 10%;
+    position: relative;
+  }
 
-    .resize-tit {
-        grid-area: titulo;
-        justify-self: center;
-    }
+  .resize-tit {
+    grid-area: titulo;
+    justify-self: center;
+  }
 
-    .resize-del {
-        grid-area: borrar;
-        width: 100%;
-    }
+  .resize-del {
+    grid-area: borrar;
+    width: 100%;
+  }
 
-    .rezie-add {
-        grid-area: agregar;
-        width: 100%;
-    }
+  .rezie-add {
+    grid-area: agregar;
+    width: 100%;
+  }
 }
 </style>

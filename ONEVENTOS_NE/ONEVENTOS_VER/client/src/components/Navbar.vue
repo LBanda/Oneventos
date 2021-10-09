@@ -1,8 +1,8 @@
 <template>
   <b-navbar type="dark" variant="dark">
     <b-navbar-nav>
-      <b-nav-item href="#">Inicio</b-nav-item>
-      <b-nav-item href="#">Menús y Alergias</b-nav-item>
+      <b-nav-item href="/">Inicio</b-nav-item>
+      <b-nav-item href="/#/alimentos">Menús y Alergias</b-nav-item>
 
       <b-nav-item-dropdown text="Usuario" right>
         <b-dropdown-item href="#">Account</b-dropdown-item>
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+
 export default {
   name: "Navbar",
 };

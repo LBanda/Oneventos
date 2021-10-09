@@ -7,9 +7,12 @@
 
 <script>
 import Navbar from "@/components/Navbar";
+import Menualergias from "@/components/Alimentos/Menualergias";
+
 export default {
   components: {
-    Navbar
+    Navbar,
+    Menualergias,
   }
 }
 </script>

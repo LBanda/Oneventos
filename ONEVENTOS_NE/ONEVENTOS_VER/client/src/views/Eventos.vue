@@ -8,7 +8,7 @@ import Registrar from "@/components/Eventos/Registrar.vue"
 export default {
   name: "Eventos",
   components: {
-    Registrar
+    Registrar,
   },
 };
 </script>

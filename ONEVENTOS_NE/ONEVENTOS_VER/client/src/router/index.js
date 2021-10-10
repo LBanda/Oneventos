@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Inicio from "../views/Inicio.vue";
 import Eventos from "../views/Eventos.vue";
 import Alimentos from "../views/Alimentos.vue";
+import Usuarios from "../views/Usuarios.vue";
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ const routes = [
     path: "/alimentos",
     name: "Alimentos",
     component: Alimentos
+  },
+  {
+  path: "/usuarios",
+  name: "Usuarios",
+  component: Usuarios
   },
 ];
 

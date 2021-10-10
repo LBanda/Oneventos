@@ -3,10 +3,12 @@
     <b-navbar-nav>
       <b-nav-item href="/">Inicio</b-nav-item>
       <b-nav-item href="/#/alimentos">Menús y Alergias</b-nav-item>
+      <b-nav-item href="/#/usuarios">Usuarios</b-nav-item>
 
-      <b-nav-item-dropdown text="Usuario" right>
-        <b-dropdown-item href="#">Account</b-dropdown-item>
+
+      <b-nav-item-dropdown text="Account" right>
         <b-dropdown-item href="#">Settings</b-dropdown-item>
+        <b-dropdown-item href="#">Iniciar sesión</b-dropdown-item>
       </b-nav-item-dropdown>
 
       <b-nav-form>

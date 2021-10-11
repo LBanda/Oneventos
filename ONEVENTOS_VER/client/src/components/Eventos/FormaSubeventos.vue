@@ -61,7 +61,7 @@
           />
 
           <div class="mt-3" v-if="file1 && file1.name">
-            Archivo seleccionado: {{ (file1 && file1.name) || "" }}
+            Archivo seleccionado: {{ file1.name }}
           </div>
         </div>
       </b-form>

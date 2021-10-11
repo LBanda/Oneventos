@@ -2,12 +2,10 @@
   <div class="container">
     <div class="header">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-            <i class="bi bi-justify-left"></i>
-            Registrar Evento
-          </a>
-        </div>
+        <a class="navbar-brand" href="#">
+          <i class="bi bi-justify-left"></i>
+          Registrar Evento
+        </a>
       </nav>
     </div>
     <form class="form" method="post">
@@ -404,10 +402,14 @@ export default {
   },
   methods: {
     agregarEmpresa() {
+      if (!this.empresa.nombreEmpresa) return;
+
       this.empresas.push({ ...this.empresa });
       this.empresa.nombreEmpresa = "";
     },
     agregarAreaTrabajo() {
+      if (!this.areaTrabajo.nombreAreaT) return;
+
       this.areasTrabajo.push({ ...this.areaTrabajo });
       this.areaTrabajo.nombreAreaT = "";
     },
@@ -487,19 +489,33 @@ button {
   grid-template-rows: 7vh auto 7vh;
 }
 
+nav > a {
+  color: rgba(255, 255, 255, 0.5) !important;
+  background: #343a40;
+  padding: 1%;
+  border-radius: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  nav {
+    justify-content: center;
+  }
+}
+
 .header {
   grid-area: header;
+  width: 100vw;
 }
 
 .form {
   grid-area: form;
   justify-self: center;
   min-height: 60vh;
-  padding: 4%;
 }
 
 #form-ctrl {
   width: 100% !important;
+  margin-bottom: 2%;
 }
 
 .container-btn {
@@ -536,36 +552,5 @@ ol {
 .container-registro {
   display: flex;
   justify-content: space-around;
-}
-
-@media only screen and (max-width: 540px) {
-  .resize {
-    display: grid !important;
-    grid-template-areas:
-      "titulo" "titulo"
-      "borrar" "agregar";
-    grid-gap: 5%;
-    padding-bottom: 10%;
-    position: relative;
-  }
-
-  .resize-tit {
-    grid-area: titulo;
-    justify-self: center;
-  }
-
-  .resize-del {
-    grid-area: borrar;
-    width: 100%;
-  }
-
-  .rezie-add {
-    grid-area: agregar;
-    width: 100%;
-  }
-
-  .custom-file-input:lang(en) ~ .custom-file-label::after {
-    content: "Buscar";
-  }
 }
 </style>

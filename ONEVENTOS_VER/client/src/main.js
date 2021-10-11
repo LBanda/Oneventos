@@ -15,12 +15,11 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 // Register components in your 'main.js'
 Vue.component('calendar', Calendar)
 Vue.component('date-picker', DatePicker)
+Vue.component('b-form-file', BFormFile)
 setupCalendar({
   componentPrefix: 'vc',
 });
 
-
-Vue.component('b-form-file', BFormFile)
 Vue.config.productionTip = false;
 Vue.use(FormFilePlugin)
 // Make BootstrapVue available throughout your project

@@ -5,27 +5,30 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import { FormFilePlugin } from 'bootstrap-vue';
 import { BFormFile } from 'bootstrap-vue';
 import VCalendar from 'v-calendar';
-import Calendar from 'v-calendar/lib/components/calendar.umd';
-import DatePicker from 'v-calendar/lib/components/date-picker.umd';
-import { setupCalendar } from 'v-calendar';
+import { BCalendar } from 'bootstrap-vue'
+import { CalendarPlugin } from 'bootstrap-vue'
+import { TablePlugin } from 'bootstrap-vue'
+import { BTable } from 'bootstrap-vue'
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
-// Register components in your 'main.js'
-Vue.component('calendar', Calendar)
-Vue.component('date-picker', DatePicker)
+Vue.component('b-table', BTable)
+Vue.use(TablePlugin)
+Vue.use(CalendarPlugin)
+Vue.component('b-calendar', BCalendar)
 Vue.component('b-form-file', BFormFile)
-setupCalendar({
-  componentPrefix: 'vc',
-});
 
 Vue.config.productionTip = false;
+
 Vue.use(FormFilePlugin)
+
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
+
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
+
 Vue.use(VCalendar, {
   componentPrefix: 'vc'
 });

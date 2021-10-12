@@ -15,7 +15,6 @@
         {{ evento.texto }}
       </b-card-text>
 
-      <!-- <b-button href="#" variant="primary">Go somewhere</b-button> -->
       <div class="mt-3">
         <b-button-group>
           <b-button variant="success">Reporte</b-button>
@@ -24,16 +23,6 @@
         </b-button-group>
       </div>
     </b-card>
-
-    <!-- <div class="d-grid gap-2 col-2 mx-auto">
-      <router-link to="/CrearEvento"
-        id="toCrearEvento"
-        class="btn_register btn-secondary"
-        style="background-color: #1d223b"
-      >
-        Registrar nuevo evento
-      </router-link>
-    </div> -->
   </div>
 </template>
 

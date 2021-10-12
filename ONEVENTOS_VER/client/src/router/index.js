@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Inicio from "../views/Inicio.vue";
-import Eventos from "../views/Eventos.vue";
+import Inicio from "../views/Administrador/Inicio.vue";
+import Eventos from "../views/Administrador/Eventos.vue";
+import EmpleadosRegistrados from "../views/Administrador/EmpleadosRegistrados.vue";
 
 Vue.use(VueRouter);
 
@@ -15,7 +16,12 @@ const routes = [
     path: "/eventos",
     name: "Eventos",
     component: Eventos
-  }
+  },
+  {
+    path: "/empleadosRegistrados",
+    name: "EmpleadosRegistrados",
+    component: EmpleadosRegistrados
+  },
 ];
 
 const router = new VueRouter({

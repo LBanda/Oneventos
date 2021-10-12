@@ -1,12 +1,7 @@
 <template>
   <div class="container">
     <div class="header">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-          <i class="bi bi-justify-left"></i>
-          Registrar Evento
-        </a>
-      </nav>
+      <h5><strong> Registrar Evento </strong></h5>
     </div>
     <form class="form" method="post">
       <div class="mb-3">
@@ -72,12 +67,16 @@
         </div>
       </div>
 
+      <!-- <div>
+        <Calendario />
+      </div> -->
+
       <div style="margin-bottom: 3%">
         <label for="imagen" style="display: block">Elige una imagen:</label>
         <div style="display: flex; gap: 3%">
           <b-form-file
-            v-model="file1"
-            :state="Boolean(file1)"
+            v-model="fileEvento"
+            :state="Boolean(fileEvento)"
             placeholder="Elige or arrastra un archivo..."
             drop-placeholder="Arrastra un archivo aquí..."
           />
@@ -85,7 +84,7 @@
             v-on:click="eliminarImagen"
             type="button"
             class="my-btn btn btn-danger"
-            :disabled="!file1"
+            :disabled="!fileEvento"
           >
             Eliminar Imagen
           </button>
@@ -279,9 +278,9 @@
               ></b-form-input>
             </b-form-group>
 
-            <div>
+            <!-- <div>
               <Calendario />
-            </div>
+            </div> -->
 
             <div>
               <label for="demo-sb">Cupo maximo</label>
@@ -297,35 +296,44 @@
               <label for="imagen" style="display: block"
                 >Elige una imagen:</label
               >
-              <b-form-file
-                v-model="file1"
-                :state="Boolean(file1)"
-                placeholder="Elige or arrastra un archivo..."
-                drop-placeholder="Arrastra un archivo aquí..."
-              />
-
-              <div class="mt-3" v-if="file1 && file1.name">
-                Archivo seleccionado: {{ (file1 && file1.name) || "" }}
+              <div style="display: flex; gap: 3%">
+                <b-form-file
+                  v-model="subevento.file"
+                  :state="Boolean(subevento.file)"
+                  placeholder="Elige or arrastra un archivo..."
+                  drop-placeholder="Arrastra un archivo aquí..."
+                />
+                <button
+                  v-on:click="eliminarImagen"
+                  type="button"
+                  class="my-btn btn btn-danger"
+                  :disabled="!subevento.file"
+                >
+                  Eliminar Imagen
+                </button>
               </div>
             </div>
           </b-form>
         </div>
 
-        <b-button
-          class="mt-3"
-          variant="outline-success"
-          block
-          @click="agregarSubevento"
-          >Agregar</b-button
-        >
-        <b-button
-          class="mt-3"
-          style="margin-left: 1%"
-          variant="outline-warning"
-          block
-          @click="hideModal"
-          >Cerrar</b-button
-        >
+        <div class="container-btn">
+          <b-button
+            class="mt-3"
+            variant="outline-success"
+            block
+            @click="agregarSubevento"
+          >
+            Agregar
+          </b-button>
+          <b-button
+            class="mt-3"
+            variant="outline-warning"
+            block
+            @click="hideModal"
+          >
+            Cerrar
+          </b-button>
+        </div>
       </b-modal>
     </div>
     <!-- AQUI TERMINA EL MODAL -->
@@ -333,16 +341,16 @@
 </template>
 
 <script>
-import Calendario from "@/components/Calendario.vue";
+// import Calendario from "@/components/Calendario.vue";
 export default {
   name: "Registrar",
-  components: {
-    Calendario,
-  },
+  // components: {
+  //   Calendario,
+  // },
   data() {
     return {
       value: 0,
-      file1: null,
+      fileEvento: null,
       show: true,
       empresas: [
         { nombreEmpresa: "Microsoft" },
@@ -394,9 +402,10 @@ export default {
         },
       ],
       subevento: {
-        nombreS: " ",
-        descripcionS: " ",
-        ubicacionS: " ",
+        nombreS: undefined,
+        descripcionS: undefined,
+        ubicacionS: undefined,
+        file: undefined,
       },
     };
   },
@@ -435,7 +444,7 @@ export default {
       this.subeventos = this.subeventos.filter((i) => i !== subevento);
     },
     eliminarImagen() {
-      this.file1 = null;
+      this.fileEvento = null;
     },
     onSubmit(event) {
       event.preventDefault();
@@ -500,11 +509,15 @@ nav > a {
   nav {
     justify-content: center;
   }
+  form {
+    width: 90%;
+  }
 }
 
 .header {
-  grid-area: header;
-  width: 100vw;
+  display: flex;
+  justify-content: center;
+  margin-top: 2%;
 }
 
 .form {

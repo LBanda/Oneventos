@@ -1,37 +1,17 @@
 <template>
-  <v-calendar :attributes="attributes" @dayclick="onDayClick" />
+  <v-date-picker v-model="range" is-range />
 </template>
 
 <script>
 export default {
+  name: "Calendario",
   data() {
     return {
-      days: [],
+      range: {
+        start: new Date(2020, 0, 1),
+        end: new Date(2020, 0, 5),
+      },
     };
-  },
-  computed: {
-    dates() {
-      return this.days.map((day) => day.date);
-    },
-    attributes() {
-      return this.dates.map((date) => ({
-        highlight: true,
-        dates: date,
-      }));
-    },
-  },
-  methods: {
-    onDayClick(day) {
-      const idx = this.days.findIndex((d) => d.id === day.id);
-      if (idx >= 0) {
-        this.days.splice(idx, 1);
-      } else {
-        this.days.push({
-          id: day.id,
-          date: day.date,
-        });
-      }
-    },
   },
 };
 </script>

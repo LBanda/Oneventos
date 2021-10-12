@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import Listar from "@/components/Eventos/Listar.vue";
-import { Evento } from "@/components/Eventos/Listar.vue";
+import Listar from "@/components/Administrador/Eventos/Listar.vue";
+import { Evento } from "@/components/Administrador/Eventos/Listar.vue";
 
 export default {
   name: "Inicio",

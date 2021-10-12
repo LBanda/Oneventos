@@ -39,7 +39,7 @@
           ></b-form-input>
         </b-form-group>
 
-        <Calendario />
+        <!-- <Calendario /> -->
 
         <div>
           <label for="demo-sb">Cupo maximo</label>
@@ -88,16 +88,16 @@
 
 <script>
 export default {
-    name="FormaSubeventos",
-    data() {
-      return {
-          subevento: {
-          nombreS: " ",
-          descripcionS: " ",
-          ubicacionS: " ",
-        }
-      }
-    }
+  name: "FormaSubeventos",
+  data() {
+    return {
+      subevento: {
+        nombreS: " ",
+        descripcionS: " ",
+        ubicacionS: " ",
+      },
+    };
+  },
 };
 </script>
 

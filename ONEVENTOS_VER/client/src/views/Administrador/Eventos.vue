@@ -3,12 +3,12 @@
 </template>
 
 <script>
-import Registrar from "@/components/Eventos/Registrar.vue"
+import Registrar from "@/components/Administrador/Eventos/Registrar.vue";
 
 export default {
   name: "Eventos",
   components: {
-    Registrar
+    Registrar,
   },
 };
 </script>

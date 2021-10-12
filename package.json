@@ -25,6 +25,7 @@
     "bootstrap": "^4.5.3",
     "bootstrap-vue": "^2.21.2",
     "express": "^4.17.1",
+    "v-calendar": "^2.3.4",
     "vue": "^2.6.14"
   }
 }

@@ -63,7 +63,7 @@
 
 <script>
 export default {
-  name: "ListarEmpleados",
+  name: "ListarParticipantes",
   data() {
     return {
       fields: ["asistencia", "empleados_registrados", "Info"],

@@ -1,6 +1,6 @@
 <template>
   <div class="inicio">
-    <b-button class="crear" variant="dark" to="/eventos">Nuevo Evento</b-button>
+    <b-button class="crear" variant="dark" to="/eventos">Regresar</b-button>
     <div class="filtro">
       <b-dropdown
         id="dropdown-right"
@@ -15,30 +15,30 @@
       </b-dropdown>
     </div>
 
-    <Listar :eventos="eventos" />
+    <Listar :subeventos="subeventos" />
   </div>
 </template>
 
 <script>
-import Listar from "@/components/Administrador/Eventos/Listar.vue";
-import { Evento } from "@/components/Administrador/Eventos/Listar.vue";
+import Listar from "@/components/Administrador/Subeventos/Listar.vue";
+import { Subevento } from "@/components/Administrador/Subeventos/Listar.vue";
 
 export default {
-  name: "Inicio",
-  data() {
-    return {
-      eventos: [
-        new Evento("Evento de prueba 1", "Lorem ipsum dolor sit amet..."),
-        new Evento("Evento de prueba 2", "Lorem ipsum dolor sit amet..."),
-        new Evento("Evento de prueba 3", "Lorem ipsum dolor sit amet..."),
-        new Evento("Evento de prueba 4", "Lorem ipsum dolor sit amet..."),
-        new Evento("Evento de prueba 5", "Lorem ipsum dolor sit amet..."),
-        new Evento("Evento de prueba 6", "Lorem ipsum dolor sit amet..."),
-      ],
-    };
-  },
+  name: "Subeventos",
   components: {
     Listar,
+  },
+  data() {
+    return {
+      subeventos: [
+        new Subevento("Subevento de prueba 1", "Lorem ipsum dolor sit amet..."),
+        new Subevento("Subevento de prueba 2", "Lorem ipsum dolor sit amet..."),
+        new Subevento("Subevento de prueba 3", "Lorem ipsum dolor sit amet..."),
+        new Subevento("Subevento de prueba 4", "Lorem ipsum dolor sit amet..."),
+        new Subevento("Subevento de prueba 5", "Lorem ipsum dolor sit amet..."),
+        new Subevento("Subevento de prueba 6", "Lorem ipsum dolor sit amet..."),
+      ],
+    };
   },
 };
 </script>

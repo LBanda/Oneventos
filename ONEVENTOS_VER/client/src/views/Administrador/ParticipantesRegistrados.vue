@@ -1,17 +1,17 @@
 <template>
   <div>
-    <b-button class="crear" variant="dark" to="/eventos">Regresar</b-button>
-    <ListarEmpleados />
+    <b-button class="crear" variant="dark" to="/subeventos">Regresar</b-button>
+    <ListarParticipantes />
   </div>
 </template>
 
 <script>
-import ListarEmpleados from "@/components/Administrador/Evento/ListarEmpleados.vue";
+import ListarParticipantes from "@/components/Administrador/Subeventos/ListarParticipantes.vue";
 
 export default {
-  name: "EmpleadosRegistrados",
+  name: "ParticipantesRegistrados",
   components: {
-    ListarEmpleados,
+    ListarParticipantes,
   },
 };
 </script>

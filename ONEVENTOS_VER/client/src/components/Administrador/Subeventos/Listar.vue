@@ -1,19 +1,17 @@
 <template>
   <div class="lista-flex">
     <b-card
-      v-for="evento in eventos"
-      :key="evento.titulo"
-      :title="evento.titulo"
-      :img-src="require('@/assets/descarga.png')"
+      v-for="subevento in subeventos"
+      :key="subevento.titulo"
+      :title="subevento.titulo"
       img-alt="Image"
       img-top
       tag="article"
       style="max-width: 20rem"
       class="mb-2"
-      to="/empleadosRegistrados"
     >
       <b-card-text>
-        {{ evento.texto }}
+        {{ subevento.texto }}
       </b-card-text>
 
       <div class="mt-3">
@@ -28,17 +26,17 @@
 </template>
 
 <script>
-export function Evento(titulo, texto) {
+export function Subevento(titulo, texto) {
   this.titulo = titulo;
   this.texto = texto;
 }
 export default {
   name: "Listar",
   props: {
-    eventos: {
+    subeventos: {
       required: true,
       validator: function (value) {
-        return value.every((e) => e instanceof Evento);
+        return value.every((e) => e instanceof Subevento);
       },
     },
   },
@@ -46,7 +44,6 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped src="./Eventos.css"></style>
 <style scoped>
 .lista-flex {
   display: flex;

@@ -192,7 +192,7 @@
         <div class="container-btn">
           <b-button
             id="show-btn"
-            class="my-btn btn btn-warning"
+            class="my-btn btn btn-success"
             @click="showModal"
             >Agregar
           </b-button>
@@ -304,7 +304,7 @@
                   drop-placeholder="Arrastra un archivo aquí..."
                 />
                 <button
-                  v-on:click="eliminarImagen"
+                  v-on:click="eliminarImagenSubEvento"
                   type="button"
                   class="my-btn btn btn-danger"
                   :disabled="!subevento.file"
@@ -445,6 +445,9 @@ export default {
     },
     eliminarImagen() {
       this.fileEvento = null;
+    },
+    eliminarImagenSubEvento() {
+      this.subevento.file = null;
     },
     onSubmit(event) {
       event.preventDefault();

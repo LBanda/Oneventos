@@ -6,7 +6,7 @@
 import Registrar from "@/components/Administrador/Eventos/Registrar.vue";
 
 export default {
-  name: "Eventos",
+  name: "EventoRegistro",
   components: {
     Registrar,
   },

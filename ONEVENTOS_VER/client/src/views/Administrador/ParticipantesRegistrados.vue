@@ -1,12 +1,12 @@
 <template>
   <div>
-    <b-button class="crear" variant="dark" to="/subeventos">Regresar</b-button>
+    <b-button class="crear" variant="dark" to="/subeventosInicio">Regresar</b-button>
     <ListarParticipantes />
   </div>
 </template>
 
 <script>
-import ListarParticipantes from "@/components/Administrador/Subeventos/ListarParticipantes.vue";
+import ListarParticipantes from "@/components/Administrador/Subevento/ListarPartcipantes.vue";
 
 export default {
   name: "ParticipantesRegistrados",

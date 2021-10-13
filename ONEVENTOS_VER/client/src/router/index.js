@@ -1,23 +1,23 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Inicio from "../views/Administrador/Inicio.vue";
-import Eventos from "../views/Administrador/Eventos.vue";
+import EventosInicio from "../views/Administrador/EventosInicio.vue";
+import EventoRegistro from "../views/Administrador/EventoRegistro.vue";
 import EmpleadosRegistrados from "../views/Administrador/EmpleadosRegistrados.vue";
-import Subeventos from "../views/Administrador/Subeventos.vue";
+import SubeventosInicio from "../views/Administrador/SubeventosInicio.vue";
 import ParticipantesRegistrados from "../views/Administrador/ParticipantesRegistrados.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
-    name: "Inicio",
-    component: Inicio
+    path: "/eventosInicio",
+    name: "EventosInicio",
+    component: EventosInicio
   },
   {
-    path: "/eventos",
-    name: "Eventos",
-    component: Eventos
+    path: "/eventosRegistro",
+    name: "EventoRegistro",
+    component: EventoRegistro
   },
   {
     path: "/empleadosRegistrados",
@@ -25,9 +25,9 @@ const routes = [
     component: EmpleadosRegistrados
   },
   {
-    path: "/subeventos",
-    name: "Subeventos",
-    component: Subeventos
+    path: "/subeventosInicio",
+    name: "SubeventosInicio",
+    component: SubeventosInicio
   },
   {
     path: "/participantesRegistrados",

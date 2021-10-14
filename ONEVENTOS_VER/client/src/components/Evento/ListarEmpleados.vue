@@ -2,10 +2,10 @@
   <div>
     <div class="btn-sub">
       <b-button class="subcon" variant="dark" to="/eventos"
-        >Consultar Subeventos</b-button
-      >
-      <b-button class="subcon" variant="dark" to="/eventos"
         >Registrar Nuevo Empleado</b-button
+      >
+      <b-button class="subcon" variant="dark" to="/subeventosInicio"
+        >Consultar Subeventos</b-button
       >
     </div>
     <div class="container">

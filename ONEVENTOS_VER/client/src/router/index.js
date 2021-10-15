@@ -12,6 +12,7 @@ import EmpleadosRegistradosC from "../views/ControlAcceso/EmpleadosRegistradosC.
 import SubeventosInicioC from "../views/ControlAcceso/SubeventosInicioC.vue";
 import ParticipantesRegistradosC from "../views/ControlAcceso/ParticipantesRegistradosC.vue";
 import EmpleadoRegistroC from "../views/ControlAcceso/EmpleadoRegistroC.vue";
+import InvitadoRegistroC from "../views/ControlAcceso/InvitadoRegistroC.vue";
 
 Vue.use(VueRouter);
 
@@ -70,6 +71,11 @@ const routes = [
     path: "/empleadoRegistroC",
     name: "EmpleadoRegistroC",
     component: EmpleadoRegistroC
+  },
+  {
+    path: "/invitadoRegistroC",
+    name: "InvitadoRegistroC",
+    component: InvitadoRegistroC
   },
 ];
 

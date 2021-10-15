@@ -117,7 +117,7 @@
 <script>
 // import Calendario from "@/components/Calendario.vue";
 export default {
-  name: "RegistrarEmpleado",
+  name: "RegistrarInvitado",
   // components: {
   //   Calendario,
   // },

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="header">
-      <h5><strong> Registrar Empleado </strong></h5>
+      <h5><strong> Registrar Invitado </strong></h5>
     </div>
     <form class="form" method="post">
       <div class="mb-3">
@@ -35,44 +35,6 @@
           title="email"
           placeholder="email"
         />
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label" for="NoEmpleado">Numero de empleado</label>
-        <input
-          class="form-control"
-          type="text"
-          name="NoEmpleado"
-          title="NoEmpleado"
-          placeholder="M18183231"
-        />
-      </div>
-
-      <div>
-        <b-dropdown
-          id="dropdown-1"
-          text="Empresa"
-          class="m-md-2"
-          variant="dark"
-        >
-          <b-dropdown-item>General Electric</b-dropdown-item>
-          <b-dropdown-item>Microsoft</b-dropdown-item>
-          <b-dropdown-item>Oneventos</b-dropdown-item>
-        </b-dropdown>
-      </div>
-
-      <div class="filtro">
-        <b-dropdown
-          id="dropdown-right"
-          right
-          text="Area de trabajo"
-          variant="dark"
-          class="m-2"
-        >
-          <b-dropdown-item href="#">Area 1</b-dropdown-item>
-          <b-dropdown-item href="#">Area 2</b-dropdown-item>
-          <b-dropdown-item href="#">Area 3</b-dropdown-item>
-        </b-dropdown>
       </div>
 
       <b-form-group label="Subeventos" v-slot="{ ariaDescribedby }">

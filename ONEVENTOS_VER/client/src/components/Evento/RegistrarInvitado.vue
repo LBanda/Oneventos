@@ -12,6 +12,7 @@
           name="nombreEmpleado"
           title="nombreEmpleado"
           placeholder="John"
+          required
         />
       </div>
 
@@ -23,6 +24,7 @@
           name="apellido"
           title="apellido"
           placeholder="Doe"
+          required
         />
       </div>
 
@@ -33,7 +35,8 @@
           type="email"
           name="email"
           title="email"
-          placeholder="email"
+          placeholder="John_Doe@gmail.com"
+          required
         />
       </div>
 
@@ -47,19 +50,23 @@
         ></b-form-checkbox-group>
       </b-form-group>
 
-      <div class="filtro">
-        <b-dropdown
-          id="dropdown-right"
-          right
-          text="Tipo de Menu"
-          variant="dark"
-          class="m-2"
+      <b-form-group label="Tipo de Menu" v-slot="{ ariaDescribedby }">
+        <b-form-checkbox-group
+          v-model="tipoMenuInfo"
+          :options="menu"
+          :aria-describedby="ariaDescribedby"
+          :state="tipoMenuInfo"
+          name="flavour-2a"
+          stacked
         >
-          <b-dropdown-item href="#">Vegano</b-dropdown-item>
-          <b-dropdown-item href="#">Vegetariano</b-dropdown-item>
-          <b-dropdown-item href="#">Sin especificaciones</b-dropdown-item>
-        </b-dropdown>
-      </div>
+          <b-form-invalid-feedback :state="tipoMenuInfo"
+            >Seleccione sólo uno</b-form-invalid-feedback
+          >
+          <b-form-valid-feedback :state="tipoMenuInfo"
+            >Gracias</b-form-valid-feedback
+          >
+        </b-form-checkbox-group>
+      </b-form-group>
 
       <b-form-group
         label="¿Tienes alguna alergia?"
@@ -91,22 +98,13 @@
       </div> -->
 
       <div class="btn-submit">
-        <b-button
-          class="btn btn-success mb-3"
-          variant="success"
-          to="/eventosInicioA"
+        <b-button class="btn btn-success mb-3" variant="success" type="submit"
           >Guardar Registro</b-button
         >
         <b-button
           class="btn btn-success mb-3"
           variant="dark"
-          to="/eventosInicioA"
-          >Registrar Nuevo Invitado</b-button
-        >
-        <b-button
-          class="btn btn-success mb-3"
-          variant="dark"
-          to="/eventosInicioA"
+          to="/empleadoRegistroC"
           >Cancelar</b-button
         >
       </div>
@@ -123,7 +121,7 @@ export default {
   // },
   data() {
     return {
-      value: 0,
+      tipoMenuInfo: [],
       fileEvento: null,
       show: true,
       selected: [], // Must be an array reference!
@@ -139,7 +137,17 @@ export default {
         { text: "Alergia 3", value: "Alergia 3" },
         { text: "Alergia 4", value: "Alergia 4" },
       ],
+      menu: [
+        { text: "Vegano", value: "Vegano" },
+        { text: "Vegetariano", value: "Vegetariano" },
+        { text: "Normal", value: "Normal" },
+      ],
     };
+  },
+  computed: {
+    state() {
+      return this.tipoMenuInfo.length === 1;
+    },
   },
 };
 </script>

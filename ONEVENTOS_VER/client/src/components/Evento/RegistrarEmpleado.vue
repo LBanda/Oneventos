@@ -12,6 +12,7 @@
           name="nombreEmpleado"
           title="nombreEmpleado"
           placeholder="John"
+          required
         />
       </div>
 
@@ -23,6 +24,7 @@
           name="apellido"
           title="apellido"
           placeholder="Doe"
+          required
         />
       </div>
 
@@ -33,7 +35,8 @@
           type="email"
           name="email"
           title="email"
-          placeholder="email"
+          placeholder="John_Doe@gmail.com"
+          required
         />
       </div>
 
@@ -45,39 +48,49 @@
           name="NoEmpleado"
           title="NoEmpleado"
           placeholder="M18183231"
+          required
         />
       </div>
 
-      <div>
-        <b-dropdown
-          id="dropdown-1"
-          text="Empresa"
-          class="m-md-2"
-          variant="dark"
+      <b-form-group label="Empresa" v-slot="{ ariaDescribedby }">
+        <b-form-checkbox-group
+          v-model="empresaInfo"
+          :options="empresa"
+          :aria-describedby="ariaDescribedby"
+          :state="stateEmpresa"
+          name="flavour-2a"
+          stacked
         >
-          <b-dropdown-item>General Electric</b-dropdown-item>
-          <b-dropdown-item>Microsoft</b-dropdown-item>
-          <b-dropdown-item>Oneventos</b-dropdown-item>
-        </b-dropdown>
-      </div>
+          <b-form-invalid-feedback :state="stateEmpresa"
+            >Seleccione sólo uno</b-form-invalid-feedback
+          >
+          <b-form-valid-feedback :state="stateEmpresa"
+            >Gracias</b-form-valid-feedback
+          >
+        </b-form-checkbox-group>
+      </b-form-group>
 
-      <div class="filtro">
-        <b-dropdown
-          id="dropdown-right"
-          right
-          text="Area de trabajo"
-          variant="dark"
-          class="m-2"
+      <b-form-group label="Area de Trabajo" v-slot="{ ariaDescribedby }">
+        <b-form-checkbox-group
+          v-model="areaTrabajoInfo"
+          :options="areaTrabajo"
+          :aria-describedby="ariaDescribedby"
+          :state="stateAreaTrabajo"
+          name="flavour-2a"
+          stacked
         >
-          <b-dropdown-item href="#">Area 1</b-dropdown-item>
-          <b-dropdown-item href="#">Area 2</b-dropdown-item>
-          <b-dropdown-item href="#">Area 3</b-dropdown-item>
-        </b-dropdown>
-      </div>
+          <b-form-invalid-feedback :state="stateAreaTrabajo"
+            >Seleccione sólo uno</b-form-invalid-feedback
+          >
+          <b-form-valid-feedback :state="stateAreaTrabajo"
+            >Gracias</b-form-valid-feedback
+          >
+        </b-form-checkbox-group>
+      </b-form-group>
 
       <b-form-group label="Subeventos" v-slot="{ ariaDescribedby }">
         <b-form-checkbox-group
-          v-model="selected"
+          v-model="subeventoInfo"
           :options="subeventos"
           :aria-describedby="ariaDescribedby"
           name="flavour-2a"
@@ -85,26 +98,30 @@
         ></b-form-checkbox-group>
       </b-form-group>
 
-      <div class="filtro">
-        <b-dropdown
-          id="dropdown-right"
-          right
-          text="Tipo de Menu"
-          variant="dark"
-          class="m-2"
+      <b-form-group label="Tipo de Menu" v-slot="{ ariaDescribedby }">
+        <b-form-checkbox-group
+          v-model="tipoMenuInfo"
+          :options="menu"
+          :aria-describedby="ariaDescribedby"
+          :state="stateMenu"
+          name="flavour-2a"
+          stacked
         >
-          <b-dropdown-item href="#">Vegano</b-dropdown-item>
-          <b-dropdown-item href="#">Vegetariano</b-dropdown-item>
-          <b-dropdown-item href="#">Sin especificaciones</b-dropdown-item>
-        </b-dropdown>
-      </div>
+          <b-form-invalid-feedback :state="stateMenu"
+            >Seleccione sólo uno</b-form-invalid-feedback
+          >
+          <b-form-valid-feedback :state="stateMenu"
+            >Gracias</b-form-valid-feedback
+          >
+        </b-form-checkbox-group>
+      </b-form-group>
 
       <b-form-group
         label="¿Tienes alguna alergia?"
         v-slot="{ ariaDescribedby }"
       >
         <b-form-checkbox-group
-          v-model="selected"
+          v-model="alergiaInfo"
           :options="alergias"
           :aria-describedby="ariaDescribedby"
           name="flavour-2a"
@@ -124,27 +141,57 @@
         </b-form-group>
       </div>
 
-      <!-- <div>
-        <Calendario />
-      </div> -->
+      <div class="invitados-tabla">
+        <b-table
+          :hover="hover"
+          :head-variant="headVariant"
+          :bordered="bordered"
+          :items="items"
+          :fields="fields"
+          :select-mode="selectMode"
+          responsive="sm"
+          ref="selectableTable"
+          @row-selected="onRowSelected"
+        >
+          <!-- Example scoped slot for select state illustrative purposes -->
+          <template #cell(selected)="{ rowSelected }">
+            <template v-if="rowSelected">
+              <span aria-hidden="true">&check;</span>
+              <span class="sr-only">Selected</span>
+            </template>
+            <template v-else>
+              <span aria-hidden="true">&nbsp;</span>
+              <span class="sr-only">Not selected</span>
+            </template>
+          </template>
+
+          <template #cell(Info)>
+            <div class="btn-table-container">
+              <b-button class="btn-table" variant="dark" to="/eventos"
+                >Consultar</b-button
+              >
+              <b-button class="btn-table" variant="dark" to="/eventos"
+                >Eliminar</b-button
+              >
+            </div>
+          </template>
+        </b-table>
+      </div>
 
       <div class="btn-submit">
-        <b-button
-          class="btn btn-success mb-3"
-          variant="success"
-          to="/eventosInicioA"
+        <b-button class="btn btn-success mb-3" variant="success" type="submit"
           >Guardar Registro</b-button
         >
         <b-button
           class="btn btn-success mb-3"
           variant="dark"
-          to="/eventosInicioA"
+          to="/invitadoRegistroC"
           >Registrar Nuevo Invitado</b-button
         >
         <b-button
           class="btn btn-success mb-3"
           variant="dark"
-          to="/eventosInicioA"
+          to="/empleadosRegistradosC"
           >Cancelar</b-button
         >
       </div>
@@ -161,10 +208,14 @@ export default {
   // },
   data() {
     return {
-      value: 0,
+      tipoMenuInfo: [],
+      empresaInfo: [],
+      areaTrabajoInfo: [],
       fileEvento: null,
       show: true,
-      selected: [], // Must be an array reference!
+      selected: [],
+      subeventosInfo: [],
+      alergiasInfo: [],
       subeventos: [
         { text: "Conferencia 1", value: "Conferencia 1" },
         { text: "Conferencia 2", value: "Conferencia 2" },
@@ -177,12 +228,56 @@ export default {
         { text: "Alergia 3", value: "Alergia 3" },
         { text: "Alergia 4", value: "Alergia 4" },
       ],
+      menu: [
+        { text: "Vegano", value: "Vegano" },
+        { text: "Vegetariano", value: "Vegetariano" },
+        { text: "Normal", value: "Normal" },
+      ],
+      empresa: [
+        { text: "Microsoft", value: "Microsoft" },
+        { text: "GE", value: "GE" },
+        { text: "Oneventos", value: "Oneventos" },
+        { text: "Wiseline", value: "Wiseline" },
+      ],
+      areaTrabajo: [
+        { text: "Area de Trabajo 1", value: "Area de Trabajo 1" },
+        { text: "Area de Trabajo 2", value: "Area de Trabajo 2" },
+        { text: "Area de Trabajo 3", value: "Area de Trabajo 3" },
+        { text: "Area de Trabajo 4", value: "Area de Trabajo 4" },
+      ],
+      fields: ["invitados", "Info"],
+      items: [
+        { invitados: "Paula Sofia Soto Ayala" },
+        { invitados: "Luis Claudio Soto Ayala" },
+        { invitados: "Vianney Rivera" },
+        { invitados: "Eduardo Larios Fernandez" },
+        { invitados: "Adriana Ayala" },
+      ],
+      selectMode: "multi",
+      bordered: true,
+      headVariant: "dark",
+      hover: true,
     };
+  },
+  computed: {
+    stateMenu() {
+      return this.tipoMenuInfo.length === 1;
+    },
+    stateEmpresa() {
+      return this.empresaInfo.length === 1;
+    },
+    stateAreaTrabajo() {
+      return this.areaTrabajoInfo.length === 1;
+    },
   },
 };
 </script>
 
 <style scoped>
+.invitados-tabla {
+  margin: 3%;
+}
+
 .btn-submit {
   display: flex;
   justify-content: center;

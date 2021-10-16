@@ -1,8 +1,9 @@
 // console.log("test")
-const express = require("express");
-const path = require('path');
-const cors = require("cors");
-const fs = require("fs");
+import express, { json, static } from "express";
+import { Database, OPEN_CREATE } from "sqlite3";
+import { join } from 'path';
+import cors from "cors";
+import fs from "fs";
 
 const port = 8080;
 
@@ -11,15 +12,24 @@ var corsOptions = {
 }
 
 const app = express();
+const db = new Datebase("./database.db", OPEN_CREATE);
+const createUserSql = `
+CREATE TABLE Users (
+	Id TEXT PRIMARY KEY,
+	Email TEXT NOT NULL,
+	Password TEXT NOT NULL,
+);`
+db.run(createUserSql);
+db.close();
 
-app.use(express.json());
+app.use(json());
 app.use(cors(corsOptions));
-app.use(express.static(__dirname + "/public"));
+app.use(static(__dirname + "/public"));
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
 
 app.get("/", (req, res) => {
-    const file = path.join(__dirname, "./public/index.html");
+    const file = join(__dirname, "./public/index.html");
     res.status(200).sendFile(file);
 })
 
@@ -31,6 +41,6 @@ app.get("*", (req, res) => {
             error: "Route does not exist"
         })
     } else {
-        res.status(404).sendFile(path.join(__dirname, "404.html"));
+        res.status(404).sendFile(join(__dirname, "404.html"));
     }
 })

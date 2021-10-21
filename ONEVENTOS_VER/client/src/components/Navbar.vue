@@ -2,11 +2,13 @@
   <b-navbar type="dark" variant="dark">
     <b-navbar-nav>
       <b-nav-item to="/">Inicio</b-nav-item>
-      <b-nav-item href="#">Menús y Alergias</b-nav-item>
+      <b-nav-item href="/#/alimentos">Menús y Alergias</b-nav-item>
+      <b-nav-item href="/#/usuarios">Usuarios</b-nav-item>
 
-      <b-nav-item-dropdown text="Usuario" right>
+      <b-nav-item-dropdown text="Account" right>
         <b-dropdown-item href="#">Cuenta</b-dropdown-item>
         <b-dropdown-item href="#">Configuracion</b-dropdown-item>
+        <b-dropdown-item href="#">Iniciar sesión</b-dropdown-item>
       </b-nav-item-dropdown>
 
       <b-nav-form>

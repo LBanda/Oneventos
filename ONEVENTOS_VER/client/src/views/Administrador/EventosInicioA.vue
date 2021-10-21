@@ -1,6 +1,6 @@
 <template>
   <div class="inicio">
-    <b-button class="crear" variant="dark" to="/eventosInicioA"
+    <b-button class="crear" variant="dark" to="/eventosRegistroA"
       >Nuevo Evento</b-button
     >
     <div class="filtro">

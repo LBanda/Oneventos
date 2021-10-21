@@ -1,11 +1,16 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+
+// Administrador
 import EventosInicioA from "../views/Administrador/EventosInicioA.vue";
 import EventoRegistroA from "../views/Administrador/EventoRegistroA.vue";
 import EmpleadosRegistradosA from "../views/Administrador/EmpleadosRegistradosA.vue";
 import SubeventosInicioA from "../views/Administrador/SubeventosInicioA.vue";
 import ParticipantesRegistradosA from "../views/Administrador/ParticipantesRegistradosA.vue";
+import Alimentos from "../views/Administrador/Alimentos.vue";
+import Usuarios from "../views/Administrador/Usuarios.vue";
 
+//ControlAcceso
 import EventosInicioC from "../views/ControlAcceso/EventosInicioC.vue";
 import EventoRegistroC from "../views/ControlAcceso/EventoRegistroC.vue";
 import EmpleadosRegistradosC from "../views/ControlAcceso/EmpleadosRegistradosC.vue";
@@ -18,7 +23,7 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/eventosInicioA",
+    path: "/",
     name: "EventosInicioA",
     component: EventosInicioA
   },
@@ -76,6 +81,16 @@ const routes = [
     path: "/invitadoRegistroC",
     name: "InvitadoRegistroC",
     component: InvitadoRegistroC
+  },
+  {
+    path: "/alimentos",
+    name: "Alimentos",
+    component: Alimentos
+  },
+  {
+    path: "/usuarios",
+    name: "Usuarios",
+    component: Usuarios
   },
 ];
 

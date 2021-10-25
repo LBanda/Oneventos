@@ -67,9 +67,15 @@
         </div>
       </div>
 
-      <!-- <div>
+      <div>
+        <label class="form-label" for="Area">Subeventos</label>
         <Calendario />
-      </div> -->
+      </div>
+
+      <div>
+        <label class="form-label" for="Area">Subeventos</label>
+        <Calendario />
+      </div>
 
       <div style="margin-bottom: 3%">
         <label for="imagen" style="display: block">Elige una imagen:</label>
@@ -341,12 +347,12 @@
 </template>
 
 <script>
-// import Calendario from "@/components/Calendario.vue";
+import Calendario from "@/components/Calendario.vue";
 export default {
   name: "Registrar",
-  // components: {
-  //   Calendario,
-  // },
+  components: {
+    Calendario,
+  },
   data() {
     return {
       value: 0,

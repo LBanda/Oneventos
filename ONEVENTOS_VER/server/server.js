@@ -19,7 +19,7 @@ app.use(express.json());
 
 app.use(authRoutes);
 app.use(express.static(join(__dirname, "./views")));
-// app.use(auth, express.static(join(__dirname, "./public")));
+app.use(auth, express.static(join(__dirname, "./public")));
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
 app.use(eventosRoutes);

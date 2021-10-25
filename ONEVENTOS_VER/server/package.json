@@ -1,29 +1,25 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
+  "description": "API para el proyecto de OneEventos",
   "main": "server.js",
-  "type": "module",
-  "scripts": {
-    "test": "npm run test",
-    "start": "nodemon server.js",
-    "lint": "npm run lint"
-  },
-  "author": "InnsolutionsMX",
-  "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "sqlite3": "^5.0.2",
-    "uuid": "^8.3.2",
-    "v-calendar": "^2.3.4",
-    "validator": "^13.6.0"
+    "mysql2": "^2.3.2",
+    "mysql3": "^0.6.0"
   },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "InnSolutionsMX",
+  "license": "ISC",
   "devDependencies": {
-    "eslint": "^8.0.1",
-    "eslint-plugin-vue": "^7.19.1",
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.14"
   }
 }

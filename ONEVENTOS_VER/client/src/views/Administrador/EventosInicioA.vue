@@ -23,26 +23,40 @@
 
 <script>
 import Listar from "@/components/Eventos/Listar.vue";
+import axios from "axios";
 import { Evento } from "@/components/Eventos/Listar.vue";
 
 export default {
   name: "EventosInicioA",
-  data() {
-    return {
-      eventos: [
-        new Evento("Evento de prueba 1", "Lorem ipsum dolor sit amet..."),
-        new Evento("Evento de prueba 2", "Lorem ipsum dolor sit amet..."),
-        new Evento("Evento de prueba 3", "Lorem ipsum dolor sit amet..."),
-        new Evento("Evento de prueba 4", "Lorem ipsum dolor sit amet..."),
-        new Evento("Evento de prueba 5", "Lorem ipsum dolor sit amet..."),
-        new Evento("Evento de prueba 6", "Lorem ipsum dolor sit amet..."),
-      ],
-    };
-  },
   components: {
     Listar,
   },
-};
+  data() {
+    return {
+      eventos: [],
+    };
+  },
+  async created() {
+    await this.getAllEventos();
+  },
+  methods: {
+    async getAllEventos() {
+      try {
+        const response = await axios.get("http://localhost:8080/api/eventos");
+        if (response.status != 200) {
+          alert(response);
+        } else {
+          //se crean los objetos
+          this.eventos = response.data.map((element) => {
+            return new Evento(element.Nombre, element.Descripcion);
+          });
+        }
+      } catch (e) {
+        alert(e);
+      }
+    }
+  }
+}
 </script>
 
 <style scoped>

@@ -33,7 +33,7 @@ const routes = [
     component: EventoRegistroA
   },
   {
-    path: "/empleadosRegistradosA",
+    path: "/empleadosRegistradosA/:id",
     name: "EmpleadosRegistradosA",
     component: EmpleadosRegistradosA
   },

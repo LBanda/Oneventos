@@ -7,7 +7,7 @@ const { auth } = require("./middleware/auth");
 const { join } = require("path");
 const cors = require("cors");
 
-const port = 8080;
+const port = process.env.SERVER_PORT;
 
 const app = express();
 app.use(cors({
@@ -19,7 +19,7 @@ app.use(express.json());
 
 app.use(authRoutes);
 app.use(express.static(join(__dirname, "./views")));
-app.use(auth, express.static(join(__dirname, "./public")));
+/* app.use(auth, express.static(join(__dirname, "./public"))); */
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
 app.use(eventosRoutes);

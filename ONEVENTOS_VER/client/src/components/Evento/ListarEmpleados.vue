@@ -4,7 +4,7 @@
       <b-button class="subcon" variant="dark" to="/eventos"
         >Registrar Nuevo Empleado</b-button
       >
-      <b-button class="subcon" variant="dark" to="/subeventosInicio"
+      <b-button class="subcon" variant="dark" to="/subeventosInicioA"
         >Consultar Subeventos</b-button
       >
     </div>
@@ -18,41 +18,43 @@
         >
       </div>
 
-      <b-table
-        :hover="hover"
-        :head-variant="headVariant"
-        :bordered="bordered"
-        :items="items"
-        :fields="fields"
-        :select-mode="selectMode"
-        responsive="sm"
-        ref="selectableTable"
-        selectable
-        @row-selected="onRowSelected"
-      >
-        <!-- Example scoped slot for select state illustrative purposes -->
-        <template #cell(selected)="{ rowSelected }">
-          <template v-if="rowSelected">
-            <span aria-hidden="true">&check;</span>
-            <span class="sr-only">Selected</span>
+      <div class="tabla">
+        <b-table
+          :hover="hover"
+          :head-variant="headVariant"
+          :bordered="bordered"
+          :items="items"
+          :fields="fields"
+          :select-mode="selectMode"
+          responsive="sm"
+          ref="selectableTable"
+          selectable
+          @row-selected="onRowSelected"
+        >
+          <!-- Example scoped slot for select state illustrative purposes -->
+          <template #cell(asistencia)="{ rowSelected }">
+            <template v-if="rowSelected">
+              <span aria-hidden="true">&check;</span>
+              <span class="sr-only">Selected</span>
+            </template>
+            <template v-else>
+              <span aria-hidden="true">&nbsp;</span>
+              <span class="sr-only">Not selected</span>
+            </template>
           </template>
-          <template v-else>
-            <span aria-hidden="true">&nbsp;</span>
-            <span class="sr-only">Not selected</span>
-          </template>
-        </template>
 
-        <template #cell(Info)>
-          <div class="btn-table-container">
-            <b-button class="btn-table" variant="dark" to="/eventos"
-              >Consultar</b-button
-            >
-            <b-button class="btn-table" variant="dark" to="/eventos"
-              >Eliminar</b-button
-            >
-          </div>
-        </template>
-      </b-table>
+          <template #cell(Info)>
+            <div class="btn-table-container">
+              <b-button class="btn-table" variant="dark" to="/eventos"
+                >Consultar</b-button
+              >
+              <b-button class="btn-table" variant="dark" to="/eventos"
+                >Eliminar</b-button
+              >
+            </div>
+          </template>
+        </b-table>
+      </div>
       <!-- <p>
       Selected Rows:<br />
       {{ selected }}
@@ -75,7 +77,7 @@ export default {
         { empleados_registrados: "Adriana Ayala" },
       ],
       selectMode: "multi",
-      selected: [],
+      asistencia: [],
       bordered: true,
       headVariant: "dark",
       hover: true,
@@ -96,6 +98,12 @@ export default {
 </script>
 
 <style scoped>
+
+.table {
+  display: flex;
+  justify-content: flex-start;
+}
+
 .container {
   margin-top: 8%;
 }

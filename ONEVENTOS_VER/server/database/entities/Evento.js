@@ -1,6 +1,6 @@
-const { openConnection } = require("../connection");
+const { openConnection } = require('../connection');
 class Evento {
-    /**
+	/**
      * 
      * @param {number} ID_Evento 
      * @param {string} Nombre 
@@ -12,17 +12,7 @@ class Evento {
      * @param {string} Imagen 
      * @param {number} MaximoInvitados 
      */
-	constructor(
-		ID_Evento,
-		Nombre,
-		Descripcion,
-		CupoMaximo,
-		FechaInicio,
-		FechaFin,
-		Locacion,
-		Imagen,
-		MaximoInvitados
-	) {
+	constructor(ID_Evento, Nombre, Descripcion, CupoMaximo, FechaInicio, FechaFin, Locacion, Imagen, MaximoInvitados) {
 		this.ID_Evento = ID_Evento;
 		this.Nombre = Nombre;
 		this.Descripcion = Descripcion;
@@ -36,25 +26,45 @@ class Evento {
 
 	static async getAllEventos() {
 		const db = await openConnection();
-		const [rows] = await db.query("SELECT Nombre, Descripcion FROM Eventos");
+		const [ rows ] = await db.query('SELECT ID_Evento, Nombre, Descripcion FROM Eventos');
 		await db.end();
 		return rows;
+	}
 
+	/**
+	 * @param {number} id El ID del evento
+	 */
+	static async getEventoById(id) {
+		console.log("ID", id)
+		const db = await openConnection();
+		const [ [rows] ] = await db.query('SELECT * FROM Eventos WHERE ID_Evento = ?', [id]);
+		await db.end();
+		return rows;
 	}
 
 	static async addEvento(nombre, descripcion, caupoMaximo, fechaInicio, fechaFin, locacion, imagen, maximoInvitados) {
-		const sqlInsert = "INSERT INTO Eventos (id, Nombre, Descripcion, CupoMaximo, FechaInicio, FechaFin, Locacion, Imagen, MaximoInvitados) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-		const insertValues = [0, nombre, descripcion, caupoMaximo, fechaInicio, fechaFin, locacion, imagen, maximoInvitados];
+		const sqlInsert =
+			'INSERT INTO Eventos (id, Nombre, Descripcion, CupoMaximo, FechaInicio, FechaFin, Locacion, Imagen, MaximoInvitados) VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
+		const insertValues = [
+			0,
+			nombre,
+			descripcion,
+			caupoMaximo,
+			fechaInicio,
+			fechaFin,
+			locacion,
+			imagen,
+			maximoInvitados
+		];
 		const db = await openConnection();
 
-		const [result] = await db.query(sqlInsert, insertValues);
+		const [ result ] = await db.query(sqlInsert, insertValues);
 		await db.end();
 
-		return result["affectedRows"] > 0;
-}
-
+		return result['affectedRows'] > 0;
+	}
 }
 
 module.exports = {
 	Evento
-}
+};

@@ -1,8 +1,8 @@
 <template>
   <div class="inicio">
-    <b-button class="crear" variant="dark" to="/eventosRegistroA"
-      >Nuevo Evento</b-button
-    >
+    <b-button class="crear" variant="dark" to="/eventosRegistroA">
+      Nuevo Evento
+    </b-button>
     <div class="filtro">
       <b-dropdown
         id="dropdown-right"
@@ -23,8 +23,7 @@
 
 <script>
 import Listar from "@/components/Eventos/Listar.vue";
-import axios from "axios";
-import { Evento } from "@/components/Eventos/Listar.vue";
+import EventosClient from "@/api/EventosClient";
 
 export default {
   name: "EventosInicioA",
@@ -41,19 +40,7 @@ export default {
   },
   methods: {
     async getAllEventos() {
-      try {
-        const response = await axios.get("http://localhost:8080/api/eventos");
-        if (response.status != 200) {
-          alert(response);
-        } else {
-          //se crean los objetos
-          this.eventos = response.data.map((element) => {
-            return new Evento(element.Nombre, element.Descripcion);
-          });
-        }
-      } catch (e) {
-        alert(e);
-      }
+      this.eventos = await EventosClient.getAllEventos();
     }
   }
 }
@@ -115,7 +102,7 @@ export default {
 .filtro {
   display: flex;
   justify-content: flex-end;
-  width: 100vw;
+  width: 95vw;
 }
 
 .filtro > div {

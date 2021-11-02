@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import ListarParticipantes from "@/components/Subevento/ListarPartcipantes.vue";
+import ListarParticipantes from "@/components/Subevento/ListarParticipantes.vue";
 
 export default {
   name: "ParticipantesRegistradosC",

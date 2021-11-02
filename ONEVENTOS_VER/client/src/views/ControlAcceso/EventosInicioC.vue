@@ -23,19 +23,18 @@
 
 <script>
 import Listar from "@/components/Eventos/Listar.vue";
-import { Evento } from "@/components/Eventos/Listar.vue";
 
 export default {
   name: "EventosInicioC",
   data() {
     return {
       eventos: [
-        new Evento("Evento de prueba 1", "Lorem ipsum dolor sit amet..."),
-        new Evento("Evento de prueba 2", "Lorem ipsum dolor sit amet..."),
-        new Evento("Evento de prueba 3", "Lorem ipsum dolor sit amet..."),
-        new Evento("Evento de prueba 4", "Lorem ipsum dolor sit amet..."),
-        new Evento("Evento de prueba 5", "Lorem ipsum dolor sit amet..."),
-        new Evento("Evento de prueba 6", "Lorem ipsum dolor sit amet..."),
+        { Nombre: "Evento de prueba 1", Descripcion: "Lorem ipsum dolor sit amet..." },
+        { Nombre: "Evento de prueba 2", Descripcion: "Lorem ipsum dolor sit amet..." },
+        { Nombre: "Evento de prueba 3", Descripcion: "Lorem ipsum dolor sit amet..." },
+        { Nombre: "Evento de prueba 4", Descripcion: "Lorem ipsum dolor sit amet..." },
+        { Nombre: "Evento de prueba 5", Descripcion: "Lorem ipsum dolor sit amet..." },
+        { Nombre: "Evento de prueba 6", Descripcion: "Lorem ipsum dolor sit amet..." },
       ],
     };
   },

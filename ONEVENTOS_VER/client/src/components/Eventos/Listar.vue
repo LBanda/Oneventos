@@ -2,19 +2,27 @@
   <div class="lista-flex">
     <b-card
       v-for="evento in eventos"
-      :key="evento.titulo"
-      :title="evento.titulo"
       :img-src="require('@/assets/descarga.png')"
+      :key="evento.Nombre"
+      class="mb-2"
       img-alt="Image"
       img-top
-      tag="article"
       style="max-width: 20rem"
-      class="mb-2"
-      to="/empleadosRegistrados"
+      tag="article"
     >
-      <b-card-text>
-        {{ evento.texto }}
-      </b-card-text>
+      <b-card-body>
+
+        <b-card-title>
+          <b-link :to="`/empleadosRegistradosA/${evento.ID_Evento}`">
+            {{ evento.Nombre }}
+          </b-link>
+        </b-card-title>
+
+        <b-card-text>
+          {{ evento.Descripcion }}
+        </b-card-text>
+
+      </b-card-body>
 
       <div class="mt-3">
         <b-button-group>
@@ -28,19 +36,10 @@
 </template>
 
 <script>
-export function Evento(titulo, texto) {
-  this.titulo = titulo;
-  this.texto = texto;
-}
 export default {
   name: "Listar",
   props: {
-    eventos: {
-      required: true,
-      validator: function (value) {
-        return value.every((e) => e instanceof Evento);
-      },
-    },
+    eventos: Array
   },
 };
 </script>

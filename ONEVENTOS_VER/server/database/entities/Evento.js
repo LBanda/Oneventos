@@ -44,7 +44,7 @@ class Evento {
 
 	static async addEvento(nombre, descripcion, caupoMaximo, fechaInicio, fechaFin, locacion, imagen, maximoInvitados) {
 		const sqlInsert =
-			'INSERT INTO Eventos (id, Nombre, Descripcion, CupoMaximo, FechaInicio, FechaFin, Locacion, Imagen, MaximoInvitados) VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
+			'INSERT INTO Eventos (id, Nombre, Descripcion, CupoMaximo, FechaInicio, FechaFin, Locacion, Imagen, MaximoInvitados) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)';
 		const insertValues = [
 			0,
 			nombre,

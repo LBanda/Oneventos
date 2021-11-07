@@ -2,12 +2,11 @@
   <div class="container">
     <div class="header">
       <div class="header">
-      <h5><strong> Menús y Alergias </strong></h5>
+      <h5><strong> Menús</strong></h5>
     </div>
     </div>
-    
-        <form class="form" method="post">
-            <div class="mb-3 input-col">
+    <form class="form" method="post">
+      <div class="mb-3 input-col">
         <div style="width: 47%">
           <label class="form-label" for="Menu">Tipos de menú</label>
           <div class="container-btn">
@@ -54,57 +53,8 @@
             Borrar
           </button>
         </div>
-      </div>
-
-      <div class="mb-3 input-col">
-        <div style="width: 47%">
-          <label class="form-label" for="Menu">Tipos de alergias</label>
-          <div class="container-btn">
-            <input
-              v-model="alergia.nombreAlergia"
-              id="form-ctrl"
-              class="form-control"
-              type="text"
-              name="alergia"
-              title="alergia"
-              placeholder="Mariscos"
-            />
-            <button
-              v-on:click="agregarAlergia"
-              style="margin-top: 3.5px"
-              type="button"
-              class="my-btn btn btn-success"
-            >
-              Agregar
-            </button>
-          </div>
-          <ol v-if="alergias.length">
-            <li
-              style="display: flex; position: relative; left: -3%"
-              v-for="alergia in alergias"
-              :key="alergia.nombreAlergia"
-            >
-              <b-icon
-                class="del-icon"
-                icon="x-circle"
-                scale="1"
-                v-on:click="borrarAlergia(alergia)"
-                variant="danger"
-              />
-              {{ alergia.nombreAlergia }}
-            </li>
-          </ol>
-          <button
-            type="button"
-            style="position: relative; margin-left: auto; margin-right: 3%"
-            class="btn btn-md btn-warning resize-del"
-            v-on:click="borrarAlergias"
-          >
-            Borrar
-          </button>
-        </div>
-      </div>       
-        </form>    
+      </div>    
+  </form>    
   </div>
 </template>
 
@@ -123,14 +73,6 @@ export default {
         menu: {
         nombreMenu: " ",
       },
-      alergias: [
-            { nombreAlergia: "Mariscos" },
-            { nombreAlergia: "Huevo" },
-            { nombreAlergia: "Nueces" },
-        ],
-        alergia: {
-        nombreAlergia: " ",
-      },
     };
     },
     methods: {
@@ -138,21 +80,11 @@ export default {
         this.menus.push({ ...this.menu });
         this.menu.nombreMenu = "";
         },
-        agregarAlergia() {
-        this.alergias.push({ ...this.alergia });
-        this.alergia.nombreAlergia = "";
-        },
         borrarMenus() {
         this.menus = [];
         },
-        borrarAlergias() {
-        this.alergias = [];
-        },
         borrarMenu(menu) {
         this.menus = this.menus.filter((i) => i !== menu);
-        },
-        borrarAlergia(alergia) {
-        this.alergias = this.alergias.filter((i) => i !== alergia);
         },
     },
 };

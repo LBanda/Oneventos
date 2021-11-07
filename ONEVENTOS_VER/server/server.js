@@ -3,6 +3,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const { authRoutes } = require("./controllers/authController");
 const { eventosRoutes } = require("./controllers/eventosController");
+const {menuAlergiasRoutes} = require("./controllers/menuAlergiasController");
 const { auth } = require("./middleware/auth");
 const { join } = require("path");
 const cors = require("cors");
@@ -23,6 +24,7 @@ app.use(express.static(join(__dirname, "./views")));
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
 app.use(eventosRoutes);
+app.use(menuAlergiasRoutes);
 
 app.get("*", (req, res) => {
     if (req.is("application/json")) {

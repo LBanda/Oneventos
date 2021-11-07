@@ -8,6 +8,7 @@ import EmpleadosRegistradosA from "../views/Administrador/EmpleadosRegistradosA.
 import SubeventosInicioA from "../views/Administrador/SubeventosInicioA.vue";
 import ParticipantesRegistradosA from "../views/Administrador/ParticipantesRegistradosA.vue";
 import Alimentos from "../views/Administrador/Alimentos.vue";
+import Alergias from "../views/Administrador/Alergias.vue";
 import Usuarios from "../views/Administrador/Usuarios.vue";
 
 //ControlAcceso
@@ -83,9 +84,14 @@ const routes = [
     component: InvitadoRegistroC
   },
   {
-    path: "/alimentos",
+    path: "/menu",
     name: "Alimentos",
     component: Alimentos
+  },
+  {
+    path: "/alergias",
+    name: "Alergias",
+    component: Alergias
   },
   {
     path: "/usuarios",

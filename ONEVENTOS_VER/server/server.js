@@ -3,6 +3,9 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const { authRoutes } = require("./controllers/authController");
 const { eventosRoutes } = require("./controllers/eventosController");
+const { subEventosRoutes } = require("./controllers/subeventosController");
+const { empleadoRoutes } = require("./controllers/empleadoController");
+const { invitadoRoutes } = require("./controllers/invitadoController");
 const { auth } = require("./middleware/auth");
 const { join } = require("path");
 const cors = require("cors");
@@ -23,6 +26,9 @@ app.use(express.static(join(__dirname, "./views")));
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
 app.use(eventosRoutes);
+app.use(subEventosRoutes);
+app.use(empleadoRoutes);
+app.use(invitadoRoutes);
 
 app.get("*", (req, res) => {
     if (req.is("application/json")) {

@@ -1,7 +1,7 @@
 <template>
   <div>
     {{ empleado }}
-    <b-button class="crear" variant="dark" to="/eventosInicioA">
+    <b-button class="crear" variant="dark" to="/">
       Regresar
     </b-button>
     <ListarEmpleados />

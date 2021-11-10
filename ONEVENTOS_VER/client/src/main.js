@@ -10,10 +10,12 @@ import { TablePlugin } from "bootstrap-vue";
 import { BTable } from "bootstrap-vue";
 import { BFormDatepicker } from 'bootstrap-vue'
 import { FormDatepickerPlugin } from 'bootstrap-vue'
+import Vuex from 'vuex'
 
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 
+Vue.use(Vuex)
 Vue.use(FormDatepickerPlugin)
 Vue.component('b-form-datepicker', BFormDatepicker)
 Vue.component('b-table', BTable)

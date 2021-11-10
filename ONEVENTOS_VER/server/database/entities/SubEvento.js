@@ -1,4 +1,5 @@
-export default class SubEvento {
+const { openConnection } = require('../connection');
+class SubEvento {
 	/**
 	 * 
 	 * @param {number} ID_Subevento 
@@ -29,4 +30,16 @@ export default class SubEvento {
 		this.CupoMaximo = CupoMaximo;
 		this.Locacion = Locacion;
 	}
+
+	static async getAllSubeventos() {
+		const db = await openConnection();
+		const [rows] = await db.query('SELECT ID_Subevento, Nombre, Descripcion FROM SubEventos');
+		await db.end();
+		return rows;
+	}
+
 }
+
+module.exports = {
+	SubEvento
+};

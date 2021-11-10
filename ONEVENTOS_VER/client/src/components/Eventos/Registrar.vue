@@ -237,21 +237,22 @@
         title="Subevento"
         id="modal-lg"
         size="lg"
+        @newsubeventos="console.log('work')"
     >
-          <Registrar>
-            <template v-slot:close>
-              <b-button
-                class="mt-3"
-                variant="outline-warning"
-                block
-                @click="hideModal"
-              >
-                Cerrar
-              </b-button>
-            </template>
-          </Registrar>
-          
-      </b-modal>
+      <Registrar>
+        <template v-slot:close>
+          <b-button
+            class="mt-3"
+            variant="outline-warning"
+            block
+            v-on:newsubevento="console.log('wtf')"
+            @click="hideModal"
+          >
+            Cerrar
+          </b-button>
+        </template>
+      </Registrar>
+  </b-modal>
     <!-- AQUI TERMINA EL MODAL -->
   </div>
 </template>
@@ -267,8 +268,8 @@ export default {
   },
   data() {
     return {
-      value: 0,
       fileEvento: null,
+      subeventos: [],
       show: true,
       empresas: [
         { nombreEmpresa: "Microsoft" },
@@ -291,40 +292,7 @@ export default {
       ],
       areaTrabajo: {
         nombreAreaT: undefined,
-      },
-      subeventos: [
-        {
-          nombreS: "Subevento 1",
-          descripcionS: "Descripcion 1",
-          ubicacionS: "Locación 1",
-        },
-        {
-          nombreS: "Subevento 2",
-          descripcionS: "Descripcion 2",
-          ubicacionS: "Locación 2",
-        },
-        {
-          nombreS: "Subevento 3",
-          descripcionS: "Descripcion 3",
-          ubicacionS: "Locación 3",
-        },
-        {
-          nombreS: "Subevento 4",
-          descripcionS: "Descripcion 4",
-          ubicacionS: "Locación 4",
-        },
-        {
-          nombreS: "Subevento 5",
-          descripcionS: "Descripcion 5",
-          ubicacionS: "Locación 5",
-        },
-      ],
-      subevento: {
-        nombreS: undefined,
-        descripcionS: undefined,
-        ubicacionS: undefined,
-        file: undefined,
-      },
+      }
     };
   },
   methods: {
@@ -340,11 +308,9 @@ export default {
       this.areasTrabajo.push({ ...this.areaTrabajo });
       this.areaTrabajo.nombreAreaT = "";
     },
-    agregarSubevento() {
-      this.subeventos.push({ ...this.subevento });
-      this.subevento.nombreS = "";
-      this.subevento.descripcionS = "";
-      this.subevento.ubicacionS = "";
+    agregarSubevento(value) {
+      const [subevento] = value;
+      this.subeventos.push(subevento);
     },
     borrarEmpresas() {
       this.empresas = [];

@@ -122,6 +122,7 @@ export default {
   methods: {
     agregarSubevento() {
       this.subeventos.push({ ...this.subevento });
+      this.$root.$emit("newsubevento", this.subevento);
       this.subevento.nombreS = "";
       this.subevento.descripcionS = "";
       this.subevento.ubicacionS = "";

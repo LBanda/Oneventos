@@ -34,34 +34,79 @@ class Evento {
 	/**
 	 * @param {number} id El ID del evento
 	 */
+	static async getSubEventosByEventoId(id) {
+		const db = await openConnection();
+		const sql = "SELECT * FROM SubEventos WHERE ID_Evento = ?";
+		const [ rows ] = await db.query(sql, [id]);
+		await db.end();
+		return rows;
+	}
+
+	/**
+	 * @param {number} id El ID del evento
+	 */
 	static async getEventoById(id) {
-		console.log("ID", id)
 		const db = await openConnection();
 		const [ [rows] ] = await db.query('SELECT * FROM Eventos WHERE ID_Evento = ?', [id]);
 		await db.end();
 		return rows;
 	}
 
-	static async addEvento(nombre, descripcion, caupoMaximo, fechaInicio, fechaFin, locacion, imagen, maximoInvitados) {
-		const sqlInsert =
-			'INSERT INTO Eventos (id, Nombre, Descripcion, CupoMaximo, FechaInicio, FechaFin, Locacion, Imagen, MaximoInvitados) VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
-		const insertValues = [
-			0,
+	static async addEvento(evento) {
+		const {
 			nombre,
 			descripcion,
-			caupoMaximo,
+			cupoMaximo,
 			fechaInicio,
 			fechaFin,
 			locacion,
 			imagen,
 			maximoInvitados
+		} = evento;
+
+		const sqlInsert =
+			`INSERT INTO Eventos (
+				ID_Evento,
+				Nombre,
+				Descripcion,
+				CupoMaximo,
+				FechaInicio,
+				FechaFin,
+				Locacion,
+				Imagen,
+				MaximoInvitados
+			)
+			VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+		const insertValues = [
+			0,
+			nombre,
+			descripcion,
+			cupoMaximo,
+			new Date(fechaInicio),
+			new Date(fechaFin),
+			locacion,
+			imagen,
+			maximoInvitados
 		];
+
 		const db = await openConnection();
 
 		const [ result ] = await db.query(sqlInsert, insertValues);
 		await db.end();
-
+		console.log(result);
 		return result['affectedRows'] > 0;
+	}
+
+	/**
+	 * @param {number} id El ID del evento
+	 */
+	static async deleteEventoById(id) {
+		const db = await openConnection();
+		const sql = "DELETE * FROM Eventos WHERE ID_Evento = ?";
+		const [rows] = await db.query(sql, [id]);
+		await db.end();
+		return rows;
 	}
 }
 

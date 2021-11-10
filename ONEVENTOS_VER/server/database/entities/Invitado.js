@@ -1,4 +1,5 @@
-export default class Invitado {
+const { openConnection } = require('../connection');
+class Invitado {
 	/**
 	 * @param {number} ID_Invitado
 	 * @param {number} ID_Menu
@@ -28,4 +29,37 @@ export default class Invitado {
 		this.Telefono = Telefono;
 		this.Comentario = Comentario;
 	}
+
+	static async getAllInvitados() {
+		const db = await openConnection();
+		const [rows] = await db.query('SELECT ID_Invitado, Nombre FROM Invitados');
+		await db.end();
+		return rows;
+	}
+
+	/**
+	 * @param {number} id El ID del evento
+	 */
+	static async deleteInvitadoById(id) {
+		const db = await openConnection();
+		const sql = "DELETE * FROM Invitados WHERE ID_Invitado = ?";
+		const [rows] = await db.query(sql, [id]);
+		await db.end();
+		return rows;
+	}
+
+	/**
+	 * @param {number} id El ID del evento
+	 */
+	static async getInvitadoById(id) {
+		const db = await openConnection();
+		const sql = "SELECT * FROM Invitados WHERE ID_Invitado = ?";
+		const [rows] = await db.query(sql, [id]);
+		await db.end();
+		return rows;
+	}
 }
+
+module.exports = {
+	Invitado
+};

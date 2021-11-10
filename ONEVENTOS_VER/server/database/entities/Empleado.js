@@ -29,7 +29,7 @@ class Empleado {
 
 	static async getAllEmpleados() {
 		const db = await openConnection();
-		const [rows] = await db.query('SELECT ID_Evento, Nombre FROM Empleados');
+		const [rows] = await db.query('SELECT ID_Empleado, Nombre FROM Empleados');
 		await db.end();
 		return rows;
 	}
@@ -39,7 +39,7 @@ class Empleado {
 	 */
 	static async deleteEmpleadoById(id) {
 		const db = await openConnection();
-		const sql = "DELETE * FROM Empleados WHERE ID_Empleado = ?";
+		const sql = `DELETE FROM Empleados WHERE ID_Empleado = ?`;
 		const [rows] = await db.query(sql, [id]);
 		await db.end();
 		return rows;

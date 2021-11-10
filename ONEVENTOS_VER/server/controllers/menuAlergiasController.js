@@ -52,7 +52,7 @@ router.post("/api/alergias", async (req, res) => {
     if (result) {
         res.status(201).json({message: "success", data: alergia});
     }else{
-        res.status(201).json({message: "Could not create menu", errors: []})
+        res.status(201).json({message: "Could not create alergias", errors: []})
     }
 });
 

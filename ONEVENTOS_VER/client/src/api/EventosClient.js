@@ -4,7 +4,7 @@ import axios from 'axios';
 export default class EventosClient {
 	/**
 	 * Regresa todos los eventos
-	 * @return {Object[]} Un array de eventos
+	 * @return {Promise<[]>} Un array de eventos
 	 */
 	static async getAllEventos() {
 		try {

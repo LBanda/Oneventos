@@ -206,8 +206,8 @@
         <ol v-if="subeventos.length">
           <li
             style="display: flex; position: relative; left: -3%"
-            v-for="subevento in subeventos"
-            :key="subevento.nombreS"
+            v-for="(subevento, id) in subeventos"
+            :key="id"
           >
             <b-icon
               class="del-icon"
@@ -216,9 +216,9 @@
               v-on:click="borrarSubevento(subevento)"
               variant="danger"
             />
-            {{ subevento.nombreS }}
+            {{ subevento.nombre }}
             {{ subevento.descripcion }}
-            {{ subevento.apellidoM }}
+            {{ subevento.ubicacion }}
           </li>
         </ol>
       </div>
@@ -237,7 +237,6 @@
         title="Subevento"
         id="modal-lg"
         size="lg"
-        @newsubeventos="console.log('work')"
     >
       <Registrar>
         <template v-slot:close>
@@ -245,7 +244,6 @@
             class="mt-3"
             variant="outline-warning"
             block
-            v-on:newsubevento="console.log('wtf')"
             @click="hideModal"
           >
             Cerrar
@@ -266,10 +264,13 @@ export default {
     Calendario,
     Registrar,
   },
+  computed: {
+    // Carga todos los subeventos del estado
+    subeventos() { return this.$store.getters.getSubeventos }
+  },
   data() {
     return {
       fileEvento: null,
-      subeventos: [],
       show: true,
       empresas: [
         { nombreEmpresa: "Microsoft" },
@@ -308,10 +309,6 @@ export default {
       this.areasTrabajo.push({ ...this.areaTrabajo });
       this.areaTrabajo.nombreAreaT = "";
     },
-    agregarSubevento(value) {
-      const [subevento] = value;
-      this.subeventos.push(subevento);
-    },
     borrarEmpresas() {
       this.empresas = [];
     },
@@ -330,33 +327,12 @@ export default {
     eliminarImagen() {
       this.fileEvento = null;
     },
-    onSubmit(event) {
-      event.preventDefault();
-      alert(JSON.stringify(this.subeventos));
-    },
-    onReset(event) {
-      event.preventDefault();
-      // Reset our form values
-      this.subeventos.nombreS = "";
-      this.subeventos.descripcionS = "";
-      this.subeventos.ubicacionS = "";
-      // Trick to reset/clear native browser form validation state
-      this.show = false;
-      this.$nextTick(() => {
-        this.show = true;
-      });
-    },
     showModal() {
       this.$refs["my-modal"].show();
     },
     hideModal() {
       this.$refs["my-modal"].hide();
-    },
-    toggleModal() {
-      // We pass the ID of the button that we want to return focus to
-      // when the modal has hidden
-      this.$refs["my-modal"].toggle("#toggle-btn");
-    },
+    }
   },
 };
 </script>

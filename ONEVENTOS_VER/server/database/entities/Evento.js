@@ -94,7 +94,6 @@ class Evento {
 
 		const [ result ] = await db.query(sqlInsert, insertValues);
 		await db.end();
-		console.log(result);
 		return result['affectedRows'] > 0;
 	}
 

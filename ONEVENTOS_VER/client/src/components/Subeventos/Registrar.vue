@@ -9,7 +9,7 @@
       >
         <b-form-input
           id="input-1"
-          v-model="subevento.nombreS"
+          v-model="subevento.nombre"
           placeholder="Ceremonia de apertura"
           required
         />
@@ -21,7 +21,7 @@
       >
         <b-form-input
           id="input-2"
-          v-model="subevento.descripcionS"
+          v-model="subevento.descripcion"
           placeholder="Conferencia"
           required
         />
@@ -29,7 +29,7 @@
       <b-form-group id="input-group-3" label="Ubicación" label-for="input-3">
         <b-form-input
           id="input-3"
-          v-model="subevento.ubicacionS"
+          v-model="subevento.ubicacion"
           placeholder="Calle 22, Quéretaro, AV. Peñuelas"
           required
         />
@@ -44,7 +44,7 @@
       </div>
       <div>
         <label for="demo-sb">Cupo maximo</label>
-        <b-form-spinbutton id="demo-sb" v-model="value" min="1" max="10000" />
+        <b-form-spinbutton id="demo-sb" v-model="subevento.cupoMaximo" min="1" max="10000" />
       </div>
       <div style="margin-top: 3%">
         <label for="imagen" style="display: block">Elige una imagen:</label>
@@ -91,45 +91,31 @@ export default {
   },
   data() {
     return {
-      value: 0,
-      fileEvento: null,
       show: true,
-      subeventos: [
-        {
-          nombreS: "Subevento 1",
-          descripcionS: "Descripcion 1",
-          ubicacionS: "Locación 1",
-        },
-        {
-          nombreS: "Subevento 2",
-          descripcionS: "Descripcion 2",
-          ubicacionS: "Locación 2",
-        },
-        {
-          nombreS: "Subevento 3",
-          descripcionS: "Descripcion 3",
-          ubicacionS: "Locación 3",
-        },
-      ],
       subevento: {
-        nombreS: undefined,
-        descripcionS: undefined,
-        ubicacionS: undefined,
+        nombre: undefined,
+        descripcion: undefined,
+        ubicacion: undefined,
+        cupoMaximo: 0,
         file: undefined,
       },
     };
   },
   methods: {
     agregarSubevento() {
-      this.subeventos.push({ ...this.subevento });
-      this.$root.$emit("newsubevento", this.subevento);
-      this.subevento.nombreS = "";
-      this.subevento.descripcionS = "";
-      this.subevento.ubicacionS = "";
+      // Envía una mutación junto con un subevento nuevo para el estado 
+      this.$store.commit("addSubevento", {...this.subevento});
+      this.clearSubevento();
     },
     eliminarImagenSubEvento() {
-      this.subevento.file = null;
+      this.subevento.file = undefined;
     },
+    clearSubevento() {
+      this.subevento.nombre = undefined;
+      this.subevento.descripcion = undefined;
+      this.subevento.ubicacion = undefined;
+      this.subevento.file = undefined;
+    }
   },
 };
 </script>

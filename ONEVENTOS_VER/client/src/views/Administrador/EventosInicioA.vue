@@ -23,25 +23,19 @@
 
 <script>
 import Listar from "@/components/Eventos/Listar.vue";
-import EventosClient from "@/api/EventosClient";
-
 export default {
   name: "EventosInicioA",
   components: {
     Listar,
   },
-  data() {
-    return {
-      eventos: [],
-    };
+  created() {
+    // Llama una acción de la store, que se
+    // va a completar de manera asíncrona
+    this.$store.dispatch("setEventos");
   },
-  async created() {
-    await this.getAllEventos();
-  },
-  methods: {
-    async getAllEventos() {
-      this.eventos = await EventosClient.getAllEventos();
-    }
+  computed: {
+    // Obtiene los eventos del estado, que inicialmente es []
+    eventos() { return this.$store.getters.getEventos }
   }
 }
 </script>

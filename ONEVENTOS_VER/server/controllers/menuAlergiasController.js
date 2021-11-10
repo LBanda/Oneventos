@@ -1,4 +1,4 @@
-const { Router, application } = require("express");
+const { Router} = require("express");
 const { Alergia } = require("../database/entities/Alergia");
 const { Menu } = require("../database/entities/Menu");
 

@@ -8,13 +8,13 @@ router.get("/api/empleados", async (req, res) => {
     res.status(200).json(empleados ?? []);
 })
 
-router.delete("/api/empleados/:id/borrar", async (req, res) => {
+router.delete("/api/empleados/:id", async (req, res) => {
     const { id } = req.params;
     const empleados = await Empleado.deleteEmpleadoById(id);
     res.status(200).json(empleados ?? {});
 })
 
-router.get("/api/empleados/:id/cosultar", async (req, res) => {
+router.get("/api/empleados/:id", async (req, res) => {
     const { id } = req.params;
     const empleado = await Empleado.getEmpleadoById(id);
     res.status(200).json(empleado ?? []);

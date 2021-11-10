@@ -22,6 +22,11 @@ router.put("api/subeventos/:id/editar", async (req, res) => {
 
 })
 
+router.get("/api/subeventos/:id/participantes", async (req, res) => {
+    const { id } = req.params;
+    const participantes = await SubEvento.getParticipantesBySubeventoId(id);
+    res.status(200).json(participantes ?? []);
+})
 
 module.exports = {
     subEventosRoutes: router

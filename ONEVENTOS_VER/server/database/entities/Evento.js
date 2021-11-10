@@ -45,6 +45,17 @@ class Evento {
 	/**
 	 * @param {number} id El ID del evento
 	 */
+	 static async getEmpleadosByEventoId(id) {
+		const db = await openConnection();
+		const sql = "SELECT Em.ID_Empleado,nombre,apellido FROM `eventos-empleados` as Ev, empleados as Em WHERE Ev.ID_Empleado = Em.ID_Empleado AND ID_Evento = ?";
+		const [ rows ] = await db.query(sql, [id]);
+		await db.end();
+		return rows;
+	}
+
+	/**
+	 * @param {number} id El ID del evento
+	 */
 	static async getEventoById(id) {
 		const db = await openConnection();
 		const [ [rows] ] = await db.query('SELECT * FROM Eventos WHERE ID_Evento = ?', [id]);

@@ -27,6 +27,24 @@ router.put("api/empleados/:id/editar", async (req, res) => {
 
 })
 
+router.get("/api/empleados/:id/invitados", async (req, res) => {
+    const { id } = req.params;
+    const empleados = await Empleado.getInvitadosByEmpleadoId(id);
+    res.status(200).json(empleados ?? []);
+})
+
+router.post("/api/empleados", async (req, res) => {
+    console.log(req.body)
+    const { empleado } = req.body ?? {};
+    const result = await Empleado.addEmpleado(empleado);
+
+    if (result) {
+        res.status(201).json({message: "success", data: empleado});
+    }else{
+        res.status(201).json({message: "Could not create empleado", errors: []})
+    }
+});
+
 module.exports = {
     empleadoRoutes: router
 }

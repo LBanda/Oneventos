@@ -49,6 +49,16 @@ class SubEvento {
 	}
 
 	/**
+	 * @param {number} id El ID del subevento
+	 */
+	 static async getParticipantesBySubeventoId(id) {
+		const db = await openConnection();
+		const [ [rows] ] = await db.query("SELECT nombre,apellido FROM `empleados-subeventos` as Ev, empleados as Em WHERE Ev.ID_Empleado = Em.ID_Empleado AND ID_Subevento = ?", [id]);
+		await db.end();
+		return rows;
+	}
+
+	/**
 	 * @param {number} id El ID del suevento
 	 */
 	 static async editSubevento(subevento) {

@@ -20,7 +20,6 @@ router.get("/api/invitados/:id", async (req, res) => {
     res.status(200).json(invitado ?? []);
 })
 
-//Mandar nuevo tipo de menú con método post
 router.post("/api/invitados", async (req, res) => {
     console.log(req.body)
     const { invitado } = req.body ?? {};

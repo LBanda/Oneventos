@@ -26,6 +26,12 @@ router.get("/api/eventos/:id/subeventos", async (req, res) => {
     res.status(200).json(subeventos ?? []);
 })
 
+router.get("/api/eventos/:id/empleados", async (req, res) => {
+    const { id } = req.params;
+    const empleados = await Evento.getEmpleadosByEventoId(id);
+    res.status(200).json(empleados ?? []);
+})
+
 router.post("/api/eventos/", async (req, res) => {
     console.log(req.body)
     const { evento } = req.body ?? {};

@@ -59,6 +59,42 @@ class Empleado {
 	/**
 	 * @param {number} id El ID del empleado
 	 */
+	 static async getInvitadosByEmpleadoId(id) {
+		const db = await openConnection();
+		const sql = "SELECT * FROM Invitados WHERE ID_Empleado = ?";
+		const [rows] = await db.query(sql, [id]);
+		await db.end();
+		return rows;
+	}
+
+	/**
+	 * @param {number} id El ID del empleado
+	 */
+	 static async addEmpleado(empleado) {
+		const {
+            nombre,apellido,email,telefono,comentario
+        } = empleado;
+        console.log(empleado)
+
+        const sqlInsert =
+			'INSERT INTO Empleados (ID_Empleado,ID_Menu,Nombre,Apellido,Email,Telefono,Comentario) VALUES (?, ?, ?, ?, ?, ?, ?)';
+
+        const insertValues = [
+            0,0,
+            nombre,apellido,email,telefono,comentario
+        ]
+		const db = await openConnection();
+
+		const [ result ] = await db.query(sqlInsert, insertValues);
+		await db.end();
+
+		return result['affectedRows'] > 0;
+        
+	}
+
+	/**
+	 * @param {number} id El ID del empleado
+	 */
 	 static async editEmpleado(empleado) {
 		 const {
 			 nombre,

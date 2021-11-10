@@ -1,14 +1,11 @@
 import Config from '@/api/config';
 import axios from 'axios';
 
-export default class EventosClient {
-	/**
-	 * Regresa todos los eventos
-	 * @return {Object[]} Un array de eventos
-	 */
-	static async getAllEventos() {
+export default class InvitadosClient {
+
+	static async getAllInvitados() {
 		try {
-			const response = await axios.get(`${Config.BASE_URL}/api/eventos`);
+			const response = await axios.get(`${Config.BASE_URL}/api/invitados`);
 			if (response.status != 200) {
 				throw new Error(response.data)
 			} else {
@@ -20,13 +17,9 @@ export default class EventosClient {
 		}
 	}
 
-	/**
-	 * @param {number} id El ID del evento
-	 * @return {Object} Un evento
-	 */
-    static async getEvento(id) {
+    static async getInvitado(id) {
         try {
-			const response = await axios.get(`${Config.BASE_URL}/api/eventos/${id}`);
+			const response = await axios.get(`${Config.BASE_URL}/api/invitados/${id}`);
 			if (response.status != 200) {
 				throw new Error(response.data)
 			} else {

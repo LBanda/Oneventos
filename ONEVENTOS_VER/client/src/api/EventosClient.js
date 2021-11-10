@@ -54,4 +54,21 @@ export default class EventosClient {
 			return []
 		}
     }
+
+	/**
+	 * @param {number} id El ID del evento
+	 */
+	 static async getEmpleadosByEventoId(id) {
+        try {
+			const response = await axios.get(`${Config.BASE_URL}/api/eventos/${id}/empleados`);
+			if (response.status != 200) {
+				throw new Error(response.data)
+			} else {
+				return response.data;
+			}
+		} catch (e) {
+			console.log(e);
+			return []
+		}
+    }
 }

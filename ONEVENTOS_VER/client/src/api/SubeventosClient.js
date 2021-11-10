@@ -19,6 +19,19 @@ export default class SubeventosClient {
 			return [];
 		}
 	}
+    static async getSubeventoById(id) {
+        try {
+			const response = await axios.get(`${Config.BASE_URL}/api/subeventos/${id}`);
+			if (response.status != 200) {
+				throw new Error(response.data)
+			} else {
+				return response.data;
+			}
+		} catch (e) {
+			console.log(e);
+			return {}
+		}
+    }
 
 
 	

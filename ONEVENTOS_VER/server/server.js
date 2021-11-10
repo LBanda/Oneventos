@@ -6,6 +6,7 @@ const { eventosRoutes } = require("./controllers/eventosController");
 const { subEventosRoutes } = require("./controllers/subeventosController");
 const { empleadoRoutes } = require("./controllers/empleadoController");
 const { invitadoRoutes } = require("./controllers/invitadoController");
+const {menuAlergiasRoutes} = require("./controllers/menuAlergiasController");
 const { auth } = require("./middleware/auth");
 const { join } = require("path");
 const cors = require("cors");
@@ -17,6 +18,7 @@ app.use(cors({
     origin: "*",
     allowedHeaders: "*"
 }));
+app.use(express.urlencoded({ extended: true} ));
 app.use(cookieParser());
 app.use(express.json());
 
@@ -29,6 +31,7 @@ app.use(eventosRoutes);
 app.use(subEventosRoutes);
 app.use(empleadoRoutes);
 app.use(invitadoRoutes);
+app.use(menuAlergiasRoutes);
 
 app.get("*", (req, res) => {
     if (req.is("application/json")) {

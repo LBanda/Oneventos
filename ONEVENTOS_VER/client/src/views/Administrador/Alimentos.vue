@@ -1,14 +1,14 @@
 <template>
-    <Menualergias />
+    <Menus />
 </template>
 
 <script>
-import Menualergias from "@/components/Alimentos/Menualergias.vue"
+import Menus from "@/components/Alimentos/Menus.vue"
 
 export default {
     name: "Alimentos",
     components: {
-        Menualergias,
+        Menus,
     },
 };
 </script>

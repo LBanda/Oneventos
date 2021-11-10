@@ -53,10 +53,36 @@ class Invitado {
 	 */
 	static async getInvitadoById(id) {
 		const db = await openConnection();
-		const sql = "SELECT * FROM Invitados WHERE ID_Invitado = ?";
-		const [rows] = await db.query(sql, [id]);
+		//const sql = "SELECT * FROM Invitados WHERE ID_Invitado = ?";
+		//const [rows] = await db.query(sql, [id]);
+		const [ [rows] ] = await db.query('SELECT * FROM Invitados WHERE ID_Invitado = ?', [id]);
 		await db.end();
 		return rows;
+	}
+
+	 /**
+	 * @param {number} id El ID del evento
+	 */
+	  static async addInvitado(invitado) {
+		const {
+            nombre,apellido,email,telefono,comentario
+        } = invitado;
+        console.log(invitado)
+
+        const sqlInsert =
+			'INSERT INTO Invitados (ID_Invitado,ID_Menu,ID_Empleado,Nombre,Apellido,Email,Telefono,Comentario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+
+        const insertValues = [
+            0,0,0,
+            nombre,apellido,email,telefono,comentario
+        ]
+		const db = await openConnection();
+
+		const [ result ] = await db.query(sqlInsert, insertValues);
+		await db.end();
+
+		return result['affectedRows'] > 0;
+        
 	}
 }
 

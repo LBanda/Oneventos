@@ -14,11 +14,25 @@ router.delete("/api/invitados/:id/borrar", async (req, res) => {
     res.status(200).json(invitados ?? {});
 })
 
-router.get("/api/invitados/:id/cosultar", async (req, res) => {
+router.get("/api/invitados/:id", async (req, res) => {
     const { id } = req.params;
     const invitado = await Invitado.getInvitadoById(id);
     res.status(200).json(invitado ?? []);
 })
+
+//Mandar nuevo tipo de menú con método post
+router.post("/api/invitados", async (req, res) => {
+    console.log(req.body)
+    const { invitado } = req.body ?? {};
+    const result = await Invitado.addInvitado(invitado);
+
+    if (result) {
+        res.status(201).json({message: "success", data: invitado});
+    }else{
+        res.status(201).json({message: "Could not create invitado", errors: []})
+    }
+});
+
 
 module.exports = {
     invitadoRoutes: router

@@ -11,7 +11,7 @@
           <label class="form-label" for="Menu">Tipos de menú</label>
           <div class="container-btn">
             <input
-              v-model="menu.nombreMenu"
+              v-model="menu.Tipo_Menu"
               id="form-ctrl"
               class="form-control"
               type="text"
@@ -20,11 +20,11 @@
               placeholder="Vegetariano"
             />
           </div>
-          <ol v-if="menus.length">
+          <ol  v-if="menus.length" >
             <li
               style="display: flex; position: relative; left: -3%"
               v-for="menu in menus"
-              :key="menu.nombreMenu"
+              :key="menu.ID_Menu"
             >
               <b-icon
                 class="del-icon"
@@ -33,7 +33,7 @@
                 v-on:click="borrarMenu(menu)"
                 variant="danger"
               />
-              {{ menu.nombreMenu }}
+              {{ menu.Tipo_Menu }}
             </li>
           </ol>
           <button
@@ -60,32 +60,41 @@
 
 <script>
 export default {
-    name: "MenuAlergias",
+    name: "Menus",
+    /*props: {
+    menus: Array
+    },*/
     data() {
         return {
         show: true,
-        menus: [
-            { nombreMenu: "Vegano" },
-            { nombreMenu: "Vegetariano" },
-            { nombreMenu: "Postres sin azúcar" },
-            { nombreMenu: "Menú alternativo para alérgicos" },
-        ],
+      
         menu: {
-        nombreMenu: " ",
-      },
-    };
+        Tipo_Menu: undefined,
+        },
+      };
     },
     methods: {
         agregarMenu() {
-        this.menus.push({ ...this.menu });
-        this.menu.nombreMenu = "";
+        this.$store.commit("addMenu", {...this.menu})
+        //this.menu.nombreMenu = "";
+        this.clearMenu();
         },
         borrarMenus() {
         this.menus = [];
-        },
-        borrarMenu(menu) {
+        },/*
+        clearMenu() {
         this.menus = this.menus.filter((i) => i !== menu);
-        },
+        this.menu.Tipo_Menu = undefined;
+        },*/
+    },
+    mounted (){
+      this.$store.dispatch("getMenus");
+          
+    },
+    computed: {
+      menus() {
+        return this.$store.state.menus;
+      }
     },
 };
 </script>

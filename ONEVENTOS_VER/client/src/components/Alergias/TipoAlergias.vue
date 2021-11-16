@@ -12,7 +12,7 @@
           <label class="form-label" for="Menu">Tipos de alergias</label>
           <div class="container-btn">
             <input
-              v-model="alergia.nombreAlergia"
+              v-model="alergia.Nombre"
               id="form-ctrl"
               class="form-control"
               type="text"
@@ -29,11 +29,11 @@
               Agregar
             </button>
           </div>
-          <ol v-if="alergias.length">
+          <ol v-if="alergias.length > 0">
             <li
               style="display: flex; position: relative; left: -3%"
               v-for="alergia in alergias"
-              :key="alergia.nombreAlergia"
+              :key="alergia.ID_Alergia"
             >
               <b-icon
                 class="del-icon"
@@ -42,7 +42,7 @@
                 v-on:click="borrarAlergia(alergia)"
                 variant="danger"
               />
-              {{ alergia.nombreAlergia }}
+              {{ alergia.Nombre }}
             </li>
           </ol>
           <button
@@ -61,24 +61,21 @@
 
 <script>
 export default {
-    name: "MenuAlergias",
+    name: "TipoAlergias",
     data() {
         return {
         show: true,
-        alergias: [
-            { nombreAlergia: "Mariscos" },
-            { nombreAlergia: "Huevo" },
-            { nombreAlergia: "Nueces" },
-        ],
+    
         alergia: {
-        nombreAlergia: " ",
+        Nombre: undefined,
       },
     };
     },
     methods: {
         agregarAlergia() {
-        this.alergias.push({ ...this.alergia });
-        this.alergia.nombreAlergia = "";
+        this.$store.commit("addAlergia", {...this.alergia})
+        //this.alergia.nombreAlergia = "";
+        this.clearAlergia();
         },
         borrarAlergias() {
         this.alergias = [];
@@ -86,6 +83,15 @@ export default {
         borrarAlergia(alergia) {
         this.alergias = this.alergias.filter((i) => i !== alergia);
         },
+    },
+    mounted (){
+      this.$store.dispatch("getAlergias");
+          
+    },
+    computed: {
+      alergias() {
+        return this.$store.state.alergias;
+      }
     },
 };
 </script>

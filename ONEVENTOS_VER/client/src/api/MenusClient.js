@@ -29,4 +29,18 @@ export default class MenusClient {
 			return {}
 		}
     }
+
+	/*static async addMenu(){
+		try{
+			const response = await axios.post(`${Config.BASE_URL}/api/menu`, this.menu)
+			if (response.status != 200) {
+				throw new Error(response.data)
+			} else {
+				return response.data;
+			}			
+		} catch (e) {
+			console.log(e);
+			return {}
+		}
+	}*/
 }

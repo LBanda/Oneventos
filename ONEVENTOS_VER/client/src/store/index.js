@@ -16,6 +16,7 @@ export default new Vuex.Store({
         eventos: [],
         subeventos: [],
 		menus: [],
+		menu: null,
 		alergias: [],
 		
     },
@@ -33,8 +34,7 @@ export default new Vuex.Store({
 		},
 		setAlergias(state, alergias){
 			state.alergias = alergias;
-		},
-		/*
+		},/*
 		addMenu(state,menu){
 			state.menus.push(menu);
 		}*/

@@ -5,7 +5,7 @@
       <h5><strong> Menús</strong></h5>
     </div>
     </div>
-    <form class="form" method="post">
+    <form @submit="postData" class="form" method="post">
       <div class="mb-3 input-col">
         <div style="width: 47%">
           <label class="form-label" for="Menu">Tipos de menú</label>
@@ -20,7 +20,7 @@
               placeholder="Vegetariano"
             />
           </div>
-          <ol  v-if="menus.length" >
+          <ol >
             <li
               style="display: flex; position: relative; left: -3%"
               v-for="menu in menus"
@@ -37,9 +37,9 @@
             </li>
           </ol>
           <button
-              v-on:click="agregarMenu"
+              
               style="margin-top: 3.5px"
-              type="button"
+              type="submit"
               class="my-btn btn btn-success"
             >
               Agregar
@@ -59,6 +59,13 @@
 </template>
 
 <script>
+// <ol v-if="menus.length"> </ol>
+import axios from 'axios'
+import Vue from 'vue'
+import VueAxios from 'vue-axios'
+import Config from '@/api/config';
+Vue.use(VueAxios, axios)
+
 export default {
     name: "Menus",
     /*props: {
@@ -69,23 +76,32 @@ export default {
         show: true,
       
         menu: {
-        Tipo_Menu: undefined,
+        Tipo_Menu: ''
         },
       };
     },
     methods: {
+        postData(e){
+          this.axios.post(`${Config.BASE_URL}/api/menu`, {
+            menu: this.menu})
+
+          .then((result) =>{
+            console.warn(result)
+          })
+          e.preventDefault();
+        },
         agregarMenu() {
         this.$store.commit("addMenu", {...this.menu})
-        //this.menu.nombreMenu = "";
-        this.clearMenu();
+        this.menu.nombreMenu = "";
+        //this.clearMenu();
         },
         borrarMenus() {
         this.menus = [];
-        },/*
+        },
         clearMenu() {
-        this.menus = this.menus.filter((i) => i !== menu);
+        //this.menus = this.menus.filter((i) => i !== menu);
         this.menu.Tipo_Menu = undefined;
-        },*/
+        },
     },
     mounted (){
       this.$store.dispatch("getMenus");

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="btn-sub">
-      <b-button class="subcon" variant="dark" to="/eventos"
+      <b-button class="subcon" variant="dark" to="/empleadoRegistroA"
         >Registrar Nuevo Empleado</b-button
       >
       <b-button class="subcon" variant="dark" to="/subeventosInicioA"

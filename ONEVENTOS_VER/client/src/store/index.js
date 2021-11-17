@@ -25,11 +25,11 @@ export default new Vuex.Store({
 	// Estos métodos se usan para cargar datos y luego llamar una mutación
 	// Es como métodos, pero se llaman así: this.$store.dispatch("setEventos")
 	actions: {
-        async setEventos(state) {
+        async setEventosAction(state) {
             const eventos = await EventosClient.getAllEventos();
 			// Aquí es donde su muta el estado con los nuevos eventos cargados del API
             state.commit("setEventos", eventos);
-        }
+        },
 	},
 	// Estos métodos se usan para acceder al estado de una manera controlada
 	// Es como computed, se usa como: this.$store.getters.getEventos

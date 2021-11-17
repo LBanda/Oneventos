@@ -1,4 +1,4 @@
-const { openConnection } = require('../connection');
+const { openConnection, openConnectionWith } = require('../connection');
 class SubEvento {
 	/**
 	 * 
@@ -31,12 +31,46 @@ class SubEvento {
 		this.Locacion = Locacion;
 	}
 
-	static async getAllSubeventos() {
+	/**
+	 * @param {number} id El ID del evento
+	 */
+	static async getAllSubeventos(eventoId) {
 		const db = await openConnection();
-		const [rows] = await db.query('SELECT ID_Subevento, Nombre, Descripcion FROM SubEventos');
+		const sql = ('SELECT * FROM SubEventos WHERE ID_Evento = ?');
+		const [rows] = await db.query(sql, [eventoId]);
 		await db.end();
 		return rows;
 	}
+
+	/** 
+	 * @param {Array} subeventos 
+	 */
+	static async addSubeventos(subeventos) {
+		if (!subeventos) {
+			return false;
+		}
+
+		const sqlInsert = `INSERT INTO SubEventos (ID_Subevento,ID_Evento,Descripcion,CupoMaximo,FechaInicio,FechaFin,Nombre,Locacion) VALUES ?`;
+		const subeventosArray = subeventos.map(subevento => [
+			0,
+			subevento.ID_Evento,
+			subevento.descripcion,
+			subevento.cupoMaximo,
+			new Date(subevento.fechaInicio),
+			new Date(subevento.fechaFin),
+			subevento.nombre,
+			subevento.locacion
+		]);
+
+		// const db = await openConnection();
+		const db = await openConnectionWith("localhost", "root", "oneventos");
+
+		const [result] = await db.query(sqlInsert, [subeventosArray]);
+		await db.end();
+		return result['affectedRows'] > 0;
+	}
+
+
 
 }
 

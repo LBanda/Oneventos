@@ -10,9 +10,9 @@
       style="max-width: 20rem"
       class="mb-2"
     >
-      <b-card-text>
-        {{ subevento.texto }}
-      </b-card-text>
+      <b-link :to="`/empleadosRegistradosA/${subevento.ID_Subevento}`">
+            {{ subevento.Nombre }}
+          </b-link>
 
       <div class="mt-3">
         <b-button-group>
@@ -26,19 +26,10 @@
 </template>
 
 <script>
-export function Subevento(titulo, texto) {
-  this.titulo = titulo;
-  this.texto = texto;
-}
 export default {
   name: "Listar",
   props: {
-    subeventos: {
-      required: true,
-      validator: function (value) {
-        return value.every((e) => e instanceof Subevento);
-      },
-    },
+    subeventos: Array
   },
 };
 </script>

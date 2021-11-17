@@ -53,6 +53,10 @@ class Evento {
 	}
 
 	static async addEvento(evento) {
+		if (!evento) {
+			return false;
+		}
+
 		const {
 			nombre,
 			descripcion,
@@ -102,7 +106,7 @@ class Evento {
 	 */
 	static async deleteEventoById(id) {
 		const db = await openConnection();
-		const sql = "DELETE * FROM Eventos WHERE ID_Evento = ?";
+		const sql = "DELETE FROM Eventos WHERE ID_Evento = ?";
 		const [rows] = await db.query(sql, [id]);
 		await db.end();
 		return rows;

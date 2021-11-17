@@ -13,6 +13,16 @@ const openConnection = () => {
     });
 };
 
+const openConnectionWith = (host, user, database) => {
+    return createConnection({
+        host: host,
+        user: user,
+        database: database,
+        port: 15
+    });
+};
+
 module.exports = {
-    openConnection
+    openConnection,
+    openConnectionWith
 }

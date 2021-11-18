@@ -7,6 +7,7 @@
       <div class="mb-3">
         <label class="form-label" for="nombreEvento">Nombre del evento</label>
         <input
+          v-model.trim="evento.nombre"
           class="form-control"
           type="text"
           name="nombreEvento"
@@ -20,6 +21,7 @@
           Descripción del evento</label
         >
         <input
+          v-model.trim="evento.descripcion"
           class="form-control"
           type="text"
           name="descripcionEvento"
@@ -32,6 +34,7 @@
         <label class="form-label" for="locacion">Locación</label>
         <input
           class="form-control"
+          v-model.trim="evento.locacion"
           type="text"
           name="locacion"
           title="locacion"
@@ -45,6 +48,7 @@
             >Cupo de personas por evento</label
           >
           <input
+            v-model.number="evento.cupoMaximo"
             class="form-control"
             type="number"
             name="cupoEventos"
@@ -58,6 +62,7 @@
             >Cupo de invitados por empleado</label
           >
           <input
+          v-model.number="evento.maximoInvitado"
             class="form-control"
             type="number"
             name="cupoInvitados"
@@ -69,35 +74,35 @@
 
       <div>
         <label class="form-label" for="Area">Fecha de Inicio</label>
-        <Calendario />
+        <Calendario @selected="onDateStartSelected($event)" />
       </div>
 
       <div>
         <label class="form-label" for="Area">Fecha de Fin</label>
-        <Calendario />
+        <Calendario @selected="onDateEndSelected($event)"/>
       </div>
 
       <div style="margin-bottom: 3%">
         <label for="imagen" style="display: block">Elige una imagen:</label>
         <div style="display: flex; gap: 3%">
           <b-form-file
-            v-model="fileEvento"
-            :state="Boolean(fileEvento)"
+            v-model="evento.imagen"
+            :state="!!evento.imagen"
             placeholder="Elige or arrastra un archivo..."
             drop-placeholder="Arrastra un archivo aquí..."
           />
           <button
-            v-on:click="eliminarImagen"
+            @click="evento.imagen = null"
             type="button"
             class=" btn btn-danger"
-            :disabled="!fileEvento"
+            :disabled="!evento.imagen"
           >
             Eliminar Imagen
           </button>
         </div>
       </div>
 
-      <div class="mb-3 input-col" style="gap: 5%">
+      <!-- <div class="mb-3 input-col" style="gap: 5%">
         <div>
           <label class="form-label" for="Empresa">Empresa</label>
           <div class="container-btn">
@@ -191,7 +196,7 @@
             </li>
           </ol>
         </div>
-      </div>
+      </div> -->
 
       <div style="margin-top: 3%">
         <label class="form-label" for="Area">Subeventos</label>
@@ -213,7 +218,7 @@
               class="del-icon"
               icon="x-circle"
               scale="1"
-              v-on:click="borrarSubevento(subevento)"
+              @click="borrarSubevento(subevento)"
               variant="danger"
             />
             {{ subevento.nombre }}
@@ -224,7 +229,7 @@
       </div>
 
       <div class="container-registro">
-        <b-button class="crear" variant="dark" to="/eventosRegistroA">
+        <b-button class="crear" variant="dark" @click="agregarEvento">
           Registrar Evento
         </b-button>
       </div>
@@ -258,6 +263,7 @@
 <script>
 import Calendario from "@/components/Calendario.vue";
 import Registrar from "@/components/Subeventos/Registrar.vue";
+import axios from "axios";
 export default {
   name: "RegistrarEvento",
   components: {
@@ -270,7 +276,16 @@ export default {
   },
   data() {
     return {
-      fileEvento: null,
+      evento: {
+        nombre: undefined,
+        descripcion: undefined,
+        cupoMaximo: 0,
+        fechaInicio: null,
+        fechaFin: null,
+        locacion: undefined,
+        imagen: null,
+        maximoInvitado: 0
+      },
       show: true,
       empresas: [
         { nombreEmpresa: "Microsoft" },
@@ -297,6 +312,28 @@ export default {
     };
   },
   methods: {
+    agregarEvento() {
+      const payload = { evento: {...this.evento, imagen: undefined}, subeventos: [...this.subeventos] };
+      const formData = new FormData();
+      formData.append("image", this.imagen);
+      formData.append("data", JSON.stringify(payload));
+
+      try {
+        const response = axios.post("http://localhost:8081/api/eventos", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        });
+
+        if (response.status != 201) {
+          throw new Error(response.data)
+        } else {
+          return response.data;
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    },
     agregarEmpresa() {
       if (!this.empresa.nombreEmpresa) return;
 
@@ -324,14 +361,17 @@ export default {
     borrarSubevento(subevento) {
       this.subeventos = this.subeventos.filter((i) => i !== subevento);
     },
-    eliminarImagen() {
-      this.fileEvento = null;
-    },
     showModal() {
       this.$refs["my-modal"].show();
     },
     hideModal() {
       this.$refs["my-modal"].hide();
+    },
+    onDateStartSelected(fechaInicio) {
+      this.evento.fechaInicio = fechaInicio;
+    },
+    onDateEndSelected(fechaFin) {
+      this.evento.fechaFin = fechaFin;
     }
   },
 };

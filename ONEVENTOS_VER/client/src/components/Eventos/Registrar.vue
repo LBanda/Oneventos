@@ -194,7 +194,7 @@ export default {
     };
   },
   methods: {
-    agregarEvento() {
+    async agregarEvento() {
       const payload = {
         evento: {...this.evento, imagen: undefined},
         subeventos: [...this.subeventos]
@@ -211,7 +211,7 @@ export default {
       formData.append("data", JSON.stringify(payload));
 
       try {
-        const response = axios.post("http://localhost:8081/api/eventos", formData, {
+        const response = await axios.post("http://localhost:8081/api/eventos", formData, {
           headers: { "Content-Type": contentType }
         });
 

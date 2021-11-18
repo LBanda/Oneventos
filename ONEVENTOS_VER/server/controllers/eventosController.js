@@ -28,7 +28,7 @@ router.get("/api/eventos/:id/subeventos", async (req, res) => {
 })
 
 router.post("/api/eventos/", async (req, res) => {
-    const { evento } = req.body ?? {};
+    const { evento = {} } = req.body ?? {};
     const addedEvento = await Evento.addEvento(evento);
     const addedSubeventos = await SubEvento.addSubeventos(evento.subeventos);
 

@@ -11,7 +11,7 @@ const { auth } = require("./middleware/auth");
 const { join } = require("path");
 const cors = require("cors");
 
-const port = process.env.SERVER_PORT;
+const port = process.env.SERVER_PORT || 8081;
 
 const app = express();
 app.use(cors({

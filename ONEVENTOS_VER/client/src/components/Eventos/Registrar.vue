@@ -38,7 +38,7 @@
           type="text"
           name="locacion"
           title="locacion"
-          placeholder="Locacion"
+          placeholder="Queretaro, calle peñitas, numero 102"
         />
       </div>
 
@@ -101,102 +101,6 @@
           </button>
         </div>
       </div>
-
-      <!-- <div class="mb-3 input-col" style="gap: 5%">
-        <div>
-          <label class="form-label" for="Empresa">Empresa</label>
-          <div class="container-btn">
-            <input
-              v-model="empresa.nombreEmpresa"
-              id="form-ctrl"
-              class="form-control"
-              type="text"
-              name="empresa"
-              title="empresa"
-              placeholder="Toyota México"
-            />
-            <button
-              v-on:click="agregarEmpresa"
-              style="margin-top: 3.5px"
-              type="button"
-              class=" btn btn-success"
-            >
-              Agregar
-            </button>
-            <button
-              v-on:click="borrarEmpresas"
-              style="margin-top: 3.5px; margin-left: 1%"
-              type="button"
-              class=" btn btn-warning"
-            >
-              Borrar
-            </button>
-          </div>
-          <ol v-if="empresas.length">
-            <li
-              style="display: flex; position: relative; left: -3%"
-              v-for="empresa in empresas"
-              :key="empresa.nombreEmpresa"
-            >
-              <b-icon
-                class="del-icon"
-                icon="x-circle"
-                scale="1"
-                v-on:click="borrarEmpresa(empresa)"
-                variant="danger"
-              />
-              {{ empresa.nombreEmpresa }}
-            </li>
-          </ol>
-        </div>
-
-        <div>
-          <label class="form-label" for="Area">Área de trabajo</label>
-          <div class="container-btn">
-            <input
-              v-model="areaTrabajo.nombreAreaT"
-              id="form-ctrl"
-              class="form-control"
-              type="text"
-              name="area"
-              title="area"
-              placeholder="Restaurantes"
-            />
-            <button
-              v-on:click="agregarAreaTrabajo"
-              style="margin-top: 3.5px"
-              type="button"
-              class=" btn btn-success"
-            >
-              Agregar
-            </button>
-            <button
-              v-on:click="borrarAreasTrabajo"
-              style="margin-top: 3.5px; margin-left: 1%"
-              type="button"
-              class=" btn btn-warning"
-            >
-              Borrar
-            </button>
-          </div>
-          <ol v-if="areasTrabajo.length">
-            <li
-              style="display: flex; position: relative; left: -3%"
-              v-for="areaTrabajo in areasTrabajo"
-              :key="areaTrabajo.nombreAreaT"
-            >
-              <b-icon
-                class="del-icon"
-                icon="x-circle"
-                scale="1"
-                v-on:click="borrarAreaTrabajo(areaTrabajo)"
-                variant="danger"
-              />
-              {{ areaTrabajo.nombreAreaT }}
-            </li>
-          </ol>
-        </div>
-      </div> -->
 
       <div style="margin-top: 3%">
         <label class="form-label" for="Area">Subeventos</label>
@@ -276,53 +180,39 @@ export default {
   },
   data() {
     return {
+      show: true,
       evento: {
         nombre: undefined,
         descripcion: undefined,
-        cupoMaximo: 0,
+        cupoMaximo: undefined,
         fechaInicio: null,
         fechaFin: null,
         locacion: undefined,
         imagen: null,
-        maximoInvitado: 0
-      },
-      show: true,
-      empresas: [
-        { nombreEmpresa: "Microsoft" },
-        { nombreEmpresa: "Google" },
-        { nombreEmpresa: "Coca-Cola" },
-        { nombreEmpresa: "Amazon" },
-        { nombreEmpresa: "Sabritas" },
-        { nombreEmpresa: "Barcel" },
-      ],
-      empresa: {
-        nombreEmpresa: undefined,
-      },
-      areasTrabajo: [
-        { nombreAreaT: "Área 1" },
-        { nombreAreaT: "Área 2" },
-        { nombreAreaT: "Área 3" },
-        { nombreAreaT: "Área 4" },
-        { nombreAreaT: "Área 5" },
-        { nombreAreaT: "Área 6" },
-      ],
-      areaTrabajo: {
-        nombreAreaT: undefined,
+        maximoInvitado: undefined
       }
     };
   },
   methods: {
     agregarEvento() {
-      const payload = { evento: {...this.evento, imagen: undefined}, subeventos: [...this.subeventos] };
+      const payload = {
+        evento: {...this.evento, imagen: undefined},
+        subeventos: [...this.subeventos]
+      };
+
       const formData = new FormData();
-      formData.append("image", this.imagen);
+      let contentType = "application/json";
+
+      if (this.evento.imagen) {
+        formData.append("image", this.evento.imagen);
+        contentType = "multipart/form-data";
+      }
+
       formData.append("data", JSON.stringify(payload));
 
       try {
         const response = axios.post("http://localhost:8081/api/eventos", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data"
-          }
+          headers: { "Content-Type": contentType }
         });
 
         if (response.status != 201) {
@@ -331,7 +221,7 @@ export default {
           return response.data;
         }
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
     },
     agregarEmpresa() {

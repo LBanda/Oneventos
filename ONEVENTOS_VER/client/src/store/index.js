@@ -18,6 +18,7 @@ export default new Vuex.Store({
 		menus: [],
 		menu: null,
 		alergias: [],
+		alergia: null
 		
     },
 	// Estos métodos se usan para cambiar el estado, no modifiques el estado excepto aquí
@@ -34,10 +35,13 @@ export default new Vuex.Store({
 		},
 		setAlergias(state, alergias){
 			state.alergias = alergias;
-		},/*
+		},
 		addMenu(state,menu){
 			state.menus.push(menu);
-		}*/
+		},
+		addAlergia(state,alergia){
+			state.menus.push(alergia);
+		}		
 	},
 	// Estos métodos se usan para cargar datos y luego llamar una mutación
 	// Es como métodos, pero se llaman así: this.$store.dispatch("setEventos")
@@ -46,11 +50,11 @@ export default new Vuex.Store({
             const eventos = await EventosClient.getAllEventos();
 			// Aquí es donde su muta el estado con los nuevos eventos cargados del API
             state.commit("setEventos", eventos);
-        },/*
-		async setMenus (state){
+        },
+		/*async setMenus (state){
 			const menus = await MenusClient.getAllMenus();
 			state.commit("setMenus", menus);
-		}*/
+		},*/
 		async getMenus({commit}){
 			const menus = await MenusClient.getAllMenus()
 			commit("setMenus", menus);
@@ -65,7 +69,8 @@ export default new Vuex.Store({
 	getters: {
 		getEventos: (state) => state.eventos,
 		getSubeventos: (state) => state.subeventos,
-		getMenus: (state) => state.menus
+		getMenus: (state) => state.menus,
+		getAlergias: (state) => state.alergias
 		
 	}
 });

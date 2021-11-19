@@ -8,19 +8,19 @@
     <form @submit="postData" class="form" method="post">
       <div class="mb-3 input-col">
         <div style="width: 47%">
-          <label class="form-label" for="Menu">Tipos de menú</label>
+          <label class="form-label" for="nombreMenu">Tipos de menú</label>
           <div class="container-btn">
             <input
-              v-model="menu.Tipo_Menu"
-              id="form-ctrl"
+              v-model="menu.nombre"
+              id="form-control"
               class="form-control"
               type="text"
-              name="menu"
-              title="menu"
+              name="nombreMenu"
+              title="nombreMenu"
               placeholder="Vegetariano"
             />
           </div>
-          <ol >
+          <ol>
             <li
               style="display: flex; position: relative; left: -3%"
               v-for="menu in menus"
@@ -37,13 +37,13 @@
             </li>
           </ol>
           <button
-              
+              @click="agregarMenu"
               style="margin-top: 3.5px"
               type="submit"
               class="my-btn btn btn-success"
             >
               Agregar
-            </button>
+          </button>
           <button
             type="button"
             style="margin-top: 3.5px; margin-left: 1%"
@@ -68,31 +68,64 @@ Vue.use(VueAxios, axios)
 
 export default {
     name: "Menus",
-    /*props: {
-    menus: Array
-    },*/
     data() {
         return {
         show: true,
       
         menu: {
-        Tipo_Menu: ''
+        nombre: undefined
         },
       };
     },
     methods: {
-        postData(e){
-          this.axios.post(`${Config.BASE_URL}/api/menu`, {
-            menu: this.menu})
-
+        async postData(e){
+          this.axios.post(`${Config.BASE_URL}/api/menu/`, {
+          menu:{ ...this.menu}})
+          /*{
+          headers: {
+          'Content-Type': 'application/json'
+          }
+          })*/
           .then((result) =>{
             console.warn(result)
           })
           e.preventDefault();
         },
+        /*agregarMenu(e){
+          axios.post(`${Config.BASE_URL}/api/menu/`, {
+            menu: this.menu})
+            .then((result) =>{
+              console.warn(result)
+            })
+            e.preventDefault();
+        },*/
         agregarMenu() {
         this.$store.commit("addMenu", {...this.menu})
-        this.menu.nombreMenu = "";
+        //this.menu.Tipo_Menu = '';
+        //this.clearMenu();
+        },
+        /*
+        async agregarMenu() {
+        const payload = {
+          menu: {...this.menu},
+        };
+        const formData = new FormData();
+        let contentType = "application/json";
+        formData.append("data", JSON.stringify(payload));
+        try {
+          const response = await axios.post("http://localhost:8081/api/menu", formData, {
+            headers: { "Content-Type": contentType }
+          });
+          if (response.status != 201) {
+            throw new Error(response.data)
+          } else {
+            return response.data;
+          }
+        } catch (e) {
+          console.error(e);
+        }*/        
+        //this.$store.commit("addMenu", {...this.menu})
+        //this.menu.Tipo_Menu = '';
         //this.clearMenu();
         },
         borrarMenus() {
@@ -102,17 +135,17 @@ export default {
         //this.menus = this.menus.filter((i) => i !== menu);
         this.menu.Tipo_Menu = undefined;
         },
+      mounted (){
+      this.$store.dispatch("getMenus");     
     },
-    mounted (){
-      this.$store.dispatch("getMenus");
-          
-    },
-    computed: {
-      menus() {
-        return this.$store.state.menus;
-      }
-    },
-};
+      computed: {
+        menus() {
+            return this.$store.state.menus;
+          }
+        },
+    }
+
+
 </script>
 
 <style scoped>

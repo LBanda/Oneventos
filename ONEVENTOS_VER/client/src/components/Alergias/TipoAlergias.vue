@@ -6,30 +6,22 @@
     </div>
     </div>
     
-    <form class="form" method="post">
+    <form @submit="postAlergia" class="form" method="post">
       <div class="mb-3 input-col">
         <div style="width: 47%">
-          <label class="form-label" for="Menu">Tipos de alergias</label>
+          <label class="form-label" for="nombreAlergia">Tipos de alergias</label>
           <div class="container-btn">
             <input
-              v-model="alergia.Nombre"
-              id="form-ctrl"
+              v-model="alergia.nombre"
+              id="form-control"
               class="form-control"
               type="text"
-              name="alergia"
-              title="alergia"
+              name="nombreAlergia"
+              title="nombreAlergia"
               placeholder="Mariscos"
             />
-            <button
-              v-on:click="agregarAlergia"
-              style="margin-top: 3.5px"
-              type="button"
-              class="my-btn btn btn-success"
-            >
-              Agregar
-            </button>
           </div>
-          <ol v-if="alergias.length > 0">
+          <ol>
             <li
               style="display: flex; position: relative; left: -3%"
               v-for="alergia in alergias"
@@ -44,6 +36,14 @@
               />
               {{ alergia.Nombre }}
             </li>
+            <button
+              @click="addAlergia"
+              style="margin-top: 3.5px"
+              type="submit"
+              class="my-btn btn btn-success"
+            >
+              Agregar
+          </button>
           </ol>
           <button
             type="button"
@@ -60,6 +60,13 @@
 </template>
 
 <script>
+//v-if="alergias.length > 0"
+import axios from 'axios'
+import Vue from 'vue'
+import VueAxios from 'vue-axios'
+import Config from '@/api/config';
+Vue.use(VueAxios, axios)
+
 export default {
     name: "TipoAlergias",
     data() {
@@ -67,21 +74,32 @@ export default {
         show: true,
     
         alergia: {
-        Nombre: undefined,
-      },
-    };
+        nombre: undefined,
+        },
+      };
     },
     methods: {
-        agregarAlergia() {
-        this.$store.commit("addAlergia", {...this.alergia})
-        //this.alergia.nombreAlergia = "";
-        this.clearAlergia();
+
+        async postAlergia(e){
+        this.axios.post(`${Config.BASE_URL}/api/alergias/`, 
+        {alergia: { ...this.alergia}})
+        .then((result) =>{
+        console.warn(result)
+        })
+        e.preventDefault();
         },
+
         borrarAlergias() {
         this.alergias = [];
         },
-        borrarAlergia(alergia) {
-        this.alergias = this.alergias.filter((i) => i !== alergia);
+        addAlergia() {
+        this.$store.commit("addAlergia", {...this.alergia})
+        //this.alergia.nombreAlergia = "";
+        //this.clearAlergia();
+        },
+        clearAlergia() {
+        //this.menus = this.menus.filter((i) => i !== menu);
+        this.alergia.Nombre = undefined;
         },
     },
     mounted (){

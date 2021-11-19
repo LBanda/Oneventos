@@ -10,7 +10,11 @@ export default {
     components: {
         TipoAlergias,
     },
-
+    /*created() {
+    // Llama una acción de la store, que se
+    // va a completar de manera asíncrona
+    this.$store.dispatch("setAlergias");
+    },    */
 };
 </script>
 

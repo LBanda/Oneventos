@@ -1,3 +1,4 @@
+
 const { openConnection } = require('../connection');
 const { hash, compare } = require('bcrypt');
 class Usuario {
@@ -42,7 +43,7 @@ class Usuario {
 	/**
      * @param {Usuario} user
      */
-	static async signUp(user) {
+	static async addUser(user) {
 		// Crea el Objeto en la DB
 		if (!user) {
 			return null;
@@ -65,10 +66,35 @@ class Usuario {
 
 		return createdUser;
 	}
-}
 
-/** @param {string} password */
-const encryptPassword = (password) => hash(password, 10);
+	static async getAllUsers() {
+		const db = await openConnection();
+		const [ rows ] = await db.query('SELECT ID_Usuario, NombreUsuario, Email FROM Usuarios');
+		await db.end();
+		return rows;
+	}
+	static async getUserById(id) {
+		const db = await openConnection();
+		const [ [rows] ] = await db.query('SELECT ID_Usuario, NombreUsuario, Email FROM Usuarios WHERE ID_Usuario = ?', [id]);
+		await db.end();
+		return rows;
+	}
+
+	/**
+	 * @param {number} id El ID del Usuario
+	 */
+	static async deleteUser(id) {
+		const db = await openConnection();
+		const [ rows ] = await db.query('DELETE FROM Usuarios WHERE ID_Usuario = ?', [id]);
+		await db.end();
+		return rows;
+		}
+	
+}
+	/** @param {string} password */
+	const encryptPassword = (password) => hash(password, 10);
+
+
 module.exports = {
 	Usuario
 }

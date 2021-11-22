@@ -6,7 +6,7 @@ const { eventosRoutes } = require("./controllers/eventosController");
 const { subEventosRoutes } = require("./controllers/subeventosController");
 const { empleadoRoutes } = require("./controllers/empleadoController");
 const { invitadoRoutes } = require("./controllers/invitadoController");
-//const {usuarioRoutes} = require("./controllers/usuarioController");
+const {usuarioRoutes} = require("./controllers/usuarioController");
 const {menuAlergiasRoutes} = require("./controllers/menuAlergiasController");
 const { auth } = require("./middleware/auth");
 const { join } = require("path");
@@ -32,7 +32,7 @@ app.use(eventosRoutes);
 app.use(subEventosRoutes);
 app.use(empleadoRoutes);
 app.use(invitadoRoutes);
-//app.use(usuarioRoutes);
+app.use(usuarioRoutes);
 app.use(menuAlergiasRoutes);
 
 app.get("*", (req, res) => {

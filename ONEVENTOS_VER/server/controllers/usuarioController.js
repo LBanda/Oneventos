@@ -14,8 +14,8 @@ const createToken = (user) => {
 
 //Mostrar todos los usuarios registrados
 router.get("/api/usuarios", async (req, res) => {
-    const user = await Usuario.getAllUsers();
-    res.status(200).json(user);
+    const users = await Usuario.getAllUsers();
+    res.status(200).json(users);
 })
 
 //Mostrar el usuario según su ID
@@ -25,8 +25,19 @@ router.get("/api/usuarios/:id", async (req, res) => {
     res.status(200).json(user);
 })
 
+//Eliminar usuario según su id 
+router.delete("/api/usuarios/:id", async (req, res )=>{
+    const { id } = req.params;
+    const user = await Usuario.deleteUser(id);
+    if (user) {
+        res.status(201).json({message: "success", data: user});
+    }else{
+        res.status(201).json({message: "Could not delete users", errors: []})
+    }
+})
+
 //Mandar nuevo registro del usuario con método post
-router.post("/api/usuarios", async (req, res)=> {
+router.post("/api/usuarios/add", async (req, res)=> {
     // Obtener los datos del request y el usuario de la DB
     const { user } = req.body || {};
     const savedUser = await Usuario.addUser(user);
@@ -44,16 +55,7 @@ router.post("/api/usuarios", async (req, res)=> {
     }
 })
 
-//Eliminar usuario según su id 
-router.delete("/api/usuarios/:id", async (req, res )=>{
-    const { id } = req.params;
-    const user = await Usuario.deleteUser(id);
-    if (user) {
-        res.status(201).json({message: "success", data: user});
-    }else{
-        res.status(201).json({message: "Could not delete users", errors: []})
-    }
-})
+
 
 
 

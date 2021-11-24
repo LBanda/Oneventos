@@ -50,15 +50,15 @@ class Usuario {
 		}
 		// Crea la Conexion
 		const db = await openConnection();
-		const { email, password, nombre } = user;
+		const { email, password, nombre, rol } = user;
         // Encripta la Contrasena
 		const encryptedPwd = await encryptPassword(password);
 		// Inserta los datos a la query
 		const sqlInsert = `
-            INSERT INTO Usuarios(ID_Usuario, Email, Password, NombreUsuario)
-            VALUES(?, ?, ?, ?)
+            INSERT INTO Usuarios(ID_Usuario, Email, Password, NombreUsuario, ID_Rol)
+            VALUES(?, ?, ?, ?, ?)
         `;
-		const parameters = [ 0, email, encryptedPwd, nombre ];
+		const parameters = [ 0, email, encryptedPwd, nombre, rol ];
 		await db.query(sqlInsert, parameters);
 
 		const createdUser = await Usuario.tryLogin(email, password);
@@ -69,13 +69,13 @@ class Usuario {
 
 	static async getAllUsers() {
 		const db = await openConnection();
-		const [ rows ] = await db.query('SELECT ID_Usuario, NombreUsuario, Email FROM Usuarios');
+		const [ rows ] = await db.query('SELECT ID_Usuario, NombreUsuario, Email, ID_Rol FROM Usuarios');
 		await db.end();
 		return rows;
 	}
 	static async getUserById(id) {
 		const db = await openConnection();
-		const [ [rows] ] = await db.query('SELECT ID_Usuario, NombreUsuario, Email FROM Usuarios WHERE ID_Usuario = ?', [id]);
+		const [ [rows] ] = await db.query('SELECT ID_Usuario, NombreUsuario, Email, ID_Rol FROM Usuarios WHERE ID_Usuario = ?', [id]);
 		await db.end();
 		return rows;
 	}

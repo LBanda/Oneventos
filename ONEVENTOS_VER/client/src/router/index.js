@@ -9,7 +9,8 @@ import SubeventosInicioA from "../views/Administrador/SubeventosInicioA.vue";
 import ParticipantesRegistradosA from "../views/Administrador/ParticipantesRegistradosA.vue";
 import Alimentos from "../views/Administrador/Alimentos.vue";
 import Alergias from "../views/Administrador/Alergias.vue";
-import Usuarios from "../views/Administrador/Usuarios.vue";
+import ListarUsuarios from "../views/Administrador/ListarUsuarios.vue";
+import RegistrarUsuario from "../views/Administrador/RegistrarUsuario.vue";
 
 //ControlAcceso
 import EventosInicioC from "../views/ControlAcceso/EventosInicioC.vue";
@@ -95,8 +96,13 @@ const routes = [
   },
   {
     path: "/usuarios",
-    name: "Usuarios",
-    component: Usuarios
+    name: "ListarUsuarios",
+    component: ListarUsuarios
+  },
+  {
+    path: "/usuarios/add",
+    name: "RegistrarUsuario",
+    component: RegistrarUsuario
   },
 ];
 

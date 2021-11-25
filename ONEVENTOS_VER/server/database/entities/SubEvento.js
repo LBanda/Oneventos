@@ -1,4 +1,4 @@
-const { openConnection, openConnectionWith } = require('../connection');
+const { openConnection } = require('../connection');
 class SubEvento {
 	/**
 	 * 
@@ -46,7 +46,7 @@ class SubEvento {
 	 * @param {Array} subeventos 
 	 */
 	static async addSubeventos(subeventos) {
-		if (!subeventos) {
+		if (!subeventos || !subeventos.length) {
 			return false;
 		}
 
@@ -62,8 +62,7 @@ class SubEvento {
 			subevento.locacion
 		]);
 
-		// const db = await openConnection();
-		const db = await openConnectionWith("localhost", "root", "oneventos");
+		const db = await openConnection();
 
 		const [result] = await db.query(sqlInsert, [subeventosArray]);
 		await db.end();

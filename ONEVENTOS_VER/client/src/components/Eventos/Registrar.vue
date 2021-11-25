@@ -62,7 +62,7 @@
             >Cupo de invitados por empleado</label
           >
           <input
-          v-model.number="evento.maximoInvitado"
+            v-model.number="evento.maximoInvitado"
             class="form-control"
             type="number"
             name="cupoInvitados"
@@ -79,7 +79,7 @@
 
       <div>
         <label class="form-label" for="Area">Fecha de Fin</label>
-        <Calendario @selected="onDateEndSelected($event)"/>
+        <Calendario @selected="onDateEndSelected($event)" />
       </div>
 
       <div style="margin-bottom: 3%">
@@ -94,7 +94,7 @@
           <button
             @click="evento.imagen = null"
             type="button"
-            class=" btn btn-danger"
+            class="btn btn-danger"
             :disabled="!evento.imagen"
           >
             Eliminar Imagen
@@ -105,10 +105,7 @@
       <div style="margin-top: 3%">
         <label class="form-label" for="Area">Subeventos</label>
         <div class="container-btn">
-          <b-button
-            id="show-btn"
-            class=" btn btn-success"
-            @click="showModal"
+          <b-button id="show-btn" class="btn btn-success" @click="showModal"
             >Agregar
           </b-button>
         </div>
@@ -141,11 +138,11 @@
 
     <!-- AQUI EMPIEZA EL MODAL -->
     <b-modal
-        ref="my-modal"
-        hide-footer
-        title="Subevento"
-        id="modal-lg"
-        size="lg"
+      ref="my-modal"
+      hide-footer
+      title="Subevento"
+      id="modal-lg"
+      size="lg"
     >
       <Registrar>
         <template v-slot:close>
@@ -159,7 +156,7 @@
           </b-button>
         </template>
       </Registrar>
-  </b-modal>
+    </b-modal>
     <!-- AQUI TERMINA EL MODAL -->
   </div>
 </template>
@@ -176,7 +173,9 @@ export default {
   },
   computed: {
     // Carga todos los subeventos del estado
-    subeventos() { return this.$store.getters.getSubeventos }
+    subeventos() {
+      return this.$store.getters.getSubeventos;
+    },
   },
   data() {
     return {
@@ -189,36 +188,41 @@ export default {
         fechaFin: null,
         locacion: undefined,
         imagen: null,
-        maximoInvitado: undefined
-      }
+        maximoInvitado: undefined,
+      },
     };
   },
   methods: {
     async agregarEvento() {
-      const payload = {
-        evento: {...this.evento, imagen: undefined},
-        subeventos: [...this.subeventos]
-      };
-
-      const formData = new FormData();
-      let contentType = "application/json";
-
-      if (this.evento.imagen) {
-        formData.append("image", this.evento.imagen);
-        contentType = "multipart/form-data";
-      }
-
-      formData.append("data", JSON.stringify(payload));
+      const imageForm = new FormData();
+      imageForm.append("image", this.evento.imagen);
 
       try {
-        const response = await axios.post("http://localhost:8081/api/eventos", formData, {
-          headers: { "Content-Type": contentType }
-        });
+        const imgResponse = await axios.post(
+          "http://localhost:8081/images",
+          imageForm,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        );
 
-        if (response.status != 201) {
-          throw new Error(response.data)
-        } else {
-          return response.data;
+        if (imgResponse.status != 201) {
+          throw new Error("Failed to upload image", imgResponse);
+        }
+
+        const { filename } = imgResponse.data?.image ?? {};
+        const payload = {
+          evento: { ...this.evento, imagen: filename ?? "" },
+          subeventos: [...this.subeventos],
+        };
+
+        const eventResponse = await axios.post(
+          "http://localhost:8081/api/eventos",
+          payload
+        );
+
+        if (eventResponse.status != 201) {
+          throw new Error("Failed to upload evento", eventResponse);
         }
       } catch (e) {
         console.error(e);
@@ -262,7 +266,7 @@ export default {
     },
     onDateEndSelected(fechaFin) {
       this.evento.fechaFin = fechaFin;
-    }
+    },
   },
 };
 </script>

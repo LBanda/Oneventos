@@ -65,7 +65,7 @@ class Evento {
 			fechaFin,
 			locacion,
 			imagen,
-			maximoInvitados
+			maximoInvitado
 		} = evento;
 
 		const sqlInsert =
@@ -91,7 +91,7 @@ class Evento {
 			new Date(fechaFin),
 			locacion,
 			imagen,
-			maximoInvitados
+			maximoInvitado
 		];
 
 		const db = await openConnection();

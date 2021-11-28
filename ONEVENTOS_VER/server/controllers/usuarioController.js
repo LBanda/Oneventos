@@ -1,4 +1,4 @@
-const { Router} = require("express");
+const { Router } = require("express");
 const { Usuario } = require("../database/entities/Usuario");
 const { sign } = require("jsonwebtoken");
 
@@ -25,6 +25,7 @@ router.get("/api/usuarios/:id", async (req, res) => {
     res.status(200).json(user);
 })
 
+
 //Eliminar usuario según su id 
 router.delete("/api/usuarios/:id", async (req, res )=>{
     const { id } = req.params;
@@ -35,6 +36,7 @@ router.delete("/api/usuarios/:id", async (req, res )=>{
         res.status(201).json({message: "Could not delete users", errors: []})
     }
 })
+
 
 //Mandar nuevo registro del usuario con método post
 router.post("/api/usuarios/add", async (req, res)=> {
@@ -55,8 +57,12 @@ router.post("/api/usuarios/add", async (req, res)=> {
     }
 })
 
-
-
+router.put("/api/usuarios/editar/:id", async (req, res) => {
+    const { id } = req.params; 
+    const { user } = req.body; 
+    const updatedUser = await Usuario.editUser(parseInt(id), user);
+    res.status(200).json(updatedUser ?? {});
+})
 
 
 module.exports = {

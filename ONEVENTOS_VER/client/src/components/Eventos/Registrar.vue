@@ -7,6 +7,7 @@
       <div class="mb-3">
         <label class="form-label" for="nombreEvento">Nombre del evento</label>
         <input
+          v-model.trim="evento.nombre"
           class="form-control"
           type="text"
           name="nombreEvento"
@@ -20,6 +21,7 @@
           Descripción del evento</label
         >
         <input
+          v-model.trim="evento.descripcion"
           class="form-control"
           type="text"
           name="descripcionEvento"
@@ -32,10 +34,11 @@
         <label class="form-label" for="locacion">Locación</label>
         <input
           class="form-control"
+          v-model.trim="evento.locacion"
           type="text"
           name="locacion"
           title="locacion"
-          placeholder="Locacion"
+          placeholder="Queretaro, calle peñitas, numero 102"
         />
       </div>
 
@@ -45,6 +48,7 @@
             >Cupo de personas por evento</label
           >
           <input
+            v-model.number="evento.cupoMaximo"
             class="form-control"
             type="number"
             name="cupoEventos"
@@ -58,6 +62,7 @@
             >Cupo de invitados por empleado</label
           >
           <input
+            v-model.number="evento.maximoInvitado"
             class="form-control"
             type="number"
             name="cupoInvitados"
@@ -69,137 +74,38 @@
 
       <div>
         <label class="form-label" for="Area">Fecha de Inicio</label>
-        <Calendario />
+        <Calendario @selected="onDateStartSelected($event)" />
       </div>
 
       <div>
         <label class="form-label" for="Area">Fecha de Fin</label>
-        <Calendario />
+        <Calendario @selected="onDateEndSelected($event)" />
       </div>
 
       <div style="margin-bottom: 3%">
         <label for="imagen" style="display: block">Elige una imagen:</label>
         <div style="display: flex; gap: 3%">
           <b-form-file
-            v-model="fileEvento"
-            :state="Boolean(fileEvento)"
+            v-model="evento.imagen"
+            :state="!!evento.imagen"
             placeholder="Elige or arrastra un archivo..."
             drop-placeholder="Arrastra un archivo aquí..."
           />
           <button
-            v-on:click="eliminarImagen"
+            @click="evento.imagen = null"
             type="button"
-            class=" btn btn-danger"
-            :disabled="!fileEvento"
+            class="btn btn-danger"
+            :disabled="!evento.imagen"
           >
             Eliminar Imagen
           </button>
         </div>
       </div>
 
-      <div class="mb-3 input-col" style="gap: 5%">
-        <div>
-          <label class="form-label" for="Empresa">Empresa</label>
-          <div class="container-btn">
-            <input
-              v-model="empresa.nombreEmpresa"
-              id="form-ctrl"
-              class="form-control"
-              type="text"
-              name="empresa"
-              title="empresa"
-              placeholder="Toyota México"
-            />
-            <button
-              v-on:click="agregarEmpresa"
-              style="margin-top: 3.5px"
-              type="button"
-              class=" btn btn-success"
-            >
-              Agregar
-            </button>
-            <button
-              v-on:click="borrarEmpresas"
-              style="margin-top: 3.5px; margin-left: 1%"
-              type="button"
-              class=" btn btn-warning"
-            >
-              Borrar
-            </button>
-          </div>
-          <ol v-if="empresas.length">
-            <li
-              style="display: flex; position: relative; left: -3%"
-              v-for="empresa in empresas"
-              :key="empresa.nombreEmpresa"
-            >
-              <b-icon
-                class="del-icon"
-                icon="x-circle"
-                scale="1"
-                v-on:click="borrarEmpresa(empresa)"
-                variant="danger"
-              />
-              {{ empresa.nombreEmpresa }}
-            </li>
-          </ol>
-        </div>
-
-        <div>
-          <label class="form-label" for="Area">Área de trabajo</label>
-          <div class="container-btn">
-            <input
-              v-model="areaTrabajo.nombreAreaT"
-              id="form-ctrl"
-              class="form-control"
-              type="text"
-              name="area"
-              title="area"
-              placeholder="Restaurantes"
-            />
-            <button
-              v-on:click="agregarAreaTrabajo"
-              style="margin-top: 3.5px"
-              type="button"
-              class=" btn btn-success"
-            >
-              Agregar
-            </button>
-            <button
-              v-on:click="borrarAreasTrabajo"
-              style="margin-top: 3.5px; margin-left: 1%"
-              type="button"
-              class=" btn btn-warning"
-            >
-              Borrar
-            </button>
-          </div>
-          <ol v-if="areasTrabajo.length">
-            <li
-              style="display: flex; position: relative; left: -3%"
-              v-for="areaTrabajo in areasTrabajo"
-              :key="areaTrabajo.nombreAreaT"
-            >
-              <b-icon
-                class="del-icon"
-                icon="x-circle"
-                scale="1"
-                v-on:click="borrarAreaTrabajo(areaTrabajo)"
-                variant="danger"
-              />
-              {{ areaTrabajo.nombreAreaT }}
-            </li>
-          </ol>
-        </div>
-      </div>
-
       <div style="margin-top: 3%">
         <label class="form-label" for="Area">Subeventos</label>
         <div class="container-btn">
-          <b-button
-            id="show-btn"
-            class=" btn btn-success"
-            @click="showModal"
+          <b-button id="show-btn" class="btn btn-success" @click="showModal"
             >Agregar
           </b-button>
         </div>
@@ -213,7 +119,7 @@
               class="del-icon"
               icon="x-circle"
               scale="1"
-              v-on:click="borrarSubevento(subevento)"
+              @click="borrarSubevento(subevento)"
               variant="danger"
             />
             {{ subevento.nombre }}
@@ -224,7 +130,7 @@
       </div>
 
       <div class="container-registro">
-        <b-button class="crear" variant="dark" to="/eventosRegistroA">
+        <b-button class="crear" variant="dark" @click="agregarEvento">
           Registrar Evento
         </b-button>
       </div>
@@ -232,11 +138,11 @@
 
     <!-- AQUI EMPIEZA EL MODAL -->
     <b-modal
-        ref="my-modal"
-        hide-footer
-        title="Subevento"
-        id="modal-lg"
-        size="lg"
+      ref="my-modal"
+      hide-footer
+      title="Subevento"
+      id="modal-lg"
+      size="lg"
     >
       <Registrar>
         <template v-slot:close>
@@ -250,7 +156,7 @@
           </b-button>
         </template>
       </Registrar>
-  </b-modal>
+    </b-modal>
     <!-- AQUI TERMINA EL MODAL -->
   </div>
 </template>
@@ -258,6 +164,7 @@
 <script>
 import Calendario from "@/components/Calendario.vue";
 import Registrar from "@/components/Subeventos/Registrar.vue";
+import axios from "axios";
 export default {
   name: "RegistrarEvento",
   components: {
@@ -266,37 +173,61 @@ export default {
   },
   computed: {
     // Carga todos los subeventos del estado
-    subeventos() { return this.$store.getters.getSubeventos }
+    subeventos() {
+      return this.$store.getters.getSubeventos;
+    },
   },
   data() {
     return {
-      fileEvento: null,
       show: true,
-      empresas: [
-        { nombreEmpresa: "Microsoft" },
-        { nombreEmpresa: "Google" },
-        { nombreEmpresa: "Coca-Cola" },
-        { nombreEmpresa: "Amazon" },
-        { nombreEmpresa: "Sabritas" },
-        { nombreEmpresa: "Barcel" },
-      ],
-      empresa: {
-        nombreEmpresa: undefined,
+      evento: {
+        nombre: undefined,
+        descripcion: undefined,
+        cupoMaximo: undefined,
+        fechaInicio: null,
+        fechaFin: null,
+        locacion: undefined,
+        imagen: null,
+        maximoInvitado: undefined,
       },
-      areasTrabajo: [
-        { nombreAreaT: "Área 1" },
-        { nombreAreaT: "Área 2" },
-        { nombreAreaT: "Área 3" },
-        { nombreAreaT: "Área 4" },
-        { nombreAreaT: "Área 5" },
-        { nombreAreaT: "Área 6" },
-      ],
-      areaTrabajo: {
-        nombreAreaT: undefined,
-      }
     };
   },
   methods: {
+    async agregarEvento() {
+      const imageForm = new FormData();
+      imageForm.append("image", this.evento.imagen);
+
+      try {
+        const imgResponse = await axios.post(
+          "http://localhost:8081/images",
+          imageForm,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        );
+
+        if (imgResponse.status != 201) {
+          throw new Error("Failed to upload image", imgResponse);
+        }
+
+        const { filename } = imgResponse.data?.image ?? {};
+        const payload = {
+          evento: { ...this.evento, imagen: filename ?? "" },
+          subeventos: [...this.subeventos],
+        };
+
+        const eventResponse = await axios.post(
+          "http://localhost:8081/api/eventos/",
+          payload
+        );
+
+        if (eventResponse.status != 201) {
+          throw new Error("Failed to upload evento", eventResponse);
+        }
+      } catch (e) {
+          console.error(e);
+      }
+    },
     agregarEmpresa() {
       if (!this.empresa.nombreEmpresa) return;
 
@@ -324,15 +255,18 @@ export default {
     borrarSubevento(subevento) {
       this.subeventos = this.subeventos.filter((i) => i !== subevento);
     },
-    eliminarImagen() {
-      this.fileEvento = null;
-    },
     showModal() {
       this.$refs["my-modal"].show();
     },
     hideModal() {
       this.$refs["my-modal"].hide();
-    }
+    },
+    onDateStartSelected(fechaInicio) {
+      this.evento.fechaInicio = fechaInicio;
+    },
+    onDateEndSelected(fechaFin) {
+      this.evento.fechaFin = fechaFin;
+    },
   },
 };
 </script>

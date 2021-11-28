@@ -7,6 +7,8 @@ import EventoRegistroA from "../views/Administrador/EventoRegistroA.vue";
 import EmpleadosRegistradosA from "../views/Administrador/EmpleadosRegistradosA.vue";
 import SubeventosInicioA from "../views/Administrador/SubeventosInicioA.vue";
 import ParticipantesRegistradosA from "../views/Administrador/ParticipantesRegistradosA.vue";
+import EmpleadoRegistroA from "../views/Administrador/EmpleadoRegistroA.vue";
+import InvitadoRegistroA from "../views/Administrador/InvitadoRegistroA.vue";
 import Alimentos from "../views/Administrador/Alimentos.vue";
 import Alergias from "../views/Administrador/Alergias.vue";
 import Usuarios from "../views/Administrador/Usuarios.vue";
@@ -47,6 +49,16 @@ const routes = [
     path: "/participantesRegistradosA",
     name: "ParticipantesRegistradosA",
     component: ParticipantesRegistradosA
+  },
+  {
+    path: "/empleadoRegistroA",
+    name: "EmpleadoRegistroA",
+    component: EmpleadoRegistroA
+  },
+  {
+    path: "/invitadoRegistroA",
+    name: "invitadoRegistroA",
+    component: InvitadoRegistroA
   },
   {
     path: "/eventosInicioC",

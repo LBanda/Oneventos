@@ -3,7 +3,6 @@ import express, { json, static } from "express";
 import { Database, OPEN_CREATE } from "sqlite3";
 import { join } from 'path';
 import cors from "cors";
-import fs from "fs";
 
 const port = 8080;
 
@@ -12,7 +11,7 @@ var corsOptions = {
 }
 
 const app = express();
-const db = new Datebase("./database.db", OPEN_CREATE);
+const db = new Database("./database.db", OPEN_CREATE);
 const createUserSql = `
 CREATE TABLE Users (
 	Id TEXT PRIMARY KEY,

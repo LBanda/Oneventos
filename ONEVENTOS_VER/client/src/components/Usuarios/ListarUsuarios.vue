@@ -22,8 +22,9 @@
             <div>{{ user.Email }}</div>
             <div>{{ user.ID_Rol }}</div>
             <div class="actions">
-              <b-button variant="dark" size="sm" class="mr-2">
-                <b-icon icon="pencil-square" aria-hidden="true"></b-icon> Editar
+              <b-button  :to="'/usuarios/editar/'+user.ID_Usuario" variant="dark" size="sm" class="mr-2">
+                <b-icon icon="pencil-square" aria-hidden="true"></b-icon> 
+                 Editar 
               </b-button>
               <b-button v-on:click="borrarUsuario(user.ID_Usuario)" variant="danger" size="sm" class="mr-4">
                 <b-icon icon="x-circle" aria-hidden="true" ></b-icon> Eliminar

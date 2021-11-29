@@ -68,13 +68,13 @@ class Usuario {
 
 	static async getAllUsers() {
 		const db = await openConnection();
-		const [ rows ] = await db.query('SELECT ID_Usuario, NombreUsuario, Email, ID_Rol FROM Usuarios');
+		const [ rows ] = await db.query('SELECT * FROM Usuarios');
 		await db.end();
 		return rows;
 	}
 	static async getUserById(id) {
 		const db = await openConnection();
-		const [ [rows] ] = await db.query('SELECT ID_Usuario, NombreUsuario, Email, ID_Rol FROM Usuarios WHERE ID_Usuario = ?', [id]);
+		const [ [rows] ] = await db.query('SELECT * FROM Usuarios WHERE ID_Usuario = ?', [id]);
 		await db.end();
 		return rows;
 	}
@@ -144,6 +144,7 @@ class Usuario {
 	}*/
 	static async editUser(id, user) {
 		const {email, nombre, password, rol } = user
+		const encryptedPwd = await encryptPassword(password);
 	   
 	   const sql = (`UPDATE Usuarios 
 				   SET Email = ?, 
@@ -155,7 +156,7 @@ class Usuario {
 	   const insertValues = [
 		   email,
 		   nombre,
-		   password,
+		   encryptedPwd,
 		   rol,
 		   id
 	   ]

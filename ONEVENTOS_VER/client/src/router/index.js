@@ -11,6 +11,7 @@ import Alimentos from "../views/Administrador/Alimentos.vue";
 import Alergias from "../views/Administrador/Alergias.vue";
 import ListarUsuarios from "../views/Administrador/ListarUsuarios.vue";
 import RegistrarUsuario from "../views/Administrador/RegistrarUsuario.vue";
+import EditarUsuario from "../views/Administrador/EditarUsuario.vue";
 
 //ControlAcceso
 import EventosInicioC from "../views/ControlAcceso/EventosInicioC.vue";
@@ -20,6 +21,7 @@ import SubeventosInicioC from "../views/ControlAcceso/SubeventosInicioC.vue";
 import ParticipantesRegistradosC from "../views/ControlAcceso/ParticipantesRegistradosC.vue";
 import EmpleadoRegistroC from "../views/ControlAcceso/EmpleadoRegistroC.vue";
 import InvitadoRegistroC from "../views/ControlAcceso/InvitadoRegistroC.vue";
+
 
 Vue.use(VueRouter);
 
@@ -103,6 +105,11 @@ const routes = [
     path: "/usuarios/add",
     name: "RegistrarUsuario",
     component: RegistrarUsuario
+  },
+  {
+    path: "/usuarios/editar/:id",
+    name:"EditarUsuario",
+    component: EditarUsuario
   },
 ];
 

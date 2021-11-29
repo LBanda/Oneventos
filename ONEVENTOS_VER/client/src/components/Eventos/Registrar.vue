@@ -130,7 +130,10 @@
       </div>
 
       <div class="container-registro">
-        <b-button class="crear" variant="dark" @click="agregarEvento">
+        <b-button 
+        class="crear" 
+        variant="dark" 
+        @click="agregarEvento">
           Registrar Evento
         </b-button>
       </div>
@@ -266,6 +269,14 @@ export default {
     },
     onDateEndSelected(fechaFin) {
       this.evento.fechaFin = fechaFin;
+    },
+    clearEvento() {
+      this.eventos.nombre = "";
+      this.eventos.descripcion = "";
+      this.eventos.locacion = "";
+      this.eventos.cupoMaximo = "";
+      this.eventos.imagen = "";
+
     },
   },
 };

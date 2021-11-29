@@ -1,36 +1,34 @@
-// console.log("test")
-import express, { json, static } from "express";
-import { Database, OPEN_CREATE } from "sqlite3";
-import { join } from 'path';
-import cors from "cors";
+require('dotenv').config()
+const express = require("express");
+const cookieParser = require("cookie-parser");
+const { authRoutes } = require("./controllers/authController");
+const { eventosRoutes } = require("./controllers/eventosController");
+const { subEventosRoutes } = require("./controllers/subeventosController");
+const { empleadoRoutes } = require("./controllers/empleadoController");
+const { invitadoRoutes } = require("./controllers/invitadoController");
+const { auth } = require("./middleware/auth");
+const { join } = require("path");
+const cors = require("cors");
 
-const port = 8080;
-
-var corsOptions = {
-    origin: '*'
-}
+const port = process.env.SERVER_PORT;
 
 const app = express();
-const db = new Database("./database.db", OPEN_CREATE);
-const createUserSql = `
-CREATE TABLE Users (
-	Id TEXT PRIMARY KEY,
-	Email TEXT NOT NULL,
-	Password TEXT NOT NULL,
-);`
-db.run(createUserSql);
-db.close();
+app.use(cors({
+    origin: "*",
+    allowedHeaders: "*"
+}));
+app.use(cookieParser());
+app.use(express.json());
 
-app.use(json());
-app.use(cors(corsOptions));
-app.use(static(__dirname + "/public"));
+app.use(authRoutes);
+app.use(express.static(join(__dirname, "./views")));
+/* app.use(auth, express.static(join(__dirname, "./public"))); */
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
-
-app.get("/", (req, res) => {
-    const file = join(__dirname, "./public/index.html");
-    res.status(200).sendFile(file);
-})
+app.use(eventosRoutes);
+app.use(subEventosRoutes);
+app.use(empleadoRoutes);
+app.use(invitadoRoutes);
 
 app.get("*", (req, res) => {
     if (req.is("application/json")) {

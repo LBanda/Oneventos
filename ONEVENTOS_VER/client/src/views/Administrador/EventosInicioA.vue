@@ -1,8 +1,8 @@
 <template>
   <div class="inicio">
-    <b-button class="crear" variant="dark" to="/eventosInicioA"
-      >Nuevo Evento</b-button
-    >
+    <b-button class="crear" variant="dark" to="/eventosRegistroA">
+      Nuevo Evento
+    </b-button>
     <div class="filtro">
       <b-dropdown
         id="dropdown-right"
@@ -23,26 +23,27 @@
 
 <script>
 import Listar from "@/components/Eventos/Listar.vue";
-import { Evento } from "@/components/Eventos/Listar.vue";
+import EventosClient from "@/api/EventosClient";
 
 export default {
   name: "EventosInicioA",
-  data() {
-    return {
-      eventos: [
-        new Evento("Evento de prueba 1", "Lorem ipsum dolor sit amet..."),
-        new Evento("Evento de prueba 2", "Lorem ipsum dolor sit amet..."),
-        new Evento("Evento de prueba 3", "Lorem ipsum dolor sit amet..."),
-        new Evento("Evento de prueba 4", "Lorem ipsum dolor sit amet..."),
-        new Evento("Evento de prueba 5", "Lorem ipsum dolor sit amet..."),
-        new Evento("Evento de prueba 6", "Lorem ipsum dolor sit amet..."),
-      ],
-    };
-  },
   components: {
     Listar,
   },
-};
+  data() {
+    return {
+      eventos: [],
+    };
+  },
+  async created() {
+    await this.getAllEventos();
+  },
+  methods: {
+    async getAllEventos() {
+      this.eventos = await EventosClient.getAllEventos();
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -101,7 +102,7 @@ export default {
 .filtro {
   display: flex;
   justify-content: flex-end;
-  width: 100vw;
+  width: 95vw;
 }
 
 .filtro > div {

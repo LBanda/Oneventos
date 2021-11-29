@@ -67,9 +67,15 @@
         </div>
       </div>
 
-      <!-- <div>
+      <div>
+        <label class="form-label" for="Area">Fecha de Inicio</label>
         <Calendario />
-      </div> -->
+      </div>
+
+      <div>
+        <label class="form-label" for="Area">Fecha de Fin</label>
+        <Calendario />
+      </div>
 
       <div style="margin-bottom: 3%">
         <label for="imagen" style="display: block">Elige una imagen:</label>
@@ -83,7 +89,7 @@
           <button
             v-on:click="eliminarImagen"
             type="button"
-            class="my-btn btn btn-danger"
+            class=" btn btn-danger"
             :disabled="!fileEvento"
           >
             Eliminar Imagen
@@ -108,7 +114,7 @@
               v-on:click="agregarEmpresa"
               style="margin-top: 3.5px"
               type="button"
-              class="my-btn btn btn-success"
+              class=" btn btn-success"
             >
               Agregar
             </button>
@@ -116,7 +122,7 @@
               v-on:click="borrarEmpresas"
               style="margin-top: 3.5px; margin-left: 1%"
               type="button"
-              class="my-btn btn btn-warning"
+              class=" btn btn-warning"
             >
               Borrar
             </button>
@@ -155,7 +161,7 @@
               v-on:click="agregarAreaTrabajo"
               style="margin-top: 3.5px"
               type="button"
-              class="my-btn btn btn-success"
+              class=" btn btn-success"
             >
               Agregar
             </button>
@@ -163,7 +169,7 @@
               v-on:click="borrarAreasTrabajo"
               style="margin-top: 3.5px; margin-left: 1%"
               type="button"
-              class="my-btn btn btn-warning"
+              class=" btn btn-warning"
             >
               Borrar
             </button>
@@ -192,7 +198,7 @@
         <div class="container-btn">
           <b-button
             id="show-btn"
-            class="my-btn btn btn-success"
+            class=" btn btn-success"
             @click="showModal"
             >Agregar
           </b-button>
@@ -217,140 +223,53 @@
         </ol>
       </div>
 
-      <div class="container-registro" style="display: flex">
-        <div class="button-with-title">
-          <button type="submit" class="btn btn-success mb-3">
-            Registrar Evento
-          </button>
-        </div>
+      <div class="container-registro">
+        <b-button class="crear" variant="dark" to="/eventosRegistroA">
+          Registrar Evento
+        </b-button>
       </div>
     </form>
 
     <!-- AQUI EMPIEZA EL MODAL -->
-    <div>
-      <b-modal
+    <b-modal
         ref="my-modal"
         hide-footer
         title="Subevento"
         id="modal-lg"
         size="lg"
-      >
-        <div class="d-block text-center"></div>
-        <div>
-          <b-form>
-            <b-form-group
-              id="input-group-1"
-              label="Nombre del subevento"
-              label-for="input-1"
-              required
-            >
-              <b-form-input
-                id="input-1"
-                v-model="subevento.nombreS"
-                placeholder="Ceremonia de apertura"
-                required
-              ></b-form-input>
-            </b-form-group>
-
-            <b-form-group
-              id="input-group-2"
-              label="Descripción del evento"
-              label-for="input-2"
-            >
-              <b-form-input
-                id="input-2"
-                v-model="subevento.descripcionS"
-                placeholder="Conferencia"
-                required
-              ></b-form-input>
-            </b-form-group>
-
-            <b-form-group
-              id="input-group-3"
-              label="Ubicación"
-              label-for="input-3"
-            >
-              <b-form-input
-                id="input-3"
-                v-model="subevento.ubicacionS"
-                placeholder="Calle 22, Quéretaro, AV. Peñuelas"
-                required
-              ></b-form-input>
-            </b-form-group>
-
-            <!-- <div>
-              <Calendario />
-            </div> -->
-
-            <div>
-              <label for="demo-sb">Cupo maximo</label>
-              <b-form-spinbutton
-                id="demo-sb"
-                v-model="value"
-                min="1"
-                max="10000"
-              ></b-form-spinbutton>
-            </div>
-
-            <div style="margin-bottom: 3%">
-              <label for="imagen" style="display: block"
-                >Elige una imagen:</label
-              >
-              <div style="display: flex; gap: 3%">
-                <b-form-file
-                  v-model="subevento.file"
-                  :state="Boolean(subevento.file)"
-                  placeholder="Elige or arrastra un archivo..."
-                  drop-placeholder="Arrastra un archivo aquí..."
-                />
-                <button
-                  v-on:click="eliminarImagenSubEvento"
-                  type="button"
-                  class="my-btn btn btn-danger"
-                  :disabled="!subevento.file"
-                >
-                  Eliminar Imagen
-                </button>
-              </div>
-            </div>
-          </b-form>
-        </div>
-
-        <div class="container-btn">
-          <b-button
-            class="mt-3"
-            variant="outline-success"
-            block
-            @click="agregarSubevento"
-          >
-            Agregar
-          </b-button>
+        @newsubeventos="console.log('work')"
+    >
+      <Registrar>
+        <template v-slot:close>
           <b-button
             class="mt-3"
             variant="outline-warning"
             block
+            v-on:newsubevento="console.log('wtf')"
             @click="hideModal"
           >
             Cerrar
           </b-button>
-        </div>
-      </b-modal>
-    </div>
+        </template>
+      </Registrar>
+  </b-modal>
     <!-- AQUI TERMINA EL MODAL -->
   </div>
 </template>
 
 <script>
-// import Calendario from "@/components/Calendario.vue";
+import Calendario from "@/components/Calendario.vue";
+import Registrar from "@/components/Subeventos/Registrar.vue";
 export default {
-  name: "Registrar",
-  // components: {
-  //   Calendario,
-  // },
+  name: "RegistrarEvento",
+  components: {
+    Calendario,
+    Registrar,
+  },
   data() {
     return {
-      value: 0,
       fileEvento: null,
+      subeventos: [],
       show: true,
       empresas: [
         { nombreEmpresa: "Microsoft" },
@@ -373,40 +292,7 @@ export default {
       ],
       areaTrabajo: {
         nombreAreaT: undefined,
-      },
-      subeventos: [
-        {
-          nombreS: "Subevento 1",
-          descripcionS: "Descripcion 1",
-          ubicacionS: "Locación 1",
-        },
-        {
-          nombreS: "Subevento 2",
-          descripcionS: "Descripcion 2",
-          ubicacionS: "Locación 2",
-        },
-        {
-          nombreS: "Subevento 3",
-          descripcionS: "Descripcion 3",
-          ubicacionS: "Locación 3",
-        },
-        {
-          nombreS: "Subevento 4",
-          descripcionS: "Descripcion 4",
-          ubicacionS: "Locación 4",
-        },
-        {
-          nombreS: "Subevento 5",
-          descripcionS: "Descripcion 5",
-          ubicacionS: "Locación 5",
-        },
-      ],
-      subevento: {
-        nombreS: undefined,
-        descripcionS: undefined,
-        ubicacionS: undefined,
-        file: undefined,
-      },
+      }
     };
   },
   methods: {
@@ -422,11 +308,9 @@ export default {
       this.areasTrabajo.push({ ...this.areaTrabajo });
       this.areaTrabajo.nombreAreaT = "";
     },
-    agregarSubevento() {
-      this.subeventos.push({ ...this.subevento });
-      this.subevento.nombreS = "";
-      this.subevento.descripcionS = "";
-      this.subevento.ubicacionS = "";
+    agregarSubevento(value) {
+      const [subevento] = value;
+      this.subeventos.push(subevento);
     },
     borrarEmpresas() {
       this.empresas = [];
@@ -445,9 +329,6 @@ export default {
     },
     eliminarImagen() {
       this.fileEvento = null;
-    },
-    eliminarImagenSubEvento() {
-      this.subevento.file = null;
     },
     onSubmit(event) {
       event.preventDefault();
@@ -481,6 +362,54 @@ export default {
 </script>
 
 <style scoped>
+/* ----------------------------------------------
+ * Generated by Animista on 2021-10-10 23:2:25
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation slide-in-bottom
+ * ----------------------------------------
+ */
+@-webkit-keyframes slide-in-bottom {
+  0% {
+    -webkit-transform: translateY(1000px);
+    transform: translateY(1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-bottom {
+  0% {
+    -webkit-transform: translateY(1000px);
+    transform: translateY(1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.crear {
+  position: fixed;
+  width: 30vw;
+  bottom: 3%;
+  left: 35vw;
+  z-index: 2;
+
+  animation-name: slide-in-bottom;
+  animation-duration: 0.75s;
+}
+
 button {
   width: 49%;
   font-size: 1rem;
@@ -540,10 +469,6 @@ nav > a {
   justify-content: space-between;
 }
 
-.my-btn {
-  display: grid !important;
-}
-
 .input-col {
   display: flex;
   justify-content: space-between;
@@ -557,12 +482,6 @@ nav > a {
 ol {
   list-style: circle;
   margin-top: 3%;
-}
-
-.button-with-title {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
 .container-registro {

@@ -33,11 +33,7 @@ router.put("api/subevento/:id/editar", async (req, res) => {
 
 })
 
-router.get("/api/subeventos/:id", async(req, res) => {
-    const { id } = req.params;
-    const subevento = await SubEvento.getAllSubeventos(id);
-    res.status(200).json(subevento ?? []);
-})
+
 
 
 module.exports = {

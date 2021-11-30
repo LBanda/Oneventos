@@ -12,6 +12,7 @@ const { empleadoRoutes } = require("./controllers/empleadoController");
 const { invitadoRoutes } = require("./controllers/invitadoController");
 const { menuAlergiasRoutes } = require("./controllers/menuAlergiasController");
 const { empresasRoutes } = require("./controllers/empresasController");
+const { areastrabajoRoutes } = require("./controllers/areastrabajoController");
 
 
 // const { auth } = require("./middleware/auth");
@@ -49,6 +50,7 @@ app.use(empleadoRoutes);
 app.use(invitadoRoutes);
 app.use(menuAlergiasRoutes);
 app.use(empresasRoutes);
+app.use(areastrabajoRoutes);
 
 app.post("/images", upload, (req, res) => {
     if (req.file) {

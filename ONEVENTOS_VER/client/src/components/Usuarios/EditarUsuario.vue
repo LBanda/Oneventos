@@ -135,44 +135,18 @@ export default {
     },
     methods: {
         async updateUser() {
+          const response = confirm(`Confirmar actualización de usuario`)
             console.warn(this.user)
-            const response = await axios.put(`${Config.BASE_URL}/api/usuarios/editar/${this.$route.params.id}`,{
+            if (response){
+              const result = await this.axios.put(`${Config.BASE_URL}/api/usuarios/editar/${this.$route.params.id}`,{
                 //user: { ...this.user}
                 user: {email: this.user.Email, nombre: this.user.NombreUsuario, rol: this.user.ID_Rol, password: this.user.Password}
-                //email: this.user.Email,
-                //nombre: this.user.Nombre,
-                //rol: this.user.Rol,
-                //password: this.user.Password,
                 })
-            if(response.status == 200){
-                this.$router.push({name: 'ListarUsuarios'})
+                if(result.status == 200){
+                  this.$router.push({name: 'ListarUsuarios'})
+            }
             }
         },
-            /*async postData(e){
-                const response = confirm(`Confirmar actualización de usuario`)
-                if (response){
-                    this.axios.put(`${Config.BASE_URL}/api/usuarios/editar/`+this.$route.params.id, {
-                    user: { ...this.user}
-                    //email:{ ...this.user.Email},
-                    //nombre:{ ...this.user.NombreUsuario},
-                    //rol:{ ...this.user.ID_Rol},
-                    //password:{ ...this.user.Password},
-                    
-                    //email: this.user.email,
-                    //nombre: this.user.nombre,
-                    //rol: this.user.rol,
-                    //password: this.user.password,
-                    
-                    })
-                    .then((result) =>{
-                        console.warn(result)
-                        this.$route.push({name: 'ListarUsuarios'})
-                        
-                    })
-                    e.preventDefault();
-                
-                }
-        },*/
     },
     }
     /*computed: {

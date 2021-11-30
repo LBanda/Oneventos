@@ -10,7 +10,7 @@
       <div class="mb-3 input-col">
         <div style="width: 47%">
           <label class="form-label" for="nombreAlergia">Tipos de alergias</label>
-          <span class="container-btn cols-3">
+          <div class="container-btn ">
             <input
               v-model="alergia.nombre"
               id="form-control"
@@ -28,7 +28,7 @@
             >
               Agregar
           </button>
-          </span>
+          </div>
           <br>
           <ol>
             <li

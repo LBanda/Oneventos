@@ -92,8 +92,8 @@ class SubEvento {
 				   SET  Descripcion = ?, 
 				   FechaInicio = ?, 
 				   FechaFin = ?, 
-				   CupoMaximo = ?,
 				   Nombre = ?,
+				   CupoMaximo = ?,
 				   Locacion = ? 
 				   WHERE ID_Subevento = ?`);
 

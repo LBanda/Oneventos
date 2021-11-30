@@ -70,6 +70,56 @@ class SubEvento {
 		return result['affectedRows'] > 0;
 	}
 
+	/**
+     * @param {number} id El ID del Subevento
+     */
+	 static async deleteSubeventoById(id) {
+        const db = await openConnection();
+        const [ rows ] = await db.query("DELETE  * FROM subeventos WHERE ID_Subevento = ?");
+        await db.end();
+        return rows;
+    }
+
+	/**
+	 * @param {number} id El ID del suevento
+	 */
+	 static async editSubevento(subevento) {
+		const {
+			Nombre,
+			Descripcion,
+			FechaInicio,
+			FechaFin, 
+			CupoMaximo,
+			Locacion
+		} = subevento
+	   
+	   const sql = `UPDATE Subeventos 
+				   SET Nombre = ?, 
+				   Descripcion = ?, 
+				   FechaInicio = ?, 
+				   FechaFin = ?, 
+				   CupoMaximo = ?,
+				   Locacion = ? 
+				   WHERE ID_Subevento = ?`;
+
+	   const insertValues = [
+		   0,
+		   0,
+		   Nombre,
+		   Descripcion,
+		   FechaInicio,
+		   FechaFin,
+		   CupoMaximo,
+		   Locacion 
+	   ]
+	   console.log(insertValues)
+	   const db = await openConnection();
+	   const [rows] = await db.query(sql, insertValues);
+	   await db.end();
+	   return rows['affectedRows'] > 0;
+	}
+
+
 
 
 }

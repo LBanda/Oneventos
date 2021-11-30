@@ -11,6 +11,8 @@ const { subEventosRoutes } = require("./controllers/subeventosController");
 const { empleadoRoutes } = require("./controllers/empleadoController");
 const { invitadoRoutes } = require("./controllers/invitadoController");
 const { menuAlergiasRoutes } = require("./controllers/menuAlergiasController");
+const { empresasRoutes } = require("./controllers/empresasController");
+
 
 // const { auth } = require("./middleware/auth");
 const { join } = require("path");
@@ -46,6 +48,7 @@ app.use(subEventosRoutes);
 app.use(empleadoRoutes);
 app.use(invitadoRoutes);
 app.use(menuAlergiasRoutes);
+app.use(empresasRoutes);
 
 app.post("/images", upload, (req, res) => {
     if (req.file) {

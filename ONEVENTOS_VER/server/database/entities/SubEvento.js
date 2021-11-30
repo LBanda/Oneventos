@@ -70,47 +70,41 @@ class SubEvento {
 		return result['affectedRows'] > 0;
 	}
 
-	/**
-     * @param {number} id El ID del Subevento
-     */
-	 static async deleteSubeventoById(id) {
-        const db = await openConnection();
-        const [ rows ] = await db.query("DELETE  * FROM subeventos WHERE ID_Subevento = ?");
-        await db.end();
-        return rows;
-    }
+	
+	/** 
+		* @param {number} id El ID del subevento
+		*/
+		static async deleteSubeventoById(id) {
+			const db = await openConnection();
+			const [ rows ] = await db.query('DELETE FROM subeventos WHERE ID_Subevento = ?', [id]);
+			await db.end();
+			return rows;
+		}
+
 
 	/**
-	 * @param {number} id El ID del suevento
+	 * @param {Array} subevento El ID del suevento
 	 */
-	 static async editSubevento(subevento) {
-		const {
-			Nombre,
-			Descripcion,
-			FechaInicio,
-			FechaFin, 
-			CupoMaximo,
-			Locacion
-		} = subevento
+	 static async editSubevento(id, subevento) {
+		 const {nombre,descripcion,fechainicio,fechafin,cupomaximo,locacion } = subevento
 	   
-	   const sql = `UPDATE Subeventos 
-				   SET Nombre = ?, 
-				   Descripcion = ?, 
+	   const sql = (`UPDATE subeventos 
+				   SET  Descripcion = ?, 
 				   FechaInicio = ?, 
 				   FechaFin = ?, 
 				   CupoMaximo = ?,
+				   Nombre = ?,
 				   Locacion = ? 
-				   WHERE ID_Subevento = ?`;
+				   WHERE ID_Subevento = ?`);
 
 	   const insertValues = [
-		   0,
-		   0,
-		   Nombre,
-		   Descripcion,
-		   FechaInicio,
-		   FechaFin,
-		   CupoMaximo,
-		   Locacion 
+		   nombre,
+		   descripcion,
+		   fechainicio,
+		   fechafin,
+		   cupomaximo,
+		   locacion,
+		   id 
 	   ]
 	   console.log(insertValues)
 	   const db = await openConnection();

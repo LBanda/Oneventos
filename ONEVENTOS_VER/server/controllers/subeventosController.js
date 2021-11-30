@@ -20,16 +20,24 @@ router.post("/api/subeventos/", async (req, res) => {
     }
 })
 
+
+//Eliminar subevento según su id 
 router.delete("/api/subevento/:id/borrar", async (req, res )=>{
     const { id } = req.params;
     const subevento = await SubEvento.deleteSubeventoById(id);
-    res.status(200).json(subevento ?? {});
-  
+    if (subevento) {
+        res.status(201).json({message: "success", data: subevento});
+    }else{
+        res.status(201).json({message: "Could not delete subevento", errors: []})
+    }
 })
-router.put("api/subevento/:id/editar", async (req, res) => {
-    const {id} = req.params; 
-    const subevento = SubEvento.editSubeventoById(id);
-    res.status(200).json(subevento ?? []);
+
+router.put("api/subevento/editar/:id", async (req, res) => {
+    const { id } = req.params; 
+    const { subevento } = req.body;
+    const updateSubevento = await SubEvento.editSubevento(parseInt(id),subevento);
+    res.status(200).json(updateSubevento ?? {});
+    
 
 })
 

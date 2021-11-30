@@ -19,7 +19,17 @@
               title="nombreMenu"
               placeholder="Vegetariano"
             />
+
+            <button
+              @click="agregarMenu(menu.nombre)"
+              style="margin-top: 3.5px"
+              type="submit"
+              class="my-btn btn btn-dark"
+            >
+              Agregar
+            </button>
           </div>
+          <br>
           <ol>
             <li
               style="display: flex; position: relative; left: -3%"
@@ -30,21 +40,13 @@
                 class="del-icon"
                 icon="x-circle"
                 scale="1"
-                v-on:click="borrarMenu(menu)"
+                v-on:click="borrarMenu(menu.ID_Menu)"
                 variant="danger"
               />
               {{ menu.Tipo_Menu }}
             </li>
           </ol>
-          <button
-              @click="agregarMenu"
-              style="margin-top: 3.5px"
-              type="submit"
-              class="my-btn btn btn-success"
-            >
-              Agregar
-          </button>
-          <button
+          <!--button
             type="button"
             style="margin-top: 3.5px; margin-left: 1%"
             class="btn btn-md btn-warning resize-del"
@@ -52,6 +54,7 @@
           >
             Borrar
           </button>
+          -->
         </div>
       </div>    
   </form>    
@@ -87,10 +90,13 @@ export default {
           }
           })*/
           .then((result) =>{
+            //this.$router.push({name:'Menus'})
             console.warn(result)
+            this.$router.push({name: 'EventosInicioA'})
           })
           e.preventDefault();
         },
+
         /*agregarMenu(e){
           axios.post(`${Config.BASE_URL}/api/menu/`, {
             menu: this.menu})
@@ -101,35 +107,21 @@ export default {
         },*/
         agregarMenu() {
         this.$store.commit("addMenu", {...this.menu})
+        //this.$store.dispatch("SetMenus")
         //this.menu.Tipo_Menu = '';
         //this.clearMenu();
         },
-        /*
-        async agregarMenu() {
-        const payload = {
-          menu: {...this.menu},
-        };
-        const formData = new FormData();
-        let contentType = "application/json";
-        formData.append("data", JSON.stringify(payload));
-        try {
-          const response = await axios.post("http://localhost:8081/api/menu", formData, {
-            headers: { "Content-Type": contentType }
-          });
-          if (response.status != 201) {
-            throw new Error(response.data)
-          } else {
-            return response.data;
-          }
-        } catch (e) {
-          console.error(e);
-        }*/        
-        //this.$store.commit("addMenu", {...this.menu})
-        //this.menu.Tipo_Menu = '';
-        //this.clearMenu();
+        borrarMenu(id) {
+          const response = confirm(`¿Estas seguro que quieres borrar este menú?`)
+          if(response){
+            this.axios.delete(`${Config.BASE_URL}/api/menu/`+ id)
+              .then(() =>{
+            //console.warn(result)
+            //this.$store.state.users = result.data
+            this.$store.dispatch("getMenus"); 
+              })
+          }    
         },
-        borrarMenus() {
-        this.menus = [];
         },
         clearMenu() {
         //this.menus = this.menus.filter((i) => i !== menu);

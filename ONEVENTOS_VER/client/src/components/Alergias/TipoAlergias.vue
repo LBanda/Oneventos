@@ -10,7 +10,7 @@
       <div class="mb-3 input-col">
         <div style="width: 47%">
           <label class="form-label" for="nombreAlergia">Tipos de alergias</label>
-          <div class="container-btn">
+          <span class="container-btn cols-3">
             <input
               v-model="alergia.nombre"
               id="form-control"
@@ -20,7 +20,16 @@
               title="nombreAlergia"
               placeholder="Mariscos"
             />
-          </div>
+            <button
+              @click="addAlergia"
+              style="margin-top: 3.5px"
+              type="submit"
+              class="my-btn btn btn-dark"
+            >
+              Agregar
+          </button>
+          </span>
+          <br>
           <ol>
             <li
               style="display: flex; position: relative; left: -3%"
@@ -31,28 +40,12 @@
                 class="del-icon"
                 icon="x-circle"
                 scale="1"
-                v-on:click="borrarAlergia(alergia)"
+                v-on:click="borrarAlergia(alergia.ID_Alergia)"
                 variant="danger"
               />
               {{ alergia.Nombre }}
             </li>
-            <button
-              @click="addAlergia"
-              style="margin-top: 3.5px"
-              type="submit"
-              class="my-btn btn btn-success"
-            >
-              Agregar
-          </button>
           </ol>
-          <button
-            type="button"
-            style="position: relative; margin-left: auto; margin-right: 3%"
-            class="btn btn-md btn-warning resize-del"
-            v-on:click="borrarAlergias"
-          >
-            Borrar
-          </button>
         </div>
       </div> 
     </form>    
@@ -85,8 +78,20 @@ export default {
         {alergia: { ...this.alergia}})
         .then((result) =>{
         console.warn(result)
+        this.$router.push({name: 'EventosInicioA'})
         })
         e.preventDefault();
+        },
+        borrarAlergia(id) {
+          const response = confirm(`¿Estas seguro que quieres borrar este tipo de alergia?`)
+          if(response){
+            this.axios.delete(`${Config.BASE_URL}/api/alergias/`+ id)
+              .then(() =>{
+            //console.warn(result)
+            //this.$store.state.users = result.data
+            this.$store.dispatch("getAlergias"); 
+              })
+          }    
         },
 
         borrarAlergias() {

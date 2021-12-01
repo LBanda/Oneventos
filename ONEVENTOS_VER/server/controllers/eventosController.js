@@ -9,12 +9,6 @@ router.get("/api/eventos", async (req, res) => {
     res.status(200).json(eventos ?? []);
 })
 
-router.get("/api/eventos/:id/consultar", async (req, res) => {
-    const { id } = req.params;
-    const evento = await Evento.getEventoById(id);
-    res.status(200).json(evento ?? {});
-})
-
 router.delete("/api/eventos/:id", async (req, res) => {
     const { id } = req.params;
     const evento = await Evento.deleteEventoById(id);
@@ -31,6 +25,12 @@ router.get("/api/eventos/:id/empleados", async (req, res) => {
     const { id } = req.params;
     const empleados = await Evento.getEmpleadosByEventoId(id);
     res.status(200).json(empleados ?? []);
+})
+
+router.get("/api/eventos/consultar/:id", async (req, res) => {
+    const { id } = req.params;
+    const evento = await Evento.getEventoById(id);
+    res.status(200).json(evento ?? {});
 })
 
 router.post("/api/eventos/", async (req, res) => {

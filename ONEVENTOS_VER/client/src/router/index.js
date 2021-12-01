@@ -4,6 +4,7 @@ import VueRouter from "vue-router";
 // Administrador
 import EventosInicioA from "../views/Administrador/EventosInicioA.vue";
 import EventoRegistroA from "../views/Administrador/EventoRegistroA.vue";
+import EventoConsultaA from "../views/Administrador/EventoConsultaA.vue";
 import EmpleadosRegistradosA from "../views/Administrador/EmpleadosRegistradosA.vue";
 import SubeventosInicioA from "../views/Administrador/SubeventosInicioA.vue";
 import ParticipantesRegistradosA from "../views/Administrador/ParticipantesRegistradosA.vue";
@@ -18,6 +19,7 @@ import EditarUsuario from "../views/Administrador/EditarUsuario.vue";
 //ControlAcceso
 import EventosInicioC from "../views/ControlAcceso/EventosInicioC.vue";
 import EventoRegistroC from "../views/ControlAcceso/EventoRegistroC.vue";
+import EventoConsultaC from "../views/ControlAcceso/EventoConsultaC.vue";
 import EmpleadosRegistradosC from "../views/ControlAcceso/EmpleadosRegistradosC.vue";
 import SubeventosInicioC from "../views/ControlAcceso/SubeventosInicioC.vue";
 import ParticipantesRegistradosC from "../views/ControlAcceso/ParticipantesRegistradosC.vue";
@@ -32,11 +34,16 @@ const routes = [
     path: "/",
     name: "EventosInicioA",
     component: EventosInicioA
-  },
+  }, 
   {
     path: "/eventosRegistroA",
     name: "EventoRegistroA",
     component: EventoRegistroA
+  },
+  {
+    path:"/eventosConsultaA/:id",
+    name: "EventoConsultaA",
+    component: EventoConsultaA 
   },
   {
     path: "/empleadosRegistradosA/:id",
@@ -72,6 +79,11 @@ const routes = [
     path: "/eventoRegistroC",
     name: "EventoRegistroC",
     component: EventoRegistroC
+  },
+  {
+    path:"/eventosConsultaC/:id",
+    name: "EventoConsultaC",
+    component: EventoConsultaC 
   },
   {
     path: "/empleadosRegistradosC",

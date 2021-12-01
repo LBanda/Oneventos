@@ -28,7 +28,7 @@
       <div class="mt-3">
         <b-button-group>
           <b-button variant="success">Reporte</b-button>
-          <b-button variant="info">Info</b-button>
+          <b-button variant="dark" :to="`/eventosConsultaA/${evento.ID_Evento}`">Info</b-button>
           <b-button v-on:click="borrarEvento(evento.ID_Evento)" variant="danger">Eliminar</b-button>
         </b-button-group>
       </div>

@@ -103,7 +103,7 @@ class SubEvento {
 	 * @param {Array} subeventos 
 	 */
 	static async addSubeventos(subeventos) {
-		if (!subeventos) {
+		if (!subeventos || !subeventos.length) {
 			return false;
 		}
 

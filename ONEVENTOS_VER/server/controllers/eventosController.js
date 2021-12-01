@@ -15,7 +15,7 @@ router.get("/api/eventos/:id/consultar", async (req, res) => {
     res.status(200).json(evento ?? {});
 })
 
-router.delete("/api/invitados/:id/borrar", async (req, res) => {
+router.delete("/api/eventos/:id", async (req, res) => {
     const { id } = req.params;
     const evento = await Evento.deleteEventoById(id);
     res.status(200).json(evento ?? {});

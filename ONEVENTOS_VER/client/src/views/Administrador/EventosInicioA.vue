@@ -31,7 +31,7 @@ export default {
   created() {
     // Llama una acción de la store, que se
     // va a completar de manera asíncrona
-    this.$store.dispatch("setEventos");
+    this.$store.dispatch("setEventosAction");
   },
   computed: {
     // Obtiene los eventos del estado, que inicialmente es []

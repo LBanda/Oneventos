@@ -10,19 +10,19 @@ export default new Vuex.Store({
 	// Este es tu estado y está disponible en toda la app
 	// Es como data
 	state: {
-        eventos: [],
-        subeventos: [],
+		eventos: [],
+		subeventos: [],
 		invitados: []
-    },
+	},
 	// Estos métodos se usan para cambiar el estado, no modifiques el estado excepto aquí
 	// Se usa de la siguiente manera: this.$store.commit("setEventos", [])
 	mutations: {
 		setEventos(state, eventos) {
 			state.eventos = eventos;
 		},
-        addSubevento(state, subevento) {
-            state.subeventos.push(subevento);
-        },
+		addSubevento(state, subevento) {
+			state.subeventos.push(subevento);
+		},
 		setInvitados(state, invitados) {
 			state.invitados = invitados;
 		}
@@ -30,17 +30,17 @@ export default new Vuex.Store({
 	// Estos métodos se usan para cargar datos y luego llamar una mutación
 	// Es como métodos, pero se llaman así: this.$store.dispatch("setEventos")
 	actions: {
-        async setEventos(state) {
-            const eventos = await EventosClient.getAllEventos();
+		async setEventosAction(state) {
+			const eventos = await EventosClient.getAllEventos();
 			// Aquí es donde su muta el estado con los nuevos eventos cargados del API
-            state.commit("setEventos", eventos);
-        },
+			state.commit("setEventos", eventos);
+		},
 
 		async setInvitados(state) {
-            const invitados = await InvitadosClient.getAllInvitados();
+			const invitados = await InvitadosClient.getAllInvitados();
 			// Aquí es donde su muta el estado con los nuevos eventos cargados del API
-            state.commit("setInvitados", invitados);
-        }
+			state.commit("setInvitados", invitados);
+		}
 	},
 	// Estos métodos se usan para acceder al estado de una manera controlada
 	// Es como computed, se usa como: this.$store.getters.getEventos

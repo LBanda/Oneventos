@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="btn-sub">
-      <b-button class="subcon" variant="dark" to="/empleadoRegistroC"
+      <b-button class="subcon" variant="dark" to="/empleadoRegistroA"
         >Registrar Nuevo Empleado</b-button
       >
       <b-button class="subcon" variant="dark" to="/subeventosInicioA"
@@ -98,7 +98,6 @@ export default {
 </script>
 
 <style scoped>
-
 .table {
   display: flex;
   justify-content: flex-start;

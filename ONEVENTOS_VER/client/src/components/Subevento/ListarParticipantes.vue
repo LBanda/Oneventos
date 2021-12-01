@@ -52,7 +52,7 @@ export default {
   name: "ListarParticipantes",
   data() {
     return {
-      fields: ["asistencia", "asistencia", "empleados_registrados", "Info"],
+      fields: ["asistencia", "empleados_registrados", "Info"],
       items: [
         { empleados_registrados: "Paula Sofia Soto Ayala" },
         { empleados_registrados: "Luis Claudio Soto Ayala" },

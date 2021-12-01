@@ -2,17 +2,27 @@
   <div class="lista-flex">
     <b-card
       v-for="subevento in subeventos"
-      :key="subevento.titulo"
-      :title="subevento.titulo"
+      :img-src="require('@/assets/descarga.png')"
+      :key="subevento.Nombre"
+      class="mb-2"
       img-alt="Image"
       img-top
-      tag="article"
       style="max-width: 20rem"
-      class="mb-2"
+      tag="article"
     >
-      <b-card-text>
-        {{ subevento.texto }}
-      </b-card-text>
+      <b-card-body>
+
+        <b-card-title>
+          <b-link :to="`/subeventoInicioA/${subevento.ID_Evento}`">
+            {{ subevento.Nombre }}
+          </b-link>
+        </b-card-title>
+
+        <b-card-text>
+          {{ subevento.Descripcion }}
+        </b-card-text>
+
+      </b-card-body>
 
       <div class="mt-3">
         <b-button-group>
@@ -26,24 +36,16 @@
 </template>
 
 <script>
-export function Subevento(titulo, texto) {
-  this.titulo = titulo;
-  this.texto = texto;
-}
 export default {
   name: "Listar",
   props: {
-    subeventos: {
-      required: true,
-      validator: function (value) {
-        return value.every((e) => e instanceof Subevento);
-      },
-    },
+    subeventos: Array
   },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped src="../Eventos/Eventos.css"></style>
 <style scoped>
 .lista-flex {
   display: flex;

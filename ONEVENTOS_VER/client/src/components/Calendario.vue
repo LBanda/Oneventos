@@ -3,14 +3,14 @@
     <b-input-group class="mb-3">
       <b-form-input
         id="example-input"
-        v-model="valueC"
+        v-model="selected"
         type="text"
         placeholder="YYYY-MM-DD"
         autocomplete="off"
       />
       <b-input-group-append>
         <b-form-datepicker
-          v-model="valueC"
+          v-model="selected"
           :hide-header="true"
           button-only
           right
@@ -28,9 +28,8 @@ export default {
   name: "Calendario",
   data() {
     return {
-      valueC: "",
       formatted: "",
-      selected: "",
+      selected: ""
     };
   },
   methods: {
@@ -39,6 +38,7 @@ export default {
       this.formatted = ctx.selectedFormatted;
       // The following will be an empty string until a valid date is entered
       this.selected = ctx.selectedYMD;
+      this.$emit("selected", this.selected);
     },
   },
 };

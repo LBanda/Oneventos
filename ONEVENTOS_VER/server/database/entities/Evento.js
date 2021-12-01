@@ -64,6 +64,10 @@ class Evento {
 	}
 
 	static async addEvento(evento) {
+		if (!evento) {
+			return false;
+		}
+
 		const {
 			nombre,
 			descripcion,
@@ -72,7 +76,7 @@ class Evento {
 			fechaFin,
 			locacion,
 			imagen,
-			maximoInvitados
+			maximoInvitado
 		} = evento;
 
 		const sqlInsert =
@@ -98,14 +102,14 @@ class Evento {
 			new Date(fechaFin),
 			locacion,
 			imagen,
-			maximoInvitados
+			maximoInvitado
 		];
 
 		const db = await openConnection();
 
 		const [ result ] = await db.query(sqlInsert, insertValues);
 		await db.end();
-		return result['affectedRows'] > 0;
+		return result;
 	}
 
 	/**
@@ -113,7 +117,7 @@ class Evento {
 	 */
 	static async deleteEventoById(id) {
 		const db = await openConnection();
-		const sql = "DELETE * FROM Eventos WHERE ID_Evento = ?";
+		const sql = "DELETE FROM Eventos WHERE ID_Evento = ?";
 		const [rows] = await db.query(sql, [id]);
 		await db.end();
 		return rows;

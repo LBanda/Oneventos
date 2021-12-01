@@ -48,3 +48,6 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
+ONEVENTOS_VER/.vscode/launch.json
+.DS_Store
+.DS_Store

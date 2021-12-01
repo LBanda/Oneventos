@@ -50,20 +50,6 @@
             max="10000"
           ></b-form-spinbutton>
         </div>
-
-        <div style="margin-bottom: 3%">
-          <label for="imagen" style="display: block">Elige una imagen:</label>
-          <b-form-file
-            v-model="file1"
-            :state="Boolean(file1)"
-            placeholder="Elige or arrastra un archivo..."
-            drop-placeholder="Arrastra un archivo aquí..."
-          />
-
-          <div class="mt-3" v-if="file1 && file1.name">
-            Archivo seleccionado: {{ file1.name }}
-          </div>
-        </div>
       </b-form>
     </div>
 

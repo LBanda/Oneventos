@@ -1,6 +1,6 @@
 <template>
   <div class="inicio">
-    <b-button class="crear" variant="dark" to="/empleadosRegistradosA"
+    <b-button class="crear" variant="dark" to="/subeventosInicioA"
       >Regresar</b-button
     >
     <div class="filtro">
@@ -23,26 +23,21 @@
 
 <script>
 import Listar from "@/components/Subeventos/Listar.vue";
-import { Subevento } from "@/components/Subeventos/Listar.vue";
-
 export default {
   name: "SubeventosInicioA",
   components: {
     Listar,
   },
-  data() {
-    return {
-      subeventos: [
-        new Subevento("Subevento de prueba 1", "Lorem ipsum dolor sit amet..."),
-        new Subevento("Subevento de prueba 2", "Lorem ipsum dolor sit amet..."),
-        new Subevento("Subevento de prueba 3", "Lorem ipsum dolor sit amet..."),
-        new Subevento("Subevento de prueba 4", "Lorem ipsum dolor sit amet..."),
-        new Subevento("Subevento de prueba 5", "Lorem ipsum dolor sit amet..."),
-        new Subevento("Subevento de prueba 6", "Lorem ipsum dolor sit amet..."),
-      ],
-    };
+  created() {
+    // Llama una acción de la store, que se
+    // va a completar de manera asíncrona
+    this.$store.dispatch("setSubeventosAction");
   },
-};
+  computed: {
+    // Obtiene los eventos del estado, que inicialmente es []
+    eventos() { return this.$store.getters.getSubeventos }
+  }
+}
 </script>
 
 <style scoped>

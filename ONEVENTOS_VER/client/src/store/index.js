@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import EventosClient from "@/api/EventosClient";
+import SubeventosClient from "@/api/SubeventosClient";
 
 Vue.use(Vuex);
 
@@ -18,6 +19,9 @@ export default new Vuex.Store({
 		setEventos(state, eventos) {
 			state.eventos = eventos;
 		},
+		setSubeventos(state, subevento) {
+			state.subeventos = subevento;
+		},
         addSubevento(state, subevento) {
             state.subeventos.push(subevento);
         }
@@ -29,6 +33,12 @@ export default new Vuex.Store({
             const eventos = await EventosClient.getAllEventos();
 			// Aquí es donde su muta el estado con los nuevos eventos cargados del API
             state.commit("setEventos", eventos);
+        },
+
+		async setSubeventosAction(state) {
+            const subeventos = await SubeventosClient.getAllSubeventos();
+			// Aquí es donde su muta el estado con los nuevos eventos cargados del API
+            state.commit("setSubeventos", subeventos);
         },
 	},
 	// Estos métodos se usan para acceder al estado de una manera controlada

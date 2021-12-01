@@ -112,6 +112,97 @@ class Evento {
 		return result;
 	}
 
+
+	/**
+	 * @param {number} id El ID del evento
+	 */
+	 static async editEvento(id, evento) {
+		const {nombre, descripcion, cupomaximo, fechainicio, fechafin, locacion, imagen, maximoinvitados } = evento
+		
+		const sql = (`UPDATE eventos 
+				   SET Nombre = ?, 
+				   Descripcion = ?, 
+				   CupoMaximo = ?,
+				   FechaInicio = ?,
+				   FechaFin = ?,
+				   Locacion = ?,
+				   Imagen = ?,
+				   MaximoInvitados = ? 
+				   WHERE ID_Evento = ?`);
+		
+		 const insertValues = [
+			 nombre,
+			 descripcion,
+			 cupomaximo,
+			 new Date(fechainicio),
+			 new Date(fechafin),
+			 locacion,
+			 imagen,
+			 maximoinvitados,
+			 id
+		 ]
+		 console.log(insertValues);
+		 const db = await openConnection();
+		 const [rows] = await db.query(sql, insertValues);
+		 await db.end();
+		 return rows['affectedRows'] > 0;
+
+	}
+
+	static async addEvento(evento) {
+		if (!evento) {
+			return false;
+		}
+
+		const {
+			nombre,
+			descripcion,
+			cupoMaximo,
+			fechaInicio,
+			fechaFin,
+			locacion,
+			imagen,
+			maximoInvitado
+		} = evento;
+
+		const sqlInsert =
+			`INSERT INTO Eventos (
+				ID_Evento,
+				Nombre,
+				Descripcion,
+				CupoMaximo,
+				FechaInicio,
+				FechaFin,
+				Locacion,
+				Imagen,
+				MaximoInvitados
+			)
+			VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+		const insertValues = [
+			0,
+			nombre,
+			descripcion,
+			cupoMaximo,
+			new Date(fechaInicio),
+			new Date(fechaFin),
+			locacion,
+			imagen,
+			maximoInvitado
+		];
+
+		const db = await openConnection();
+
+		const [ result ] = await db.query(sqlInsert, insertValues);
+		await db.end();
+		return result;
+	}
+
+
+
+
+
+
 	/**
 	 * @param {number} id El ID del evento
 	 */

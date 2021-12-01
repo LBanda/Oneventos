@@ -130,7 +130,10 @@
       </div>
 
       <div class="container-registro">
-        <b-button class="crear" variant="dark" @click="agregarEvento">
+        <b-button 
+        class="crear" 
+        variant="dark" 
+        @click="agregarEvento">
           Registrar Evento
         </b-button>
       </div>
@@ -217,7 +220,7 @@ export default {
         };
 
         const eventResponse = await axios.post(
-          "http://localhost:8081/api/eventos",
+          "http://localhost:8081/api/eventos/",
           payload
         );
 
@@ -225,7 +228,7 @@ export default {
           throw new Error("Failed to upload evento", eventResponse);
         }
       } catch (e) {
-        console.error(e);
+          console.error(e);
       }
     },
     agregarEmpresa() {
@@ -266,6 +269,14 @@ export default {
     },
     onDateEndSelected(fechaFin) {
       this.evento.fechaFin = fechaFin;
+    },
+    clearEvento() {
+      this.eventos.nombre = "";
+      this.eventos.descripcion = "";
+      this.eventos.locacion = "";
+      this.eventos.cupoMaximo = "";
+      this.eventos.imagen = "";
+
     },
   },
 };

@@ -9,7 +9,7 @@
       >
         <b-form-input
           id="input-1"
-          v-model="subevento.nombre"
+          v-model="subeventos.nombre"
           placeholder="Ceremonia de apertura"
           required
         />
@@ -21,7 +21,7 @@
       >
         <b-form-input
           id="input-2"
-          v-model="subevento.descripcion"
+          v-model="subeventos.descripcion"
           placeholder="Conferencia"
           required
         />
@@ -29,24 +29,25 @@
       <b-form-group id="input-group-3" label="Ubicación" label-for="input-3">
         <b-form-input
           id="input-3"
-          v-model="subevento.ubicacion"
+          v-model="subeventos.locacion"
           placeholder="Calle 22, Quéretaro, AV. Peñuelas"
           required
         />
       </b-form-group>
-      <div>
+     <div>
         <label class="form-label" for="Area">Fecha de Inicio</label>
-        <Calendario />
+        <Calendario @selected="onDateStartSelected($event)" />
       </div>
+
       <div>
         <label class="form-label" for="Area">Fecha de Fin</label>
-        <Calendario />
+        <Calendario @selected="onDateEndSelected($event)" />
       </div>
       <div>
         <label for="demo-sb">Cupo maximo</label>
-        <b-form-spinbutton id="demo-sb" v-model="subevento.cupoMaximo" min="1" max="10000" />
+        <b-form-spinbutton id="demo-sb" v-model="subeventos.cupoMaximo" min="1" max="10000" />
       </div>
-      <div style="margin-top: 3%">
+      <!-- <div style="margin-top: 3%">
         <label for="imagen" style="display: block">Elige una imagen:</label>
         <div style="display: flex; gap: 3%">
           <b-form-file
@@ -64,7 +65,7 @@
             Eliminar Imagen
           </button>
         </div>
-      </div>
+      </div> -->
     </b-form>
 
     <div class="container-btn">
@@ -92,30 +93,36 @@ export default {
   data() {
     return {
       show: true,
-      subevento: {
+      subeventos: {
         nombre: undefined,
         descripcion: undefined,
-        ubicacion: undefined,
-        cupoMaximo: 0,
-        file: undefined,
+        locacion: undefined,
+        fechaInicio: null,
+        fechaFin: null,
+        cupoMaximo: null,
       },
     };
   },
   methods: {
     agregarSubevento() {
       // Envía una mutación junto con un subevento nuevo para el estado 
-      this.$store.commit("addSubevento", {...this.subevento});
+      this.$store.commit("addSubevento", {...this.subeventos});
       this.clearSubevento();
     },
     eliminarImagenSubEvento() {
-      this.subevento.file = undefined;
+      this.subeventos.file = undefined;
     },
     clearSubevento() {
-      this.subevento.nombre = undefined;
-      this.subevento.descripcion = undefined;
-      this.subevento.ubicacion = undefined;
-      this.subevento.file = undefined;
-    }
+      this.subeventos.nombre = undefined;
+      this.subeventos.descripcion = undefined;
+      this.subeventos.locacion = undefined;
+    },
+    onDateStartSelected(fechaInicio) {
+      this.subeventos.fechaInicio = fechaInicio;
+    },
+    onDateEndSelected(fechaFin) {
+      this.subeventos.fechaFin = fechaFin;
+    },
   },
 };
 </script>

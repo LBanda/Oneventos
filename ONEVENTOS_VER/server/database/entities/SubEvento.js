@@ -1,4 +1,4 @@
-const { openConnection } = require('../connection');
+const { openConnection, openConnectionWith } = require('../connection');
 class SubEvento {
 	/**
 	 * 
@@ -46,23 +46,24 @@ class SubEvento {
 	 * @param {Array} subeventos 
 	 */
 	static async addSubeventos(subeventos) {
-		if (!subeventos || !subeventos.length) {
+		if (!subeventos) {
 			return false;
 		}
 
-		const sqlInsert = `INSERT INTO SubEventos (ID_Subevento,ID_Evento,Descripcion,CupoMaximo,FechaInicio,FechaFin,Nombre,Locacion) VALUES ?`;
+		const sqlInsert = `INSERT INTO SubEventos (ID_Subevento,ID_Evento,Descripcion,FechaInicio,FechaFin,Nombre,CupoMaximo,Locacion) VALUES(?)`;
 		const subeventosArray = subeventos.map(subevento => [
 			0,
 			subevento.ID_Evento,
 			subevento.descripcion,
-			subevento.cupoMaximo,
 			new Date(subevento.fechaInicio),
 			new Date(subevento.fechaFin),
 			subevento.nombre,
+			subevento.cupoMaximo,
 			subevento.locacion
 		]);
 
-		const db = await openConnection();
+		// const db = await openConnection();
+		const db = await openConnectionWith("localhost", "root", "oneventos");
 
 		const [result] = await db.query(sqlInsert, [subeventosArray]);
 		await db.end();

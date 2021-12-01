@@ -14,6 +14,7 @@ const { menuAlergiasRoutes } = require("./controllers/menuAlergiasController");
 const { empresasRoutes } = require("./controllers/empresasController");
 const { areastrabajoRoutes } = require("./controllers/areastrabajoController");
 
+const { usuarioRoutes } = require("./controllers/usuarioController");
 
 // const { auth } = require("./middleware/auth");
 const { join } = require("path");
@@ -25,7 +26,7 @@ const viewsFolder = "./views";
 const app = express();
 
 app.use(cors({ origin: "*", allowedHeaders: "*" }));
-app.use(express.urlencoded({ extended: true} ));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());
 
@@ -48,7 +49,7 @@ app.use(eventosRoutes);
 app.use(subEventosRoutes);
 app.use(empleadoRoutes);
 app.use(invitadoRoutes);
-//app.use(usuarioRoutes);
+app.use(usuarioRoutes);
 app.use(menuAlergiasRoutes);
 app.use(empresasRoutes);
 app.use(areastrabajoRoutes);

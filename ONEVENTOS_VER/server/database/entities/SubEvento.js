@@ -12,13 +12,13 @@ class SubEvento {
 	 * @param {string} Locacion 
 	 */
 	constructor(
-		ID_Subevento, 
-		ID_Evento, 
-		Descripcion, 
-		FechaInicio, 
-		FechaFin, 
-		Nombre, 
-		CupoMaximo, 
+		ID_Subevento,
+		ID_Evento,
+		Descripcion,
+		FechaInicio,
+		FechaFin,
+		Nombre,
+		CupoMaximo,
 		Locacion
 	) {
 		this.ID_Subevento = ID_Subevento;
@@ -45,9 +45,9 @@ class SubEvento {
 	/**
 	 * @param {number} id El ID del subevento
 	 */
-	 static async getSubeventoById(id) {
+	static async getSubeventoById(id) {
 		const db = await openConnection();
-		const [ [rows] ] = await db.query('SELECT * FROM subeventos WHERE ID_Subevento = ?', [id]);
+		const [[rows]] = await db.query('SELECT * FROM subeventos WHERE ID_Subevento = ?', [id]);
 		await db.end();
 		return rows;
 	}
@@ -55,14 +55,50 @@ class SubEvento {
 	/**
 	 * @param {number} id El ID del subevento
 	 */
-	 static async getParticipantesBySubeventoId(id) {
+	static async getParticipantesBySubeventoId(id) {
 		const db = await openConnection();
-		const [ [rows] ] = await db.query("SELECT nombre,apellido FROM `empleados-subeventos` as Ev, empleados as Em WHERE Ev.ID_Empleado = Em.ID_Empleado AND ID_Subevento = ?", [id]);
+		const [[rows]] = await db.query("SELECT nombre,apellido FROM `empleados-subeventos` as Ev, empleados as Em WHERE Ev.ID_Empleado = Em.ID_Empleado AND ID_Subevento = ?", [id]);
 		await db.end();
 		return rows;
 	}
 
-	
+	/**
+	 * @param {number} id El ID del suevento
+	 */
+	static async editSubevento(subevento) {
+		const {
+			Nombre,
+			Descripcion,
+			FechaInicio,
+			FechaFin,
+			CupoMaximo,
+			Locacion
+		} = subevento
+
+		const sql = `UPDATE Subeventos 
+				   SET Nombre = ?, 
+				   Descripcion = ?, 
+				   FechaInicio = ?, 
+				   FechaFin = ?, 
+				   CupoMaximo = ?,
+				   Locacion = ? 
+				   WHERE ID_Empleado = ?`;
+
+		const insertValues = [
+			0,
+			0,
+			Nombre,
+			Descripcion,
+			FechaInicio,
+			FechaFin,
+			CupoMaximo,
+			Locacion
+		]
+		const db = await openConnection();
+		const [rows] = await db.query(sql, insertValues);
+		await db.end();
+		return rows['affectedRows'] > 0;
+	}
 	/** 
 	 * @param {Array} subeventos 
 	 */
@@ -71,7 +107,7 @@ class SubEvento {
 			return false;
 		}
 
-		const sqlInsert = `INSERT INTO SubEventos (ID_Subevento,ID_Evento,Descripcion,FechaInicio,FechaFin,Nombre,CupoMaximo,Locacion) VALUES(?)`;
+		const sqlInsert = `INSERT INTO SubEventos (ID_Subevento,ID_Evento,Descripcion,FechaInicio,FechaFin,Nombre,CupoMaximo,Locacion) VALUES ?`;
 		const subeventosArray = subeventos.map(subevento => [
 			0,
 			subevento.ID_Evento,

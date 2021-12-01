@@ -1,10 +1,10 @@
 import Config from '@/api/config';
 import axios from 'axios';
 
-export default class MenusClient {
-	static async getAllMenus() {
+export default class UsuariosClient {
+	static async getAllUsers() {
 		try {
-			const response = await axios.get(`${Config.BASE_URL}/api/menu`);
+			const response = await axios.get(`${Config.BASE_URL}/api/usuarios`);
 			if (response.status != 200) {
 				throw new Error(response.data)
 			} else {
@@ -16,9 +16,9 @@ export default class MenusClient {
 		}
 	}
 
-    static async getMenuById(id) {
+    static async getUserById(id) {
         try {
-			const response = await axios.get(`${Config.BASE_URL}/api/menu/${id}`);
+			const response = await axios.get(`${Config.BASE_URL}/api/usuarios/${id}`);
 			if (response.status != 200) {
 				throw new Error(response.data)
 			} else {
@@ -30,17 +30,18 @@ export default class MenusClient {
 		}
     }
 
-	/*static async addMenu(){
-		try{
-			const response = await axios.post(`${Config.BASE_URL}/api/menu`, this.menu)
+    static async deleteUserById(id) {
+        try {
+			const response = await axios.delete(`${Config.BASE_URL}/api/usuarios/${id}`);
 			if (response.status != 200) {
 				throw new Error(response.data)
 			} else {
 				return response.data;
-			}			
+			}
 		} catch (e) {
 			console.log(e);
 			return {}
 		}
-	}*/
+    }
+
 }

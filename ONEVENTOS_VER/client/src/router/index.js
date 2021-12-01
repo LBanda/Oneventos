@@ -11,7 +11,9 @@ import EmpleadoRegistroA from "../views/Administrador/EmpleadoRegistroA.vue";
 import InvitadoRegistroA from "../views/Administrador/InvitadoRegistroA.vue";
 import Alimentos from "../views/Administrador/Alimentos.vue";
 import Alergias from "../views/Administrador/Alergias.vue";
-import Usuarios from "../views/Administrador/Usuarios.vue";
+import ListarUsuarios from "../views/Administrador/ListarUsuarios.vue";
+import RegistrarUsuario from "../views/Administrador/RegistrarUsuario.vue";
+import EditarUsuario from "../views/Administrador/EditarUsuario.vue";
 
 //ControlAcceso
 import EventosInicioC from "../views/ControlAcceso/EventosInicioC.vue";
@@ -21,6 +23,7 @@ import SubeventosInicioC from "../views/ControlAcceso/SubeventosInicioC.vue";
 import ParticipantesRegistradosC from "../views/ControlAcceso/ParticipantesRegistradosC.vue";
 import EmpleadoRegistroC from "../views/ControlAcceso/EmpleadoRegistroC.vue";
 import InvitadoRegistroC from "../views/ControlAcceso/InvitadoRegistroC.vue";
+
 
 Vue.use(VueRouter);
 
@@ -107,8 +110,18 @@ const routes = [
   },
   {
     path: "/usuarios",
-    name: "Usuarios",
-    component: Usuarios
+    name: "ListarUsuarios",
+    component: ListarUsuarios
+  },
+  {
+    path: "/usuarios/add",
+    name: "RegistrarUsuario",
+    component: RegistrarUsuario
+  },
+  {
+    path: "/usuarios/editar/:id",
+    name:"EditarUsuario",
+    component: EditarUsuario
   },
 ];
 

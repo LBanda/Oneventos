@@ -5,46 +5,50 @@
       <h5><strong> Menús</strong></h5>
     </div>
     </div>
-    <form class="form" method="post">
+    <form @submit="postData" class="form" method="post">
       <div class="mb-3 input-col">
         <div style="width: 47%">
-          <label class="form-label" for="Menu">Tipos de menú</label>
+          <label class="form-label" for="nombreMenu">Tipos de menú</label>
           <div class="container-btn">
             <input
-              v-model="menu.nombreMenu"
-              id="form-ctrl"
-              class="form-control"
+              v-model="menu.nombre"
+              id="form-control"
+              class="form-control mr-sm-2"
               type="text"
-              name="menu"
-              title="menu"
+              name="nombreMenu"
+              title="nombreMenu"
               placeholder="Vegetariano"
+              size="sm"
             />
+
+            <button
+              @click="agregarMenu(menu.nombre)"
+              style="margin-top: 3.5px"
+              type="submit"
+              size="sm"
+              class="my-btn btn btn-dark my-2 my-sm-1"
+            >
+              Agregar
+            </button>
           </div>
-          <ol v-if="menus.length">
+          <br>
+          <ol>
             <li
               style="display: flex; position: relative; left: -3%"
               v-for="menu in menus"
-              :key="menu.nombreMenu"
+              :key="menu.ID_Menu"
             >
               <b-icon
                 class="del-icon"
                 icon="x-circle"
                 scale="1"
-                v-on:click="borrarMenu(menu)"
+                v-on:click="borrarMenu(menu.ID_Menu)"
                 variant="danger"
               />
-              {{ menu.nombreMenu }}
+              {{ menu.Tipo_Menu }}
             </li>
           </ol>
-          <button
-              v-on:click="agregarMenu"
-              style="margin-top: 3.5px"
-              type="button"
-              class="my-btn btn btn-success"
-            >
-              Agregar
-            </button>
-          <button
+          <!--button
             type="button"
             style="margin-top: 3.5px; margin-left: 1%"
             class="btn btn-md btn-warning resize-del"
@@ -52,6 +56,7 @@
           >
             Borrar
           </button>
+          -->
         </div>
       </div>    
   </form>    
@@ -59,35 +64,82 @@
 </template>
 
 <script>
+// <ol v-if="menus.length"> </ol>
+import axios from 'axios'
+import Vue from 'vue'
+import VueAxios from 'vue-axios'
+import Config from '@/api/config';
+Vue.use(VueAxios, axios)
+
 export default {
-    name: "MenuAlergias",
+    name: "Menus",
     data() {
         return {
         show: true,
-        menus: [
-            { nombreMenu: "Vegano" },
-            { nombreMenu: "Vegetariano" },
-            { nombreMenu: "Postres sin azúcar" },
-            { nombreMenu: "Menú alternativo para alérgicos" },
-        ],
+      
         menu: {
-        nombreMenu: " ",
-      },
-    };
+        nombre: undefined
+        },
+      };
     },
     methods: {
+        async postData(e){
+          this.axios.post(`${Config.BASE_URL}/api/menu/`, {
+          menu:{ ...this.menu}})
+          /*{
+          headers: {
+          'Content-Type': 'application/json'
+          }
+          })*/
+          .then((result) =>{
+            //this.$router.push({name:'Menus'})
+            console.warn(result)
+            this.$router.push({name: 'EventosInicioA'})
+          })
+          e.preventDefault();
+        },
+
+        /*agregarMenu(e){
+          axios.post(`${Config.BASE_URL}/api/menu/`, {
+            menu: this.menu})
+            .then((result) =>{
+              console.warn(result)
+            })
+            e.preventDefault();
+        },*/
         agregarMenu() {
-        this.menus.push({ ...this.menu });
-        this.menu.nombreMenu = "";
+        this.$store.commit("addMenu", {...this.menu})
+        //this.$store.dispatch("SetMenus")
+        //this.menu.Tipo_Menu = '';
+        //this.clearMenu();
         },
-        borrarMenus() {
-        this.menus = [];
+        borrarMenu(id) {
+          const response = confirm(`¿Estas seguro que quieres borrar este menú?`)
+          if(response){
+            this.axios.delete(`${Config.BASE_URL}/api/menu/`+ id)
+              .then(() =>{
+            //console.warn(result)
+            //this.$store.state.users = result.data
+            this.$store.dispatch("getMenus"); 
+              })
+          }    
         },
-        borrarMenu(menu) {
-        this.menus = this.menus.filter((i) => i !== menu);
         },
+        clearMenu() {
+        //this.menus = this.menus.filter((i) => i !== menu);
+        this.menu.Tipo_Menu = undefined;
+        },
+      mounted (){
+      this.$store.dispatch("getMenus");     
     },
-};
+      computed: {
+        menus() {
+            return this.$store.state.menus;
+          }
+        },
+    }
+
+
 </script>
 
 <style scoped>

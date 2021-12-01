@@ -17,7 +17,7 @@ router.get("/api/subeventos/:id", async (req, res) => {
 })
 
 router.put("api/subeventos/:id/editar", async (req, res) => {
-    const {id} = req.params; 
+    const { id } = req.params;
     const subevento = SubEvento.editEventoById(id);
     res.status(200).json(subevento ?? []);
 

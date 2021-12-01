@@ -10,7 +10,7 @@ const { eventosRoutes } = require("./controllers/eventosController");
 const { subEventosRoutes } = require("./controllers/subeventosController");
 const { empleadoRoutes } = require("./controllers/empleadoController");
 const { invitadoRoutes } = require("./controllers/invitadoController");
-const {menuAlergiasRoutes} = require("./controllers/menuAlergiasController");
+const { menuAlergiasRoutes } = require("./controllers/menuAlergiasController");
 
 // const { auth } = require("./middleware/auth");
 const { join } = require("path");
@@ -22,7 +22,7 @@ const viewsFolder = "./views";
 const app = express();
 
 app.use(cors({ origin: "*", allowedHeaders: "*" }));
-app.use(express.urlencoded({ extended: true} ));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());
 

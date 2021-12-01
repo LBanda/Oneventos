@@ -1,5 +1,6 @@
 <template>
   <div class="lista-flex">
+
     <b-card
       v-for="evento in eventos"
       :img-src="require('@/assets/descarga.png')"

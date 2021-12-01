@@ -3,21 +3,29 @@
     <b-button class="crear" variant="dark" to="/eventosRegistroA">
       Nuevo Evento
     </b-button>
-    <div class="filtro">
-      <b-dropdown
-        id="dropdown-right"
-        right
-        text="Ordenar por..."
-        variant="dark"
-        class="m-2"
-      >
-        <b-dropdown-item href="#">Más reciente</b-dropdown-item>
-        <b-dropdown-item href="#">Más antiguo</b-dropdown-item>
-        <b-dropdown-item href="#">Orden alfabético</b-dropdown-item>
-      </b-dropdown>
+    <div class="div">
+      <div class="filtro">
+        <b-dropdown
+          id="dropdown-right"
+          right
+          text="Ordenar por..."
+          variant="dark"
+          class="m-2"
+        >
+          <b-dropdown-item href="#">Más reciente</b-dropdown-item>
+          <b-dropdown-item href="#">Más antiguo</b-dropdown-item>
+          <b-dropdown-item href="#">Orden alfabético</b-dropdown-item>
+        </b-dropdown>
+      </div>
+      <div class="search-wrapper">
+        <b-form-input type ="text" size="sm" class="mr-sm-2" placeholder="Buscar evento" v-model="search"
+        @change="onChange" @keyup="onChange" @search="handleSearch"></b-form-input>
+        <b-button size="sm" class="my-2 my-sm-0" type="submit" variant="dark">Search</b-button>
+      </div>
     </div>
-
-    <Listar :eventos="eventos" />
+    <br>
+    <div v-for="evento in eventosFiltrados" :key="evento.ID_Evento"></div>
+      <Listar :eventos="eventos" />
   </div>
 </template>
 
@@ -25,6 +33,12 @@
 import Listar from "@/components/Eventos/Listar.vue";
 export default {
   name: "EventosInicioA",
+  data(){
+    return{
+      search: '',
+
+    }
+  },
   components: {
     Listar,
   },
@@ -35,8 +49,20 @@ export default {
   },
   computed: {
     // Obtiene los eventos del estado, que inicialmente es []
-    eventos() { return this.$store.getters.getEventos }
+    eventos() { return this.$store.getters.getEventos },
+    eventosFiltrados(){
+      return this.eventos.filter(evento => evento.Nombre.includes(this.search));
+    }
+  },
+  methods:{
+    onChange(){
+      this.$emit("search", this.search)
+    },
+    handleSearch(value){
+      console.log(value)
+    }
   }
+
 }
 </script>
 
@@ -176,4 +202,13 @@ a .btn:hover {
 .transform-dropdown {
   transform: translate3d(8rem, 50px, 0px) !important;
 }
+
+.search-wrapper {
+  padding-top: 1px; 
+  padding-left: 15px;
+  display: flex;
+  justify-content: flex-end;
+  width: 33vw;
+}
+
 </style>

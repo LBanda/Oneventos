@@ -13,18 +13,20 @@
             <input
               v-model="menu.nombre"
               id="form-control"
-              class="form-control"
+              class="form-control mr-sm-2"
               type="text"
               name="nombreMenu"
               title="nombreMenu"
               placeholder="Vegetariano"
+              size="sm"
             />
 
             <button
               @click="agregarMenu(menu.nombre)"
               style="margin-top: 3.5px"
               type="submit"
-              class="my-btn btn btn-dark"
+              size="sm"
+              class="my-btn btn btn-dark my-2 my-sm-1"
             >
               Agregar
             </button>

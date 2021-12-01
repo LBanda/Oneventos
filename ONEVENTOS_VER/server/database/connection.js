@@ -7,10 +7,10 @@ const { createConnection } = require('mysql2/promise');
  */
 const openConnection = () => {
     return createConnection({
-        host: process.env.DB_HOST       || "localhost",
-        user: process.env.DB_USER       || "root",
-        database: process.env.DB_NAME   || "oneventos",
-        port: process.env.DB_PORT       || "15"
+        host: process.env.DB_HOST || "localhost",
+        user: process.env.DB_USER || "root",
+        database: process.env.DB_NAME || "oneventos",
+        port: process.env.DB_PORT || "3306"
     });
 };
 
@@ -19,7 +19,7 @@ const openConnectionWith = (host, user, database) => {
         host: host,
         user: user,
         database: database,
-        port: 15
+        port: 3306
     });
 };
 

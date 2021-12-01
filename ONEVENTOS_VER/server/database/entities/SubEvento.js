@@ -107,7 +107,7 @@ class SubEvento {
 			return false;
 		}
 
-		const sqlInsert = `INSERT INTO SubEventos (ID_Subevento,ID_Evento,Descripcion,FechaInicio,FechaFin,Nombre,CupoMaximo,Locacion) VALUES(?)`;
+		const sqlInsert = `INSERT INTO SubEventos (ID_Subevento,ID_Evento,Descripcion,FechaInicio,FechaFin,Nombre,CupoMaximo,Locacion) VALUES ?`;
 		const subeventosArray = subeventos.map(subevento => [
 			0,
 			subevento.ID_Evento,

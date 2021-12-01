@@ -38,7 +38,7 @@ router.post("/api/eventos/", async (req, res) => {
     const addedEvento = await Evento.addEvento(evento);
     subeventos.forEach(subevento => subevento.ID_Evento = addedEvento.insertId);
     const addedSubeventos = await SubEvento.addSubeventos(subeventos);
-
+    console.log(addedEvento);
     if (addedEvento && addedSubeventos) {
         res.status(201).json({ message: "added evento and subevento(s)", data: evento });
     } else if (addedEvento) {

@@ -38,6 +38,7 @@ router.post("/api/login", async (req, res) => {
     }
 })
 
+/*
 router.get("/signup", (req, res) => {
     const view = join(root, "/signin.html");
     res.status(200).sendFile(view);
@@ -59,7 +60,7 @@ router.post("/api/signup", async (req, res)=> {
     } else {
         res.status(401).json({ errors: [], message: "Failed to create user" })
     }
-})
+})*/
 
 router.get("/logout", (req,res)=> {
     // Limpia la cookie

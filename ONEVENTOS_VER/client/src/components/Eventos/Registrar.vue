@@ -31,7 +31,7 @@
       </div>
 
       <div class="mb-3">
-        <label class="form-label" for="locacion">Locación</label>
+        <label class="form-label" for="locacion">Ubicación</label>
         <input
           class="form-control"
           v-model.trim="evento.locacion"

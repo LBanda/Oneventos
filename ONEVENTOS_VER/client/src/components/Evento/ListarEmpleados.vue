@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{ `EventoID: ${eventoID}` }}
+    
     <div class="btn-sub">
       <b-button class="subcon" variant="dark" to="/empleadoRegistroA">
         Registrar Nuevo Empleado

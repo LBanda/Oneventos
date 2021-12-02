@@ -6,8 +6,6 @@ import MenusClient from "@/api/MenusClient";
 import AlergiasClient from "@/api/AlergiasClient";
 import UsuariosClient from '@/api/UsuariosClient';
 
-
-
 Vue.use(Vuex);
 
 export default new Vuex.Store({

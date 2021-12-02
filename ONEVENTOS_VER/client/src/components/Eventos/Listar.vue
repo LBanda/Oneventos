@@ -1,6 +1,5 @@
 <template>
   <div class="lista-flex">
-
     <b-card
       v-for="evento in eventos"
       :img-src="require('@/assets/descarga.png')"
@@ -26,8 +25,12 @@
       <div class="mt-3">
         <b-button-group>
           <b-button variant="success">Reporte</b-button>
-          <b-button variant="dark" :to="`/eventosConsultaA/${evento.ID_Evento}`">Info</b-button>
-          <b-button v-on:click="borrarEvento(evento.ID_Evento)" variant="danger">Eliminar</b-button>
+          <b-button variant="dark" :to="`/eventosConsultaA/${evento.ID_Evento}`"
+            >Info</b-button
+          >
+          <b-button v-on:click="borrarEvento(evento.ID_Evento)" variant="danger"
+            >Eliminar</b-button
+          >
         </b-button-group>
       </div>
     </b-card>
@@ -35,19 +38,18 @@
 </template>
 
 <script>
-import axios from 'axios'
-import Vue from 'vue'
-import VueAxios from 'vue-axios'
-import Config from '@/api/config';
-Vue.use(VueAxios, axios)
-
+/* import axios from "axios";
+import Vue from "vue";
+import VueAxios from "vue-axios";
+import Config from "@/api/config";
+Vue.use(VueAxios, axios); */
 
 export default {
   name: "Listar",
   props: {
     eventos: Array,
   },
-  methods:{
+  /* methods:{
       borrarEvento(id) {
           const response = confirm(`¿Estás seguro que quieres borrar este evento?`)
           if(response){
@@ -59,7 +61,7 @@ export default {
               })
           }    
         },
-  },
+  }, */
   /*computed: {
     eventos() {
       return this.$store.state.eventos;

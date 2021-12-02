@@ -17,7 +17,7 @@
           <b-dropdown-item href="#">Orden alfabético</b-dropdown-item>
         </b-dropdown>
       </div>
-      <div class="search-wrapper">
+      <!-- <div class="search-wrapper">
         <b-form-input
           type="text"
           size="sm"
@@ -31,7 +31,7 @@
         <b-button size="sm" class="my-2 my-sm-0" type="submit" variant="dark"
           >Search</b-button
         >
-      </div>
+      </div> -->
     </div>
     <br />
     <div v-for="evento in eventosFiltrados" :key="evento.ID_Evento"></div>

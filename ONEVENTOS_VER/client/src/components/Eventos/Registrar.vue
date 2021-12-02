@@ -199,6 +199,7 @@ export default {
     async agregarEvento() {
       const imageForm = new FormData();
       imageForm.append("image", this.evento.imagen);
+      const respuesta = confirm(`Evento registrado exitosamente`)
 
       try {
         const imgResponse = await axios.post(
@@ -218,14 +219,18 @@ export default {
           evento: { ...this.evento, imagen: filename ?? "" },
           subeventos: [...this.subeventos],
         };
-
+        if(respuesta){
         const eventResponse = await axios.post(
           "http://localhost:8081/api/eventos/",
           payload
         );
+          if (eventResponse.status != 201) {
+            throw new Error("Failed to upload evento", eventResponse);
+          }
+          else {
+            this.$router.push({name: 'EventosInicioA'})
+        }
 
-        if (eventResponse.status != 201) {
-          throw new Error("Failed to upload evento", eventResponse);
         }
       } catch (e) {
           console.error(e);

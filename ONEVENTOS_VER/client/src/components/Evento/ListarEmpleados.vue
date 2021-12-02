@@ -7,6 +7,9 @@
       <b-button class="subcon" variant="dark" to="/subeventosInicioA"
         >Consultar Subeventos</b-button
       >
+      <b-button class="subcon" variant="dark" 
+        >Editar Evento</b-button
+      >
     </div>
     <div class="container">
       <div class="btn-btn">

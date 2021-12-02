@@ -23,7 +23,6 @@
 
 <script>
 import Listar from "@/components/Subeventos/Listar.vue";
-import { Subevento } from "@/components/Subeventos/Listar.vue";
 
 export default {
   name: "SubeventosInicioA",
@@ -31,17 +30,19 @@ export default {
     Listar,
   },
   data() {
-    return {
-      subeventos: [
-        new Subevento("Subevento de prueba 1", "Lorem ipsum dolor sit amet..."),
-        new Subevento("Subevento de prueba 2", "Lorem ipsum dolor sit amet..."),
-        new Subevento("Subevento de prueba 3", "Lorem ipsum dolor sit amet..."),
-        new Subevento("Subevento de prueba 4", "Lorem ipsum dolor sit amet..."),
-        new Subevento("Subevento de prueba 5", "Lorem ipsum dolor sit amet..."),
-        new Subevento("Subevento de prueba 6", "Lorem ipsum dolor sit amet..."),
-      ],
-    };
+    return {};
   },
+  created() {
+    this.$store.dispatch("setSubeventosAction", { id: 13 });
+  },
+  computed: {
+    subeventos() {
+      return this.$store.getters.subeventos;
+    },
+  },
+  /* mounted() {
+    this.$store.dispatch("getSubeventos");
+  }, */
 };
 </script>
 

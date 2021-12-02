@@ -1,9 +1,10 @@
 <template>
   <div>
+    {{ `EventoID: ${eventoID}` }}
     <div class="btn-sub">
-      <b-button class="subcon" variant="dark" to="/empleadoRegistroA"
-        >Registrar Nuevo Empleado</b-button
-      >
+      <b-button class="subcon" variant="dark" to="/empleadoRegistroA">
+        Registrar Nuevo Empleado
+      </b-button>
       <b-button class="subcon" variant="dark" to="/subeventosInicioA"
         >Consultar Subeventos</b-button
       >
@@ -55,10 +56,6 @@
           </template>
         </b-table>
       </div>
-      <!-- <p>
-      Selected Rows:<br />
-      {{ selected }}
-    </p> -->
     </div>
   </div>
 </template>
@@ -68,6 +65,7 @@ export default {
   name: "ListarEmpleados",
   data() {
     return {
+      eventoID: null,
       fields: ["asistencia", "empleados_registrados", "Info"],
       items: [
         { empleados_registrados: "Paula Sofia Soto Ayala" },
@@ -82,6 +80,9 @@ export default {
       headVariant: "dark",
       hover: true,
     };
+  },
+  mounted() {
+    this.eventoID = this.$route.params.id;
   },
   methods: {
     onRowSelected(items) {

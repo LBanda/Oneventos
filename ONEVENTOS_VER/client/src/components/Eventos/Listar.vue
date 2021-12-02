@@ -11,7 +11,6 @@
       tag="article"
     >
       <b-card-body>
-
         <b-card-title>
           <b-link :to="`/empleadosRegistradosA/${evento.ID_Evento}`">
             {{ evento.Nombre }}
@@ -21,7 +20,6 @@
         <b-card-text>
           {{ evento.Descripcion }}
         </b-card-text>
-
       </b-card-body>
 
       <div class="mt-3">
@@ -39,7 +37,7 @@
 export default {
   name: "Listar",
   props: {
-    eventos: Array
+    eventos: Array,
   },
 };
 </script>

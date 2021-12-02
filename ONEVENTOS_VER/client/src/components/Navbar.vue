@@ -7,7 +7,7 @@
         <b-dropdown-item href="/#/alergias">Alergias</b-dropdown-item>
         <b-dropdown-item href="/#/menu">Menú</b-dropdown-item>
       </b-nav-item-dropdown>
-      <b-nav-item-dropdown text="Account" right>
+      <b-nav-item-dropdown text="Cuenta" right>
         <b-dropdown-item href="#">Cuenta</b-dropdown-item>
         <b-dropdown-item href="#">Configuracion</b-dropdown-item>
         <b-dropdown-item href="#">Iniciar sesión</b-dropdown-item>

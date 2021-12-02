@@ -35,9 +35,11 @@ export default {
   },
   computed: {
     // Obtiene los eventos del estado, que inicialmente es []
-    eventos() { return this.$store.getters.getEventos }
-  }
-}
+    eventos() {
+      return this.$store.getters.getEventos;
+    },
+  },
+};
 </script>
 
 <style scoped>

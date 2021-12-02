@@ -23,13 +23,13 @@ router.delete("/api/invitados/:id/borrar", async (req, res) => {
 
 router.get("/api/eventos/:id/subeventos", async (req, res) => {
     const { id } = req.params;
-    const subeventos = await Evento.getSubEventosByEventoId(id);
+    const subeventos = await Evento.getSubEventosByEventoId(parseInt(id));
     res.status(200).json(subeventos ?? []);
 })
 
 router.get("/api/eventos/:id/empleados", async (req, res) => {
     const { id } = req.params;
-    const empleados = await Evento.getEmpleadosByEventoId(id);
+    const empleados = await Evento.getEmpleadosByEventoId(parseInt(id));
     res.status(200).json(empleados ?? []);
 })
 

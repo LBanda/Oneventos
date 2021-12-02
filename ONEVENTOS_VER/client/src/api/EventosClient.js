@@ -1,5 +1,8 @@
+import axios from 'axios'
+import Vue from 'vue'
+import VueAxios from 'vue-axios'
 import Config from '@/api/config';
-import axios from 'axios';
+Vue.use(VueAxios, axios)
 
 export default class EventosClient {
 	/**
@@ -24,8 +27,8 @@ export default class EventosClient {
 	 * @param {number} id El ID del evento
 	 * @return {Object} Un evento
 	 */
-    static async getEvento(id) {
-        try {
+	static async getEvento(id) {
+		try {
 			const response = await axios.get(`${Config.BASE_URL}/api/eventos/${id}`);
 			if (response.status != 200) {
 				throw new Error(response.data)
@@ -36,14 +39,15 @@ export default class EventosClient {
 			console.log(e);
 			return {}
 		}
-    }
+	}
 
 	/**
 	 * @param {number} id El ID del evento
 	 */
 	static async getSubEventosByEventoId(id) {
-        try {
-			const response = await axios.get(`${Config.BASE_URL}/api/eventos/${id}/subeventos`);
+		try {
+			const response = await axios
+				.get(`${Config.BASE_URL}/api/eventos/${id}/subeventos`);
 			if (response.status != 200) {
 				throw new Error(response.data)
 			} else {
@@ -53,13 +57,13 @@ export default class EventosClient {
 			console.log(e);
 			return []
 		}
-    }
+	}
 
 	/**
 	 * @param {number} id El ID del evento
 	 */
-	 static async getEmpleadosByEventoId(id) {
-        try {
+	static async getEmpleadosByEventoId(id) {
+		try {
 			const response = await axios.get(`${Config.BASE_URL}/api/eventos/${id}/empleados`);
 			if (response.status != 200) {
 				throw new Error(response.data)
@@ -70,5 +74,5 @@ export default class EventosClient {
 			console.log(e);
 			return []
 		}
-    }
+	}
 }

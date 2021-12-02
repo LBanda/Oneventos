@@ -1,31 +1,30 @@
 <template>
   <div>
-    {{ empleado }}
-    <b-button class="crear" variant="dark" to="/">
-      Regresar
-    </b-button>
+    <b-button class="crear" variant="dark" to="/"> Regresar </b-button>
     <ListarEmpleados />
   </div>
 </template>
 
 <script>
 import ListarEmpleados from "@/components/Evento/ListarEmpleados.vue";
-import EventosClient from "@/api/EventosClient";
-
 export default {
   name: "EmpleadosRegistradosA",
   data() {
     return {
-      empleado: {}
-    }
+      empleado: {},
+      eventoID: null,
+    };
+  },
+  mounted() {
+    this.$route.params;
   },
   components: {
     ListarEmpleados,
   },
-  async created() {
+  /* async created() {
     const {id} = this.$route.params;
     this.empleado = await EventosClient.getEvento(id);
-  }
+  } */
 };
 </script>
 

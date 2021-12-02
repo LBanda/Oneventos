@@ -20,8 +20,18 @@ export default new Vuex.Store({
 		setEventos(state, eventos) {
 			state.eventos = eventos;
 		},
+		setSubventos(state, subeventos) {
+			state.subeventos = subeventos;
+		},
 		addSubevento(state, subevento) {
 			state.subeventos.push(subevento);
+		},
+		addEventoSubeventos(state, { subeventos, eventoId }) {
+			state.eventos.forEach(evento => {
+				if (evento.ID_Evento === eventoId) {
+					evento.subeventos = subeventos;
+				}
+			});
 		},
 		setInvitados(state, invitados) {
 			state.invitados = invitados;
@@ -36,6 +46,12 @@ export default new Vuex.Store({
 			state.commit("setEventos", eventos);
 		},
 
+		async getSubeventosAction({ commit }, id) {
+			const subeventos = await EventosClient.getSubEventosByEventoId(id);
+			// Aquí es donde su muta el estado con los nuevos eventos cargados del API
+			commit("addEventoSubeventos", { subeventos, eventoId: id });
+		},
+
 		async setInvitados(state) {
 			const invitados = await InvitadosClient.getAllInvitados();
 			// Aquí es donde su muta el estado con los nuevos eventos cargados del API
@@ -46,7 +62,19 @@ export default new Vuex.Store({
 	// Es como computed, se usa como: this.$store.getters.getEventos
 	getters: {
 		getEventos: (state) => state.eventos,
+
+		getEventoById: (state) => (eventoId) => {
+			return state.eventos.find(e => e.ID_Evento === eventoId)
+		},
+
+		getSubeventosByEvento: (state) => (eventoId) => {
+			return state.eventos
+				.find(e => e.ID_Evento === eventoId)
+				.subeventos
+		},
+
 		getSubeventos: (state) => state.subeventos,
+
 		getInvitados: (state) => state.invitados
 	}
 });

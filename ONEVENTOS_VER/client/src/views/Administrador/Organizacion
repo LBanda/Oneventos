@@ -1,0 +1,5 @@
+Eventos (muestra todos)
+    eventoID => Evento (muestra detalles del evento)
+        eventoID => [evento/:id/subeventos] Subeventos (del evento)
+        eventoID => [evento/:id/empleados] Empleados (registrados)
+            empleadoID => [empleado/:id/invitados] Invitados (del empleado en ese evento)

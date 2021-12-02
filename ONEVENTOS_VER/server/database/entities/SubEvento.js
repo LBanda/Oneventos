@@ -32,7 +32,7 @@ class SubEvento {
 	}
 
 	/**
-	 * @param {number} id El ID del evento
+	 * @param {number} id El ID del subevento
 	 */
 	static async getAllSubeventos(eventoId) {
 		const db = await openConnection();

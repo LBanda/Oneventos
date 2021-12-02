@@ -12,7 +12,6 @@
       tag="article"
     >
       <b-card-body>
-
         <b-card-title>
           <b-link :to="`/empleadosRegistradosA/${evento.ID_Evento}`">
             {{ evento.Nombre }}
@@ -22,7 +21,6 @@
         <b-card-text>
           {{ evento.Descripcion }}
         </b-card-text>
-
       </b-card-body>
 
       <div class="mt-3">
@@ -47,7 +45,7 @@ Vue.use(VueAxios, axios)
 export default {
   name: "Listar",
   props: {
-    eventos: Array
+    eventos: Array,
   },
   methods:{
       borrarEvento(id) {

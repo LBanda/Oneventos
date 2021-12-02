@@ -30,17 +30,21 @@ export default {
   components: {
     Listar,
   },
-  /* async created() {
-    const id = this.$route.params;
-    // Llama una acción de la store, que se
-    // va a completar de manera asíncrona
-    this.$store.dispatch("setSubeventosAction");
-  }, */
+  data() {
+    return {};
+  },
+  created() {
+    this.$store.dispatch("setSubeventosAction", { id: 13 });
+  },
   computed: {
-    // Obtiene los eventos del estado, que inicialmente es []
-    eventos() { return this.$store.getters.getSubeventos }
-  }
-}
+    subeventos() {
+      return this.$store.getters.subeventos;
+    },
+  },
+  /* mounted() {
+    this.$store.dispatch("getSubeventos");
+  }, */
+};
 </script>
 
 <style scoped>

@@ -18,14 +18,24 @@
         </b-dropdown>
       </div>
       <div class="search-wrapper">
-        <b-form-input type ="text" size="sm" class="mr-sm-2" placeholder="Buscar evento" v-model="search"
-        @change="onChange" @keyup="onChange" @search="handleSearch"></b-form-input>
-        <b-button size="sm" class="my-2 my-sm-0" type="submit" variant="dark">Search</b-button>
+        <b-form-input
+          type="text"
+          size="sm"
+          class="mr-sm-2"
+          placeholder="Buscar evento"
+          v-model="search"
+          @change="onChange"
+          @keyup="onChange"
+          @search="handleSearch"
+        ></b-form-input>
+        <b-button size="sm" class="my-2 my-sm-0" type="submit" variant="dark"
+          >Search</b-button
+        >
       </div>
     </div>
-    <br>
+    <br />
     <div v-for="evento in eventosFiltrados" :key="evento.ID_Evento"></div>
-      <Listar :eventos="eventos" />
+    <Listar :eventos="eventos" />
   </div>
 </template>
 
@@ -33,11 +43,10 @@
 import Listar from "@/components/Eventos/Listar.vue";
 export default {
   name: "EventosInicioA",
-  data(){
-    return{
-      search: '',
-
-    }
+  data() {
+    return {
+      search: "",
+    };
   },
   components: {
     Listar,
@@ -49,21 +58,24 @@ export default {
   },
   computed: {
     // Obtiene los eventos del estado, que inicialmente es []
-    eventos() { return this.$store.getters.getEventos },
-    eventosFiltrados(){
-      return this.eventos.filter(evento => evento.Nombre.includes(this.search));
-    }
-  },
-  methods:{
-    onChange(){
-      this.$emit("search", this.search)
+    eventos() {
+      return this.$store.getters.getEventos;
     },
-    handleSearch(value){
-      console.log(value)
-    }
-  }
-
-}
+    eventosFiltrados() {
+      return this.eventos.filter((evento) =>
+        evento.Nombre.includes(this.search)
+      );
+    },
+  },
+  methods: {
+    onChange() {
+      this.$emit("search", this.search);
+    },
+    handleSearch(value) {
+      console.log(value);
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -204,11 +216,10 @@ a .btn:hover {
 }
 
 .search-wrapper {
-  padding-top: 1px; 
+  padding-top: 1px;
   padding-left: 15px;
   display: flex;
   justify-content: flex-end;
   width: 33vw;
 }
-
 </style>

@@ -15,8 +15,8 @@ export default new Vuex.Store({
 	// Este es tu estado y está disponible en toda la app
 	// Es como data
 	state: {
-        eventos: [],
-        subeventos: [],
+		eventos: [],
+		subeventos: [],
 		menus: [],
 		invitados: [],
 		menu: null,
@@ -24,36 +24,46 @@ export default new Vuex.Store({
 		alergia: null,
 		users: [],
 		user: null
-		
-    },
+
+	},
 	// Estos métodos se usan para cambiar el estado, no modifiques el estado excepto aquí
 	// Se usa de la siguiente manera: this.$store.commit("setEventos", [])
 	mutations: {
 		setEventos(state, eventos) {
 			state.eventos = eventos;
 		},
+		setSubventos(state, subeventos) {
+			state.subeventos = subeventos;
+		},
 		addSubevento(state, subevento) {
 			state.subeventos.push(subevento);
+		},
+		addEventoSubeventos(state, { subeventos, eventoId }) {
+			state.eventos.forEach(evento => {
+				if (evento.ID_Evento === eventoId) {
+					evento.subeventos = subeventos;
+				}
+			});
 		},
 		setInvitados(state, invitados) {
 			state.invitados = invitados;
 		},
-		setMenus(state, menus){
+		setMenus(state, menus) {
 			state.menus = menus;
 		},
-		setAlergias(state, alergias){
+		setAlergias(state, alergias) {
 			state.alergias = alergias;
 		},
-		addMenu(state,menu){
+		addMenu(state, menu) {
 			state.menus.push(menu);
 		},
-		addAlergia(state,alergia){
+		addAlergia(state, alergia) {
 			state.menus.push(alergia);
-		},	
-		setUsers(state, users){
+		},
+		setUsers(state, users) {
 			state.users = users;
 		},
-		addUser(state, user){
+		addUser(state, user) {
 			state.users.push(user);
 		},
 	},
@@ -66,6 +76,12 @@ export default new Vuex.Store({
 			state.commit("setEventos", eventos);
 		},
 
+		async getSubeventosAction({ commit }, id) {
+			const subeventos = await EventosClient.getSubEventosByEventoId(id);
+			// Aquí es donde su muta el estado con los nuevos eventos cargados del API
+			commit("addEventoSubeventos", { subeventos, eventoId: id });
+		},
+
 		async setInvitados(state) {
 			const invitados = await InvitadosClient.getAllInvitados();
 			// Aquí es donde su muta el estado con los nuevos eventos cargados del API
@@ -76,15 +92,15 @@ export default new Vuex.Store({
 			const menus = await MenusClient.getAllMenus();
 			state.commit("setMenus", menus);
 		},*/
-		async getMenus({commit}){
+		async getMenus({ commit }) {
 			const menus = await MenusClient.getAllMenus()
 			commit("setMenus", menus);
 		},
-		async getAlergias({commit}){
+		async getAlergias({ commit }) {
 			const alergias = await AlergiasClient.getAllAlergias()
 			commit("setAlergias", alergias);
 		},
-		async getUsers({commit}){
+		async getUsers({ commit }) {
 			const users = await UsuariosClient.getAllUsers()
 			commit("setUsers", users);
 		},
@@ -97,11 +113,22 @@ export default new Vuex.Store({
 	// Es como computed, se usa como: this.$store.getters.getEventos
 	getters: {
 		getEventos: (state) => state.eventos,
+
+		getEventoById: (state) => (eventoId) => {
+			return state.eventos.find(e => e.ID_Evento === eventoId)
+		},
+
+		getSubeventosByEvento: (state) => (eventoId) => {
+			return state.eventos
+				.find(e => e.ID_Evento === eventoId)
+				.subeventos
+		},
+
 		getSubeventos: (state) => state.subeventos,
 		getInvitados: (state) => state.invitados,
 		getMenus: (state) => state.menus,
 		getAlergias: (state) => state.alergias,
-		getUsers: (state)=> state.users
-		
+		getUsers: (state) => state.users
+
 	}
 });

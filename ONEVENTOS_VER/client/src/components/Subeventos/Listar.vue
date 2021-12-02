@@ -2,18 +2,15 @@
   <div class="lista-flex">
     <b-card
       v-for="subevento in subeventos"
-      :img-src="require('@/assets/descarga.png')"
       :key="subevento.Nombre"
-      class="mb-2"
       img-alt="Image"
       img-top
       style="max-width: 20rem"
       tag="article"
     >
       <b-card-body>
-
         <b-card-title>
-          <b-link :to="`/subeventoInicioA/${subevento.ID_Evento}`">
+          <b-link :to="`/empleadosRegistradosA/${subevento.ID_Evento}`">
             {{ subevento.Nombre }}
           </b-link>
         </b-card-title>
@@ -21,7 +18,6 @@
         <b-card-text>
           {{ subevento.Descripcion }}
         </b-card-text>
-
       </b-card-body>
 
       <div class="mt-3">
@@ -39,7 +35,7 @@
 export default {
   name: "Listar",
   props: {
-    subeventos: Array
+    subeventos: Array,
   },
 };
 </script>

@@ -51,7 +51,7 @@ const routes = [
     component: EmpleadosRegistradosA
   },
   {
-    path: "/subeventosInicioA",
+    path: "/subeventosInicioA/:id",
     name: "SubeventosInicioA",
     component: SubeventosInicioA
   },

@@ -102,6 +102,102 @@
         </div>
       </div>
 
+      <!-- <div class="mb-3 input-col" style="gap: 5%">
+        <div>
+          <label class="form-label" for="Empresa">Empresa</label>
+          <div class="container-btn">
+            <input
+              v-model="empresa.nombreEmpresa"
+              id="form-ctrl"
+              class="form-control"
+              type="text"
+              name="empresa"
+              title="empresa"
+              placeholder="Toyota México"
+            />
+            <button
+              v-on:click="agregarEmpresa"
+              style="margin-top: 3.5px"
+              type="button"
+              class="btn btn-success"
+            >
+              Agregar
+            </button>
+            <button
+              v-on:click="borrarEmpresas"
+              style="margin-top: 3.5px; margin-left: 1%"
+              type="button"
+              class="btn btn-warning"
+            >
+              Borrar
+            </button>
+          </div>
+          <ol v-if="empresas.length">
+            <li
+              style="display: flex; position: relative; left: -3%"
+              v-for="empresa in empresas"
+              :key="empresa.nombreEmpresa"
+            >
+              <b-icon
+                class="del-icon"
+                icon="x-circle"
+                scale="1"
+                v-on:click="borrarEmpresa(empresa)"
+                variant="danger"
+              />
+              {{ empresa.nombreEmpresa }}
+            </li>
+          </ol>
+        </div>
+
+        <div>
+          <label class="form-label" for="Area">Área de trabajo</label>
+          <div class="container-btn">
+            <input
+              v-model="evento.areaTrabajo"
+              id="form-ctrl"
+              class="form-control"
+              type="text"
+              name="area"
+              title="area"
+              placeholder="Restaurantes"
+            />
+            <button
+              v-on:click="agregarAreaTrabajo"
+              style="margin-top: 3.5px"
+              type="button"
+              class="btn btn-success"
+            >
+              Agregar
+            </button>
+            <button
+              v-on:click="borrarAreasTrabajo"
+              style="margin-top: 3.5px; margin-left: 1%"
+              type="button"
+              class="btn btn-warning"
+            >
+              Borrar
+            </button>
+          </div>
+          <ol v-if="areasTrabajo.length">
+            <li
+              style="display: flex; position: relative; left: -3%"
+              v-for="areaTrabajo in areasTrabajo"
+              :key="areaTrabajo.nombreAreaT"
+            >
+              <b-icon
+                class="del-icon"
+                icon="x-circle"
+                scale="1"
+                v-on:click="borrarAreaTrabajo(areaTrabajo)"
+                variant="danger"
+              />
+              {{ areaTrabajo.nombreAreaT }}
+            </li>
+          </ol>
+        </div>
+      </div> -->
+
       <div style="margin-top: 3%">
         <label class="form-label" for="Area">Subeventos</label>
         <div class="container-btn">
@@ -130,10 +226,7 @@
       </div>
 
       <div class="container-registro">
-        <b-button 
-        class="crear" 
-        variant="dark" 
-        @click="agregarEvento">
+        <b-button class="crear" variant="dark" @click="agregarEvento">
           Registrar Evento
         </b-button>
       </div>
@@ -192,6 +285,8 @@ export default {
         locacion: undefined,
         imagen: null,
         maximoInvitado: undefined,
+        areasTrabajo: undefined,
+        empresas: undefined,
       },
     };
   },
@@ -228,7 +323,7 @@ export default {
           throw new Error("Failed to upload evento", eventResponse);
         }
       } catch (e) {
-          console.error(e);
+        console.error(e);
       }
     },
     agregarEmpresa() {
@@ -276,7 +371,6 @@ export default {
       this.eventos.locacion = "";
       this.eventos.cupoMaximo = "";
       this.eventos.imagen = "";
-
     },
   },
 };

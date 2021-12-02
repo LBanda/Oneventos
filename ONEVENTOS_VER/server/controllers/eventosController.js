@@ -48,6 +48,13 @@ router.post("/api/eventos/", async (req, res) => {
     }
 })
 
+router.put("/api/eventos/editar/:id", async (req, res) => {
+    const { id } = req.params; 
+    const { evento } = req.body; 
+    const updatedEvento = await Evento.editEvento(parseInt(id), evento);
+    res.status(200).json(updatedEvento ?? {});
+})
+
 module.exports = {
     eventosRoutes: router
 }

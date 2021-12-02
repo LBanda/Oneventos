@@ -1,6 +1,9 @@
 <template>
   <div>
-    <b-button class="crear" variant="dark" to="/"> Regresar </b-button>
+    
+    <b-button class="crear" variant="dark" to="/">
+      Regresar
+    </b-button>
     <ListarEmpleados />
   </div>
 </template>

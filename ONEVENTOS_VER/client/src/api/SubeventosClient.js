@@ -4,11 +4,12 @@ import axios from 'axios';
 export default class SubeventosClient {
 	/**
 	 * Regresa todos los subeventos
-	 * @return {Object[]} Un array de subeventos
+	 * @param {number} id Un array de subeventos
+	 * @return {Promise<[]>}
 	 */
-	static async getAllSubeventos() {
+	static async getAllSubeventos(id) {
 		try {
-			const response = await axios.get(`${Config.BASE_URL}/api/subeventos`);
+			const response = await axios.get(`${Config.BASE_URL}/api/subeventos/${id}`);
 			if (response.status != 200) {
 				throw new Error(response.data)
 			} else {

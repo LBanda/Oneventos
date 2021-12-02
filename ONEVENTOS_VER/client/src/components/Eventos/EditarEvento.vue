@@ -170,6 +170,7 @@ import Registrar from "@/components/Subeventos/Registrar.vue";
 import axios from "axios";
 import Config from '@/api/config';
 
+
 export default {
   components: {
     Calendario,
@@ -180,14 +181,14 @@ export default {
         show: true,
         //users: [],
         evento:{
-            nombre:'',
-						descripcion:'',
-						cupomaximo:'',
-						fechainicio:'',
-						fechafin:'',
-						locacion:'',
-						imagen:'',
-						maximoinvitados:''
+            nombre: null,
+						descripcion: null,
+						cupomaximo: null,
+						fechainicio: null,
+						fechafin: null,
+						locacion: null,
+						imagen: null,
+						maximoinvitados: null,
             },
       };
     },

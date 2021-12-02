@@ -14,7 +14,7 @@ import Alergias from "../views/Administrador/Alergias.vue";
 import ListarUsuarios from "../views/Administrador/ListarUsuarios.vue";
 import RegistrarUsuario from "../views/Administrador/RegistrarUsuario.vue";
 import EditarUsuario from "../views/Administrador/EditarUsuario.vue";
-import EditarEvento from "../views/Administrador/EditarEvento.vue";
+import EditarEventoA from "../views/Administrador/EditarEventoA.vue";
 
 //ControlAcceso
 import EventosInicioC from "../views/ControlAcceso/EventosInicioC.vue";
@@ -47,8 +47,8 @@ const routes = [
   },
   {
     path: "/eventos/editar/:id",
-    name: "EditarEvento",
-    component: EditarEvento
+    name: "EditarEventoA",
+    component: EditarEventoA
   },
   {
     path: "/subeventosInicioA",

@@ -16,7 +16,7 @@ const { areastrabajoRoutes } = require("./controllers/areastrabajoController");
 
 const { usuarioRoutes } = require("./controllers/usuarioController");
 
-// const { auth } = require("./middleware/auth");
+const { auth } = require("./middleware/auth");
 const { join } = require("path");
 const cors = require("cors");
 
@@ -42,7 +42,7 @@ const upload = multer({ storage: storage }).single("image");
 
 app.use(authRoutes);
 app.use(express.static(join(__dirname, viewsFolder)));
-/* app.use(auth, express.static(join(__dirname, "./public"))); */
+app.use(auth, express.static(join(__dirname, "./public")));
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
 app.use(eventosRoutes);

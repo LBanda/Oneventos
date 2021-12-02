@@ -62,7 +62,7 @@ router.post("/api/signup", async (req, res)=> {
     }
 })*/
 
-router.get("/logout", (req,res)=> {
+router.get("/logout", (req, res) => {
     // Limpia la cookie
     res.clearCookie("jwt");
     // res.send("Cookie has been deleted successfully");

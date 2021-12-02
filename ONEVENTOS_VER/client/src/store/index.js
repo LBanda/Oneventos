@@ -23,7 +23,8 @@ export default new Vuex.Store({
 		alergias: [],
 		alergia: null,
 		users: [],
-		user: null
+		user: null,
+		empleados: [],
 
 	},
 	// Estos métodos se usan para cambiar el estado, no modifiques el estado excepto aquí
@@ -66,6 +67,13 @@ export default new Vuex.Store({
 		addUser(state, user) {
 			state.users.push(user);
 		},
+		/*addEventoEmpleados(state, { empleados, eventoId }) {
+			state.eventos.forEach(evento => {
+				if (evento.ID_Evento === eventoId) {
+					evento.empleados = empleados;
+				}
+			});
+		},*/
 	},
 	// Estos métodos se usan para cargar datos y luego llamar una mutación
 	// Es como métodos, pero se llaman así: this.$store.dispatch("setEventos")
@@ -107,6 +115,11 @@ export default new Vuex.Store({
 		/*async createUser({commit}, user){
 			commit("addUser", user);
 		},*/
+		/*async getEmpleadosAction({ commit }, id) {
+			const subeventos = await EventosClient.getEmpleadosByEventoId(id);
+			// Aquí es donde su muta el estado con los nuevos eventos cargados del API
+			commit("addEventoEmpleados", { empleados, eventoId: id });
+		},*/
 
 	},
 	// Estos métodos se usan para acceder al estado de una manera controlada
@@ -123,6 +136,11 @@ export default new Vuex.Store({
 				.find(e => e.ID_Evento === eventoId)
 				.subeventos
 		},
+		/*getEmpleadosByEvento: (state) => (eventoId) => {
+			return state.eventos
+				.find(e => e.ID_Evento === eventoId)
+				.empleados
+		},*/
 
 		getSubeventos: (state) => state.subeventos,
 		getInvitados: (state) => state.invitados,
